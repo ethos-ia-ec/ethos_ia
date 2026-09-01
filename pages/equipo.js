@@ -3,8 +3,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
 
-// TODO: reemplaza por el dominio real de Ethos IA cuando lo tengas.
-const SITE_URL = 'https://ethos-ia.example.com';
+const SITE_URL = 'https://www.ethosia.tech';
 
 function useReveal() {
   const ref = useRef(null);

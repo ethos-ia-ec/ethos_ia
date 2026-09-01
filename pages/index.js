@@ -4,9 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
 
-// TODO: reemplaza por el dominio real de Ethos IA cuando lo tengas — se usa en
-// las metaetiquetas OG/Twitter y en el JSON-LD, no en los enlaces internos.
-const SITE_URL = 'https://ethos-ia.example.com';
+const SITE_URL = 'https://www.ethosia.tech';
 
 const AREAS = [
   'Software a medida',
@@ -125,15 +123,21 @@ export default function Home() {
   return (
     <div className="page">
       <Head>
-        <title>Ethos IA — Pérez & Herrera S.A.S.</title>
+        <title>Ethos IA — Software, IA y Auditoría en Ecuador</title>
         <meta
           name="description"
-          content="Ethos IA: software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo. Una marca de Pérez & Herrera S.A.S."
+          content="Ethos IA desarrolla software a medida, inteligencia artificial responsable y auditoría de riesgo en Ecuador. Soluciones tecnológicas confiables para negocios que quieren crecer con seguridad."
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="theme-color" content="#0a0f1a" />
+        <meta
+          name="keywords"
+          content="Ethos IA, software a medida Ecuador, inteligencia artificial responsable, auditoría IA, consultoría tecnológica, automatización empresarial, desarrollo web Cuenca"
         />
         <link rel="canonical" href={SITE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ethos IA" />
-        <meta property="og:title" content="Ethos IA — Pérez & Herrera S.A.S." />
+        <meta property="og:title" content="Ethos IA — Software, IA y Auditoría en Ecuador" />
         <meta
           property="og:description"
           content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
@@ -142,7 +146,7 @@ export default function Home() {
         <meta property="og:image" content={`${SITE_URL}/empresa/hero-cyborg-cube-v1.jpg`} />
         <meta property="og:locale" content="es_EC" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ethos IA — Pérez & Herrera S.A.S." />
+        <meta name="twitter:title" content="Ethos IA — Software, IA y Auditoría en Ecuador" />
         <meta
           name="twitter:description"
           content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
@@ -154,6 +158,21 @@ export default function Home() {
           href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', { send_page_view: true });
+                `,
+              }}
+            />
+          </>
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -566,37 +585,70 @@ export default function Home() {
 
       <style jsx>{`
         :global(html) { scroll-behavior: smooth; }
-        :global(body) { background: #eef3f6; }
-        .page { font-family: 'IBM Plex Sans', -apple-system, sans-serif; color: #0a0f1a; background: #eef3f6; min-height: 100vh; overflow-x: hidden; }
-        a { color: #186a63; text-decoration: none; }
-        a:hover { color: #2fd8c9; }
+        :global(body) {
+          background: #eaf3f8;
+          color: #0c1726;
+          font-family: 'IBM Plex Sans', sans-serif;
+          margin: 0;
+        }
+        .page {
+          font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+          color: #0a0f1a;
+          background: linear-gradient(180deg, #eff5f8 0%, #edf2f7 100%);
+          min-height: 100vh;
+          overflow-x: hidden;
+        }
+        a { color: #12766d; text-decoration: none; }
+        a:hover { color: #1bc7b7; }
 
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
 
-        .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; position: sticky; top: 0; background: #0a0f1a; z-index: 10; }
-        .brand { display: flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; border: 1px solid #1d2b42; border-radius: 999px; }
+        .nav {
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 16px 32px;
+          position: sticky; top: 0; z-index: 20;
+          background: rgba(10, 15, 26, 0.65);
+          backdrop-filter: blur(14px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .brand {
+          display: flex; align-items: center; gap: 10px;
+          padding: 6px 16px 6px 6px;
+          border: 1px solid rgba(255,255,255,0.14);
+          background: rgba(255,255,255,0.04);
+          border-radius: 999px;
+        }
         .brand-badge { width: 40px; height: 40px; border-radius: 50%; background: rgba(47,216,201,0.12); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
         .brand-badge.small { width: 26px; height: 26px; }
         :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: cover; }
         .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
-        .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid #1d2b42; border-radius: 999px; }
+        .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.02); }
         .nav-pill a { padding: 9px 18px; font-size: 13px; color: #eef3f6; border-radius: 999px; transition: background 0.2s, color 0.2s; }
         .nav-pill a:hover { background: rgba(47,216,201,0.12); color: #2fd8c9; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
         .nav-login { font-size: 13px; color: #c9d1cc; }
-        .nav-cta { padding: 12px 24px; background: #eef3f6; color: #0a0f1a; border-radius: 999px; font-weight: 700; font-size: 13px; transition: background 0.2s, color 0.2s; }
-        .nav-cta:hover { color: #0a0f1a; background: #2fd8c9; }
+        .nav-cta {
+          padding: 12px 24px; background: linear-gradient(135deg, #dffef8 0%, #b7fff1 100%);
+          color: #0a0f1a; border-radius: 999px; font-weight: 700; font-size: 13px;
+          box-shadow: 0 14px 26px rgba(31, 200, 183, 0.18);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .nav-cta:hover {
+          color: #0a0f1a; background: linear-gradient(135deg, #ebfffc 0%, #84f6dd 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 18px 32px rgba(31, 200, 183, 0.24);
+        }
 
-        .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid #1d2b42; border-radius: 10px; background: transparent; cursor: pointer; padding: 0; }
+        .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; background: transparent; cursor: pointer; padding: 0; }
         .nav-burger span { display: block; width: 18px; height: 2px; background: #eef3f6; margin: 0 auto; transition: transform 0.25s, opacity 0.25s; }
         .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .nav-burger.open span:nth-child(2) { opacity: 0; }
         .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: #0a0f1a; border-bottom: 1px solid #1d2b42; overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+        .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(10,15,26,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
         .nav-mobile.open { max-height: 400px; }
-        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eef3f6; border-top: 1px solid #1d2b42; }
+        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eef3f6; border-top: 1px solid rgba(255,255,255,0.08); }
         .nav-mobile :global(a:hover) { color: #2fd8c9; }
         .nav-mobile-cta { color: #2fd8c9 !important; font-weight: 700; }
 
@@ -607,21 +659,38 @@ export default function Home() {
         .hero-scrim {
           position: absolute; inset: 0; z-index: 1;
           background:
-            linear-gradient(to right, rgba(10,15,26,0.94) 0%, rgba(10,15,26,0.78) 32%, rgba(10,15,26,0.25) 58%, transparent 78%),
-            radial-gradient(ellipse 45% 60% at 15% 85%, rgba(232,178,58,0.06), transparent 65%);
+            linear-gradient(to right, rgba(10,15,26,0.96) 0%, rgba(10,15,26,0.78) 30%, rgba(10,15,26,0.32) 58%, rgba(10,15,26,0.18) 100%),
+            radial-gradient(circle at 20% 75%, rgba(47,216,201,0.12), transparent 34%),
+            radial-gradient(circle at 6% 12%, rgba(169,116,27,0.10), transparent 24%);
         }
         .hero-inner { position: relative; z-index: 2; width: 100%; padding: 40px 48px 40px; }
-        .hero-content { max-width: 620px; }
+        .hero-content { max-width: 640px; }
         .eyebrow { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #2fd8c9; }
         .eyebrow.accent { color: #2fd8c9; }
-        .hero h1 { font-family: Georgia, serif; font-size: clamp(2.1rem, 3.8vw, 3.2rem); line-height: 1.14; font-weight: 600; margin: 16px 0 0; color: #eef3f6; text-wrap: balance; }
-        .hero-sub { font-size: 16px; line-height: 1.7; color: #c9d1cc; margin: 22px 0 0; max-width: 50ch; }
+        .hero h1 {
+          font-family: Georgia, serif; font-size: clamp(2.1rem, 3.8vw, 3.2rem); line-height: 1.12;
+          font-weight: 600; margin: 16px 0 0; color: #eef3f6; text-wrap: balance;
+          letter-spacing: -0.02em;
+        }
+        .hero-sub { font-size: 16px; line-height: 1.7; color: #d5dde3; margin: 22px 0 0; max-width: 52ch; }
         .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
-        .hero-btn { padding: 13px 26px; border-radius: 999px; font-weight: 700; font-size: 14px; transition: transform 0.2s, background 0.2s; }
-        .hero-btn.primary { background: #2fd8c9; color: #04140a; }
-        .hero-btn.primary:hover { transform: translateY(-2px); background: #4fe6d8; color: #04140a; }
-        .hero-btn.ghost { border: 1px solid rgba(238,243,246,0.35); color: #eef3f6; }
-        .hero-btn.ghost:hover { border-color: #2fd8c9; color: #2fd8c9; }
+        .hero-btn {
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 13px 26px; border-radius: 999px; font-weight: 700; font-size: 14px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+        .hero-btn.primary {
+          background: linear-gradient(135deg, #5ef6dc 0%, #2fd8c9 100%);
+          color: #04140a; box-shadow: 0 18px 32px rgba(47, 216, 201, 0.18);
+        }
+        .hero-btn.primary:hover {
+          transform: translateY(-2px); background: linear-gradient(135deg, #8afce7 0%, #6ae3d8 100%);
+          box-shadow: 0 20px 36px rgba(47, 216, 201, 0.22);
+        }
+        .hero-btn.ghost {
+          border: 1px solid rgba(238,243,246,0.35); color: #eef3f6; background: rgba(255,255,255,0.015);
+        }
+        .hero-btn.ghost:hover { border-color: #2fd8c9; color: #2fd8c9; box-shadow: 0 10px 26px rgba(47,216,201,0.10); }
 
         @media (max-width: 760px) {
           :global(.hero-bg-img) { display: none; }
