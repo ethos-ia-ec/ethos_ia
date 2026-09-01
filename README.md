@@ -1,71 +1,187 @@
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/empresa/ethos-ia-logo-readme.png">
-    <source media="(prefers-color-scheme: light)" srcset="public/empresa/ethos-ia-logo-readme-light.png">
-    <img src="public/empresa/ethos-ia-logo-readme.png" alt="Ethos IA" width="480">
-  </picture>
+  <img src="public/empresa/ethos-ia-logo-readme.png" alt="Ethos IA" width="520" />
 </div>
 
-# Ethos IA — Sitio web corporativo
+# ETHOS IA
 
-Sitio web oficial de **Ethos IA**, la marca de software a medida e inteligencia artificial responsable de **Pérez & Herrera S.A.S.** (Ecuador). Proyecto independiente — no depende del repositorio de "El Club de la Ingeniería" (de donde se migró originalmente), aunque reutiliza el mismo patrón de cascada de IA.
+> Software · Inteligencia Artificial · Auditoría
 
-## Estructura
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react" alt="React 19" />
+  <img src="https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase" />
+  <img src="https://img.shields.io/badge/AI-Governance-00D1B2?style=for-the-badge" alt="AI governance" />
+  <img src="https://img.shields.io/badge/Vercel-Deploy-000000?style=for-the-badge&logo=vercel" alt="Vercel" />
+</p>
 
-```
+<pre>
+██╗  ██╗████████╗███████╗███████╗ ██████╗ ███████╗██╗ █████╗ 
+██║  ██║╚══██╔══╝██╔════╝██╔════╝██╔═══██╗██╔════╝██║██╔══██╗
+███████║   ██║   █████╗  ███████╗██║   ██║█████╗  ██║███████║
+██╔══██║   ██║   ██╔══╝  ╚════██║██║   ██║██╔══╝  ██║██╔══██║
+██║  ██║   ██║   ███████╗███████║╚██████╔╝███████╗██║██║  ██║
+╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═╝
+</pre>
+
+Ethos IA es la marca de software, inteligencia artificial responsable y auditoría digital de la empresa ecuatoriana **Pérez & Herrera S.A.S.**. Este repositorio contiene la presencia digital corporativa, la web principal y la capa de interacción con IA para captar leads, responder consultas y acompañar a clientes en procesos de digitalización y transformación.
+
+## ✨ Qué construye este sitio
+
+- Web corporativa moderna y de alto impacto visual
+- Experiencia orientada a ventas, confianza y autoridad técnica
+- Chat con IA para atención y captación de oportunidades
+- Integración con Supabase para almacenamiento y control
+- Arquitectura preparada para despliegue en Vercel con dominio propio
+- Enfoque en IA ética, segura, gobernable y responsable
+
+## 🧠 Filosofía Ethos IA
+
+Somos una firma que combina:
+
+- Software a medida
+- Automatización y productividad
+- Inteligencia artificial aplicada a negocios
+- Auditoría de procesos, riesgos y adopción tecnológica
+- Ética, trazabilidad, seguridad y control humano
+
+Nuestra misión es ayudar a organizaciones a crecer con tecnología sólida, sin perder visión crítica ni ceder la responsabilidad a sistemas automatizados sin control.
+
+## 🏗️ Stack tecnológico
+
+- Next.js 16
+- React 19
+- Supabase
+- Node.js / JavaScript
+- ESLint + Vitest
+- Vercel para despliegue
+- IA integrada con orquestación de proveedores
+
+## 📁 Estructura del proyecto
+
+```bash
 sitio-web-ethos-ia/
-├── pages/
-│   ├── index.js              # Home — hero, líneas de negocio, historia, misión/visión, contacto
-│   ├── equipo.js              # Dirección general y técnica
-│   └── api/
-│       ├── join.js            # Guarda leads del formulario en Supabase (tabla solicitudes)
-│       └── empresa-chat.js    # Chat con IA — usado por el widget del sitio Y por el bot de WhatsApp
 ├── components/
-│   └── ChatWidget.js          # Widget de chat: burbuja, voz (Web Speech API), pantalla completa
+│   └── ChatWidget.js
 ├── lib/
-│   ├── ai/complete.js         # Cascada Groq → OpenRouter → NVIDIA, con cuota diaria en Supabase
-│   └── rateLimit.js           # Anti-abuso por IP (Supabase, con respaldo en memoria)
+│   ├── ai/
+│   │   └── complete.js
+│   ├── internalAuth.js
+│   ├── rateLimit.js
+│   └── ...
+├── pages/
+│   ├── api/
+│   │   ├── empresa-chat.js
+│   │   ├── join.js
+│   │   └── ...
+│   ├── equipo.js
+│   ├── index.js
+│   └── ...
 ├── public/
-│   ├── privacidad.html        # Política de tratamiento de datos (LOPDP)
-│   └── empresa/               # Todas las imágenes de marca (logo, hero, fotos de sección)
-└── supabase/migrations/       # Solo de referencia — ver "Base de datos" abajo
+│   ├── empresa/
+│   └── ...
+├── .env.local.example
+├── Dockerfile
+├── docker-compose.yml
+├── eslint.config.js
+├── next.config.js
+├── package.json
+├── README.md
+└── ...
 ```
 
-## Configurar y correr
+## 🚀 Inicio rápido
+
+### 1) Instalar dependencias
 
 ```bash
 npm install
+```
+
+### 2) Configurar variables de entorno
+
+```bash
 cp .env.local.example .env.local
-# rellena las claves de Groq/OpenRouter/NVIDIA y las de Supabase
+```
+
+Completa las variables necesarias para:
+
+- Supabase
+- Groq / OpenRouter / NVIDIA
+- límites de uso y seguridad
+- acceso a servicios de IA
+
+### 3) Ejecutar en local
+
+```bash
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000).
+Abre:
 
-## Docker (portabilidad local, no para producción)
+```text
+http://localhost:3000
+```
 
-La producción real de este sitio va a **Vercel** (SSL, CDN y escalado automático, sin mantener servidor). Docker aquí es para que el entorno de desarrollo sea idéntico en cualquier máquina, o para probar el build de producción sin depender de Vercel — mismo patrón ya probado en "El Club de la Ingeniería".
+## 🐳 Ejecutar con Docker
 
 ```bash
 docker compose build
 docker compose up
 ```
 
-Usa las mismas variables de `.env.local` (vía `env_file`, nunca se copian dentro de la imagen). El sitio queda en `http://localhost:3000`, igual que con `npm run dev`.
+## 🌐 Despliegue
 
-## Base de datos (Supabase)
+Este proyecto está pensado para desplegarse en Vercel con dominio propio y certificado HTTPS. La estrategia recomendada es:
 
-Este sitio **no necesita un proyecto Supabase nuevo** si ya tienes uno para "El Club de la Ingeniería" — puedes apuntar las mismas credenciales (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) a ese mismo proyecto, y listo: la tabla `ia_uso_diario` ya existe ahí y la cuota de IA queda compartida entre ambos sitios sin configurar nada extra.
+- GitHub como origen del código
+- Vercel como plataforma de despliegue
+- Cloudflare para dominio, DNS y seguridad
+- Google Search Console y GA4 para analítica y SEO
 
-Si en algún momento quieres un proyecto Supabase separado solo para Ethos IA, las migraciones en `supabase/migrations/` (copiadas del repo original, solo como referencia) crean lo necesario:
-- `0001_auth_and_members.sql` → tabla `solicitudes` (usada por `/api/join`)
-- `0002_ia_uso_diario.sql` → tabla y función RPC para la cuota diaria de IA
-- `0004_rate_limits.sql` → tabla y función RPC para el límite de peticiones por IP
+## 🔐 Seguridad y gobernanza
 
-## El bot de WhatsApp
+Ethos IA prioriza:
 
-El microservicio `ethos-ia-whatsapp-bot/` (carpeta hermana de este proyecto, dentro de la carpeta del Club de Ingeniería por ahora) llama a `POST /api/empresa-chat` y `POST /api/join` de **este** sitio. Su variable de entorno `MAIN_SITE_URL` debe apuntar a donde despliegues este sitio — actualízala cuando tengas el dominio real.
+- trazabilidad en uso de IA
+- validación de entrada
+- control de abuso con rate limiting
+- separación de entorno y credenciales
+- cumplimiento de buenas prácticas de seguridad web
 
-## Dominio
+## 📈 Roadmap
 
-Los archivos `pages/index.js` y `pages/equipo.js` tienen una constante `SITE_URL` al inicio (por ahora `https://ethos-ia.example.com`, un dominio de ejemplo que nunca resuelve) — reemplázala por el dominio real en cuanto lo tengas. Se usa en las metaetiquetas Open Graph/Twitter y en el JSON-LD, no afecta la navegación interna del sitio.
+- [ ] finalización de SEO técnico por sección
+- [ ] configuración de analytics y Search Console
+- [ ] optimización de rendimiento y Core Web Vitals
+- [ ] reforzamiento de contenido institucional y landing pages
+- [ ] ampliación de servicios y casos de uso
+- [ ] automatización y flujos de lead gestionados
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Si deseas colaborar:
+
+1. realiza un fork
+2. crea una rama para tu mejora
+3. aplica tus cambios
+4. abre un pull request con descripción clara
+
+## 📣 Redes y contacto
+
+- Sitio web: https://ethosia.tech
+- GitHub de la empresa: https://github.com/ethos-ia-ec
+- Proyecto principal: https://github.com/ethos-ia-ec/ethos_ia
+- WhatsApp: https://wa.me/593986023149
+- Facebook: https://www.facebook.com/profile.php?id=61593170550264
+
+## 🏷️ Nota
+
+Este repositorio refleja el estado actual de la web corporativa y la base tecnológica de Ethos IA. Está pensado para escalar hacia un ecosistema más amplio de soluciones de software, auditoría e IA aplicada con criterio humano.
+
+---
+
+<p align="center">
+  <strong>ETHOS IA</strong><br />
+  Software · Inteligencia Artificial · Auditoría
+</p>
+
