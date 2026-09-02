@@ -7,9 +7,10 @@ import ChatWidget from '../components/ChatWidget';
 const SITE_URL = 'https://www.ethosia.tech';
 
 const AREAS = [
+  'Inteligencia artificial',
+  'Ciberseguridad y auditoría',
   'Software a medida',
-  'Ética & IA',
-  'Prácticas Pre-Profesionales',
+  'Consultoría tecnológica',
   'Otro',
 ];
 
@@ -123,10 +124,10 @@ export default function Home() {
   return (
     <div className="page">
       <Head>
-        <title>Ethos IA — Software, IA y Auditoría en Ecuador</title>
+        <title>Ethos IA — Inteligencia Artificial, Ciberseguridad y Software</title>
         <meta
           name="description"
-          content="Ethos IA desarrolla software a medida, inteligencia artificial responsable y auditoría de riesgo en Ecuador. Soluciones tecnológicas confiables para negocios que quieren crecer con seguridad."
+          content="Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza."
         />
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#0a0f1a" />
@@ -137,7 +138,7 @@ export default function Home() {
         <link rel="canonical" href={SITE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ethos IA" />
-        <meta property="og:title" content="Ethos IA — Software, IA y Auditoría en Ecuador" />
+        <meta property="og:title" content="Ethos IA — Inteligencia Artificial, Ciberseguridad y Software" />
         <meta
           property="og:description"
           content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
@@ -146,7 +147,7 @@ export default function Home() {
         <meta property="og:image" content={`${SITE_URL}/empresa/hero-cyborg-cube-v1.jpg`} />
         <meta property="og:locale" content="es_EC" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ethos IA — Software, IA y Auditoría en Ecuador" />
+        <meta name="twitter:title" content="Ethos IA — Inteligencia Artificial, Ciberseguridad y Software" />
         <meta
           name="twitter:description"
           content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
@@ -184,7 +185,7 @@ export default function Home() {
               url: SITE_URL,
               logo: `${SITE_URL}/empresa/ethos-ia-logo.png`,
               description:
-                'Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo.',
+                'Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza.',
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Av. Antonio Muñoz Borrero y calle Señor de Belén',
@@ -248,47 +249,47 @@ export default function Home() {
         <div className="hero-scrim" />
         <div className="hero-inner">
           <div className="hero-content">
-            <span className="eyebrow">SOFTWARE · INTELIGENCIA ARTIFICIAL · AUDITORÍA</span>
-            <h1>Tecnología ecuatoriana construida para competir al más alto nivel.</h1>
+            <span className="eyebrow">INTELIGENCIA ARTIFICIAL · CIBERSEGURIDAD · SOFTWARE</span>
+            <h1>Integra inteligencia artificial con seguridad, control y visión de negocio.</h1>
             <p className="hero-sub">
-              Ethos IA es una firma especializada en ética, seguridad aplicada y uso responsable de la
-              inteligencia artificial. Ayudamos a las organizaciones a integrar IA con control,
-              gobernanza, trazabilidad y protección de sus datos, procesos e infraestructura.
+              Ethos IA ayuda a las empresas a adoptar inteligencia artificial de forma segura,
+              responsable y controlada. Combinamos software a medida, ciberseguridad y auditoría
+              tecnológica para proteger tus datos, procesos, infraestructura y reputación.
             </p>
             <div className="hero-actions">
-              <a className="hero-btn primary" href="#contacto">Evaluar un Proyecto</a>
-              <a className="hero-btn ghost" href="#ethos">Auditar IA y seguridad</a>
+              <a className="hero-btn primary" href="#contacto">Hablar con un especialista</a>
+              <a className="hero-btn ghost" href="#ethos">Conocer nuestro enfoque</a>
             </div>
           </div>
         </div>
       </header>
 
       <section className="xyz">
-        <Reveal as="span" className="section-label">NUESTRO ENFOQUE OPERATIVO</Reveal>
-        <Reveal as="h2" className="xyz-title">El modelo de ingeniería de Ethos IA</Reveal>
+        <Reveal as="span" className="section-label">NUESTRO ENFOQUE CORPORATIVO</Reveal>
+        <Reveal as="h2" className="xyz-title">Tecnología estratégica para empresas que no pueden improvisar</Reveal>
         <div className="xyz-grid">
           <Reveal className="xyz-item">
             <span className="xyz-tag">EL PROBLEMA</span>
             <p>
-              Muchas organizaciones ya adoptan inteligencia artificial en sus procesos, pero sin
+              Muchas organizaciones ya incorporan inteligencia artificial en sus procesos, pero sin
               una estrategia clara de seguridad, gobernanza ni control. Esa falta de preparación
-              abre brechas de ciberseguridad, errores operativos y exposición de datos sensibles.
+              puede abrir brechas de ciberseguridad, provocar errores operativos y exponer datos sensibles.
             </p>
           </Reveal>
           <Reveal className="xyz-item" style={{ transitionDelay: '90ms' }}>
             <span className="xyz-tag">LA SOLUCIÓN</span>
             <p>
-              Ethos IA analiza la integración real de la IA dentro de la operación, evalúa riesgos,
-              detecta amenazas y diseña mecanismos de control para que la tecnología se utilice de
-              forma segura, responsable y alineada con los objetivos de la organización.
+              Analizamos cómo funciona la IA dentro de tu operación, evaluamos riesgos, detectamos
+              amenazas y diseñamos mecanismos de control. Así la tecnología se integra de forma
+              segura, transparente y alineada con los objetivos de tu organización.
             </p>
           </Reveal>
           <Reveal className="xyz-item" style={{ transitionDelay: '160ms' }}>
             <span className="xyz-tag">EL IMPACTO</span>
             <p>
-              Eficiencia, continuidad operativa y confianza verificable. Las empresas reducen
-              riesgo, fortalecen su infraestructura tecnológica y convierten la IA en un aliado
-              estratégico, no en una fuente de vulnerabilidad.
+              Eficiencia, continuidad operativa y confianza verificable. Protegemos la información,
+              fortalecemos la infraestructura y convertimos la IA en un aliado estratégico, no en
+              una fuente de vulnerabilidad o riesgo operativo.
             </p>
           </Reveal>
         </div>
@@ -301,7 +302,7 @@ export default function Home() {
             <div className="card-scrim card-scrim-teal" />
           </div>
           <div className="card-content">
-            <span className="card-tag">INGENIERÍA DE SOFTWARE A MEDIDA</span>
+            <span className="card-tag">SOFTWARE A MEDIDA Y AUTOMATIZACIÓN</span>
             <div className="card-icon-wrap">
               <span className="card-icon card-icon-ink">
                 <svg width={30} height={30} viewBox="0 0 24 24" fill="none" stroke="#2fd8c9" strokeWidth="1.8" aria-hidden="true">
@@ -309,12 +310,12 @@ export default function Home() {
                 </svg>
               </span>
             </div>
-            <h2>Arquitecturas escalables para resolver cuellos de botella operativos</h2>
+            <h2>Software que se adapta a tu negocio y convierte procesos en activos digitales</h2>
             <p className="card-detail">
-              Diseñamos, programamos e implementamos software que se acopla a tus procesos reales,
-              no al revés — cada proceso manual que automatizamos deja de ser un costo fijo de tu
-              operación. Incluye transferencia total de propiedad del código: la inversión se
-              convierte en un activo tuyo, no en una dependencia eterna de un proveedor.
+              Diseñamos, programamos e implementamos soluciones que se acoplan a tus procesos reales.
+              Automatizamos tareas, conectamos sistemas y construimos arquitecturas escalables con
+              transferencia total de propiedad del código: tu inversión se convierte en un activo
+              tecnológico, no en una dependencia eterna.
             </p>
           </div>
         </Reveal>
@@ -325,17 +326,16 @@ export default function Home() {
             <div className="card-scrim card-scrim-dark" />
           </div>
           <div className="card-content">
-            <span className="card-tag card-tag-light">AUDITORÍA DE SESGOS Y ÉTICA EN IA</span>
+            <span className="card-tag card-tag-light">CIBERSEGURIDAD, AUDITORÍA Y GOBERNANZA DE IA</span>
             <div className="card-icon-wrap">
               <span className="card-icon"><Mark size={34} light /></span>
             </div>
-            <h2 className="light">Gobernanza algorítmica para mitigar riesgo organizacional</h2>
+            <h2 className="light">Protección y control para adoptar IA sin exponer tu operación</h2>
             <p className="card-detail light">
-              Evaluamos modelos de aprendizaje automático antes de su puesta en producción: un
-              sesgo no detectado a tiempo puede convertirse en una demanda, una multa o una
-              decisión que le cuesta clientes a tu marca. Identificamos ese riesgo antes de que sea
-              una factura, con alineación técnica a la Ley Orgánica de Protección de Datos
-              Personales (LOPDP) de Ecuador.
+              Evaluamos modelos, procesos e infraestructura antes y durante la puesta en producción.
+              Identificamos sesgos, brechas, amenazas y riesgos de cumplimiento para proteger tus
+              datos y tu reputación, con alineación técnica a la Ley Orgánica de Protección de
+              Datos Personales (LOPDP) de Ecuador.
             </p>
           </div>
         </Reveal>
@@ -351,18 +351,17 @@ export default function Home() {
           />
         </div>
         <Reveal className="ethos-copy">
-          <span className="eyebrow accent">POR QUÉ EXISTE ETHOS IA</span>
-          <h2>¿Quién valida que la inteligencia artificial se use de forma segura dentro de la empresa?</h2>
+          <span className="eyebrow accent">LA PROPUESTA DE ETHOS IA</span>
+          <h2>La inteligencia artificial necesita estrategia, seguridad y responsabilidad</h2>
           <p>
-            Pocas organizaciones cuentan con un enfoque serio para este tema. Ethos IA nace para
-            cerrar ese vacío: auditamos sesgos, evaluamos riesgos, revisamos la infraestructura y
-            acompañamos a empresas que ya incorporan IA, pero necesitan un marco de seguridad,
-            ética y control para operar con confianza.
+            Ethos IA es una firma especializada en ética, gobernanza y seguridad aplicada a la
+            inteligencia artificial. Acompañamos a organizaciones que ya incorporan IA, pero
+            necesitan evaluar, controlar y mitigar los riesgos asociados a su adopción.
           </p>
           <p className="ethos-vision">
-            Nuestra misión es garantizar que la inteligencia artificial sea una herramienta de
-            crecimiento, eficiencia y responsabilidad, y no una fuente de exposición, vulnerabilidad
-            ni riesgo para los datos y procesos de la organización.
+            Combinamos inteligencia artificial, ciberseguridad y desarrollo de software para que la
+            tecnología se convierta en una herramienta de crecimiento, eficiencia y confianza,
+            nunca en una fuente de exposición, vulnerabilidad o riesgo operativo.
           </p>
         </Reveal>
       </section>
@@ -414,15 +413,16 @@ export default function Home() {
           <span className="mv-label teal">MISIÓN</span>
           <p>
             Que ninguna empresa ecuatoriana vuelva a perder dinero por software que no se ajusta a
-            su operación, ni asuma el riesgo de una inteligencia artificial que nadie audita.
+            su operación, ni asuma el riesgo de una inteligencia artificial o una infraestructura
+            que nadie evalúa.
           </p>
         </Reveal>
         <Reveal style={{ transitionDelay: '90ms' }}>
           <span className="mv-label gold">VISIÓN</span>
           <p>
-            Que &quot;hecho en Ecuador&quot; deje de ser una disculpa y se convierta en una garantía: ser la
-            firma que una empresa internacional elige, no por precio, sino porque es la mejor
-            opción sobre la mesa.
+            Que &quot;hecho en Ecuador&quot; deje de ser una disculpa y se convierta en una garantía:
+            ser la firma que una empresa elige para construir software, proteger su operación y
+            adoptar inteligencia artificial con confianza.
           </p>
         </Reveal>
         <Reveal style={{ transitionDelay: '160ms' }}>
@@ -522,7 +522,7 @@ export default function Home() {
 
       <footer className="foot">
         <div className="foot-top">
-          <div className="foot-headline">Tecnología que puedes auditar, en Ecuador.</div>
+          <div className="foot-headline">Inteligencia artificial segura, software sólido y tecnología que puedes auditar.</div>
           <div className="foot-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="#5c7267" strokeWidth="1.6">
               <circle cx="12" cy="12" r="9" />
