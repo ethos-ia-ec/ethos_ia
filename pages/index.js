@@ -208,10 +208,10 @@ export default function Home() {
           <span className="brand-name">Ethos IA</span>
         </a>
         <div className="nav-pill">
-          <a href="#lineas">Software</a>
-          <a href="#ethos">Ética &amp; IA</a>
-          <a href="#historia">Nosotros</a>
-          <Link href="/equipo">Equipo</Link>
+          <a className="nav-pill-link" href="#lineas">Software</a>
+          <a className="nav-pill-link" href="#ethos">Ética &amp; IA</a>
+          <a className="nav-pill-link" href="#historia">Nosotros</a>
+          <Link className="nav-pill-link" href="/equipo">Equipo</Link>
         </div>
         <div className="nav-right">
           <a className="nav-cta" href="#contacto">Solicitar cotización</a>
@@ -624,8 +624,14 @@ export default function Home() {
         :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: cover; }
         .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
         .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.02); }
-        .nav-pill a { padding: 9px 18px; font-size: 13px; color: #eef3f6; border-radius: 999px; transition: background 0.2s, color 0.2s; }
-        .nav-pill a:hover { background: rgba(47,216,201,0.12); color: #2fd8c9; }
+        .nav-pill-link {
+          display: inline-flex; align-items: center; justify-content: center;
+          min-height: 36px; box-sizing: border-box;
+          padding: 9px 18px; font-size: 13px; line-height: 1;
+          color: #eef3f6; border-radius: 999px;
+          transition: background 0.2s, color 0.2s;
+        }
+        .nav-pill-link:hover { background: rgba(47,216,201,0.12); color: #2fd8c9; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
         .nav-login { font-size: 13px; color: #c9d1cc; }
         .nav-cta {
