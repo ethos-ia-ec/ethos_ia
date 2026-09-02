@@ -847,7 +847,14 @@ export default function Home() {
           .equipo-grid { grid-template-columns: 1fr; }
           .foot-cols { grid-template-columns: 1fr 1fr; }
           .nav-pill { display: none; }
-          .nav-cta { display: none; }
+          .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            font-size: 12px;
+            white-space: nowrap;
+          }
           .nav-burger { display: flex; }
           .nav-mobile { display: flex; }
           .hero-inner { padding: 40px 24px; }
@@ -857,6 +864,7 @@ export default function Home() {
         @media (max-width: 480px) {
           .nav { padding: 14px 18px; }
           .brand-name { font-size: 13px; }
+          .nav-cta { padding: 9px 11px; font-size: 11px; }
           .xyz, .grid, .historia, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
           .hero-inner { padding: 32px 18px; }
           .proceso-grid { grid-template-columns: 1fr; row-gap: 28px; }
