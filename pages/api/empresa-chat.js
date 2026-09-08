@@ -3,7 +3,7 @@ import { completeChat } from '../../lib/ai/complete';
 import { createRateLimiter, getClientIp } from '../../lib/rateLimit';
 import { isInternalRequest } from '../../lib/internalAuth';
 
-// Asistente de Ethos IA / Pérez & Herrera S.A.S. — comparte la misma cascada
+// Asistente de Ethos IA / ETHOSLAB S.A.S. — comparte la misma cascada
 // de proveedores y el mismo presupuesto diario que pages/api/chat.js (INGenioso),
 // pero con un system prompt propio: aquí el tono es corporativo, no el de la
 // mascota del club. Lo usan dos llamadores: el widget de chat de /empresa
@@ -20,7 +20,7 @@ const BodySchema = z.object({
 });
 
 const SYSTEM_PROMPT = `Eres el asistente virtual de Ethos IA, la marca de software e inteligencia
-artificial responsable de Pérez & Herrera S.A.S. (Sociedad por Acciones
+artificial responsable de ETHOSLAB S.A.S. (Sociedad por Acciones
 Simplificada, Cuenca, Ecuador). Atiendes dos canales con este mismo
 comportamiento: el widget de chat del sitio web y, dentro de WhatsApp, la
 opción "Otra pregunta" del menú.

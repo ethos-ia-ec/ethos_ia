@@ -22,7 +22,7 @@
  ╚══════╝   ╚═╝    ╚═════╝ ╚══════╝╚═╝╚═╝  ╚═╝╚═╝╚══════╝╚═╝ ╚═════╝
 </pre>
 
-Ethos IA es la marca de software, inteligencia artificial responsable y auditoría digital de **Pérez & Herrera S.A.S.**. Nuestra prioridad es crear soluciones digitales con criterio humano, orientación a resultados y una visión ética del uso de la tecnología.
+Ethos IA es la marca de software, inteligencia artificial responsable y auditoría digital de **ETHOSLAB S.A.S.**. Nuestra prioridad es crear soluciones digitales con criterio humano, orientación a resultados y una visión ética del uso de la tecnología.
 
 ## 🌌 Nuestra razón de existir
 

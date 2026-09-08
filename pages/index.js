@@ -180,7 +180,7 @@ export default function Home() {
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Organization',
-              name: 'Pérez & Herrera S.A.S.',
+              name: 'ETHOSLAB S.A.S.',
               alternateName: 'Ethos IA',
               url: SITE_URL,
               logo: `${SITE_URL}/empresa/ethos-ia-logo.png`,
@@ -397,7 +397,7 @@ export default function Home() {
             <div className="proceso-num">✓</div>
             <h3>Lo que viene</h3>
             <p>
-              Esa misma experiencia opera hoy bajo Pérez &amp; Herrera S.A.S., con la ambición de
+              Esa misma experiencia opera hoy bajo ETHOSLAB S.A.S., con la ambición de
               convertirse en una empresa pionera de inteligencia artificial en Ecuador — y un
               referente a nivel de Latinoamérica.
             </p>
@@ -558,7 +558,7 @@ export default function Home() {
             <a href="#mision">Misión y visión</a>
             <Link href="/equipo">Equipo</Link>
             <a href="#contacto">Contacto</a>
-            <span>Pérez &amp; Herrera S.A.S.</span>
+            <span>ETHOSLAB S.A.S.</span>
           </div>
           <div className="foot-col">
             <span className="foot-heading">SÍGUENOS</span>
@@ -573,10 +573,10 @@ export default function Home() {
         </div>
 
         <div className="foot-bottom">
-          <span>Ethos IA es una marca de Pérez &amp; Herrera S.A.S. — Cuenca, Azuay, Ecuador</span>
+          <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
           <div className="foot-legal">
             <a href="/privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a>
-            <span>© 2026 Pérez &amp; Herrera S.A.S.</span>
+            <span>© 2026 ETHOSLAB S.A.S.</span>
           </div>
         </div>
       </footer>
@@ -624,14 +624,14 @@ export default function Home() {
         :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: cover; }
         .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
         .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.02); }
-        .nav-pill-link {
+        :global(.nav-pill-link) {
           display: inline-flex; align-items: center; justify-content: center;
           min-height: 36px; box-sizing: border-box;
           padding: 9px 18px; font-size: 13px; line-height: 1;
-          color: #eef3f6; border-radius: 999px;
+          color: #eef3f6; border-radius: 999px; text-decoration: none;
           transition: background 0.2s, color 0.2s;
         }
-        .nav-pill-link:hover { background: rgba(47,216,201,0.12); color: #2fd8c9; }
+        :global(.nav-pill-link:hover) { background: rgba(47,216,201,0.12); color: #2fd8c9; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
         .nav-login { font-size: 13px; color: #c9d1cc; }
         .nav-cta {
@@ -654,7 +654,7 @@ export default function Home() {
 
         .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(10,15,26,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
         .nav-mobile.open { max-height: 400px; }
-        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eef3f6; border-top: 1px solid rgba(255,255,255,0.08); }
+        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eef3f6; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); }
         .nav-mobile :global(a:hover) { color: #2fd8c9; }
         .nav-mobile-cta { color: #2fd8c9 !important; font-weight: 700; }
 
@@ -830,7 +830,7 @@ export default function Home() {
         .foot-badge span { font-size: 12px; color: #5c7267; }
         .foot-cols { max-width: 1200px; margin: 48px auto 0; display: grid; grid-template-columns: 1.2fr repeat(4, 1fr); gap: 20px; }
         .foot-col { display: flex; flex-direction: column; gap: 11px; font-size: 13px; }
-        .foot-col :global(a) { color: #c9d1cc; }
+        .foot-col :global(a) { color: #c9d1cc; text-decoration: none; }
         .foot-col :global(a:hover) { color: #2fd8c9; }
         .foot-col span { color: #5c7267; }
         .foot-heading { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5c7267 !important; font-style: normal !important; margin-bottom: 2px; }
