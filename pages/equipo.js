@@ -174,6 +174,27 @@ export default function EquipoDirectivo() {
         </div>
       </section>
 
+      <section className="perfiles areas">
+        <Reveal as="span" className="section-label">EQUIPO Y JEFATURAS DE ÁREA</Reveal>
+        <div className="perfiles-grid">
+          <Reveal className="team-card">
+            <div className="team-photo">
+              <img src="/empresa/liliana-perez-avatar.png" alt="Ing. Liliana Pérez — Jefa de Talento Humano" width="180" height="180" loading="lazy" decoding="async" />
+            </div>
+            <div>
+              <div className="perfil-role teal">JEFA DE TALENTO HUMANO</div>
+              <div className="perfil-name">Ing. Liliana Pérez</div>
+              <p>
+                Responsable del departamento de Talento Humano de ETHOSLAB S.A.S., a cargo de la
+                gestión del personal conforme al Código del Trabajo y las obligaciones patronales
+                ante el IESS: afiliación y avisos de entrada/salida, nómina, décimos y fondos de
+                reserva, y el bienestar del equipo. Colabora con el grupo desde hace 5 años.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="cta">
         <Reveal as="p">
           <Link href="/#contacto">Hablar con el equipo directivo →</Link>
@@ -218,6 +239,7 @@ export default function EquipoDirectivo() {
         .origen-text { max-width: 640px; text-align: center; font-family: Georgia, serif; font-size: 17px; line-height: 1.7; color: #1a232b; margin: 0; }
 
         .perfiles { padding: 64px 48px 72px; background: #eef3f6; }
+        .perfiles.areas { border-top: 1px solid rgba(10,15,26,0.08); padding-top: 56px; }
         .perfiles-grid { display: flex; flex-direction: column; gap: 28px; max-width: 860px; margin: 0 auto; }
         :global(.team-card) {
           display: grid; grid-template-columns: 180px 1fr; gap: 32px; align-items: center;
