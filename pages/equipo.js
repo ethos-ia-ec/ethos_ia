@@ -215,18 +215,18 @@ export default function EquipoDirectivo() {
         :global(html) { scroll-behavior: smooth; }
         :global(body) { background: #eef3f6; }
         .page { font-family: 'IBM Plex Sans', -apple-system, sans-serif; color: #0a0f1a; background: #eef3f6; min-height: 100vh; }
-        a { color: #186a63; text-decoration: none; }
-        a:hover { color: #2fd8c9; }
+        :global(a) { color: #186a63; text-decoration: none; }
+        :global(a:hover) { color: #2fd8c9; }
 
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
 
         .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: #0a0f1a; }
-        .brand { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid #1d2b42; border-radius: 999px; }
+        :global(.brand) { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid #1d2b42; border-radius: 999px; text-decoration: none; }
         .brand-badge { width: 22px; height: 22px; border-radius: 50%; background: rgba(47,216,201,0.12); display: flex; align-items: center; justify-content: center; }
         .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
-        .nav-back { font-size: 13px; color: #c9d1cc; }
-        .nav-back:hover { color: #2fd8c9; }
+        :global(.nav-back) { font-size: 13px; color: #c9d1cc; text-decoration: none; }
+        :global(.nav-back:hover) { color: #2fd8c9; }
 
         .hero { padding: 72px 48px 56px; background: #0a0f1a; color: #eef3f6; }
         .eyebrow { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #2fd8c9; }
