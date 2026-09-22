@@ -73,15 +73,15 @@ function Mark({ size = 22, light = false }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        fill={light ? '#2fd8c9' : '#0a0f1a'}
+        fill={light ? '#04ebff' : '#05111e'}
         opacity={light ? 1 : 0.08}
       />
       <path
         d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        stroke={light ? '#04140a' : '#2fd8c9'}
+        stroke={light ? '#04141e' : '#04ebff'}
         strokeWidth="1.3"
       />
-      <path d="M8.3 12.1l2.6 2.6 4.8-4.9" stroke={light ? '#04140a' : '#2fd8c9'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8.3 12.1l2.6 2.6 4.8-4.9" stroke={light ? '#04141e' : '#04ebff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -130,9 +130,7 @@ export default function Home() {
           content="Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza."
         />
         <meta name="robots" content="index, follow" />
-        <meta name="theme-color" content="#0a0f1a" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#05111e" />
         <meta
           name="keywords"
           content="Ethos IA, software a medida Ecuador, inteligencia artificial responsable, auditoría IA, consultoría tecnológica, automatización empresarial, desarrollo web Cuenca"
@@ -155,12 +153,6 @@ export default function Home() {
           content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
         />
         <meta name="twitter:image" content={`${SITE_URL}/empresa/hero-cyborg-cube-v1.jpg`} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
@@ -185,7 +177,7 @@ export default function Home() {
               name: 'ETHOSLAB S.A.S.',
               alternateName: 'Ethos IA',
               url: SITE_URL,
-              logo: `${SITE_URL}/empresa/ethos-ia-logo.png`,
+              logo: `${SITE_URL}/empresa/ethos-ia-logo-v2.png`,
               description:
                 'Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza.',
               address: {
@@ -206,7 +198,7 @@ export default function Home() {
       <nav className="nav">
         <a className="brand" href="#top">
           <span className="brand-badge">
-            <Image src="/empresa/ethos-ia-logo.png" alt="Ethos IA" width={40} height={40} className="brand-mark-img" />
+            <Image src="/empresa/ethos-ia-logo-v2.png" alt="Ethos IA" width={42} height={42} priority className="brand-mark-img" />
           </span>
           <span className="brand-name">Ethos IA</span>
         </a>
@@ -246,6 +238,8 @@ export default function Home() {
           alt="Androide humanoide junto al símbolo del cubo Ethos IA, sobre un fondo de red digital — investigación en inteligencia artificial responsable"
           fill
           priority
+          fetchPriority="high"
+          sizes="100vw"
           className="hero-bg-img"
         />
         <div className="hero-scrim" />
@@ -300,14 +294,14 @@ export default function Home() {
       <section className="grid grid-2" id="lineas" aria-label="Capacidades corporativas">
         <Reveal as="article" className="card card-teal">
           <div className="card-bg">
-            <Image src="/empresa/software-bg.webp" alt="" fill sizes="(max-width: 900px) 100vw, 50vw" className="card-bg-img" />
+            <Image src="/empresa/software-bg.webp" alt="" fill sizes="(max-width: 900px) 150vw, 50vw" className="card-bg-img" />
             <div className="card-scrim card-scrim-teal" />
           </div>
           <div className="card-content">
             <span className="card-tag">SOFTWARE A MEDIDA Y AUTOMATIZACIÓN</span>
             <div className="card-icon-wrap">
               <span className="card-icon card-icon-ink">
-                <svg width={30} height={30} viewBox="0 0 24 24" fill="none" stroke="#2fd8c9" strokeWidth="1.8" aria-hidden="true">
+                <svg width={30} height={30} viewBox="0 0 24 24" fill="none" stroke="#04ebff" strokeWidth="1.8" aria-hidden="true">
                   <path d="M8 6 2 12l6 6M16 6l6 6-6 6M13.5 4 10.5 20" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
@@ -324,7 +318,7 @@ export default function Home() {
 
         <Reveal as="article" className="card card-dark" style={{ transitionDelay: '80ms' }}>
           <div className="card-bg">
-            <Image src="/empresa/auditoria-bg.webp" alt="" fill sizes="(max-width: 900px) 100vw, 50vw" className="card-bg-img" />
+            <Image src="/empresa/auditoria-bg.webp" alt="" fill sizes="(max-width: 900px) 150vw, 50vw" className="card-bg-img" />
             <div className="card-scrim card-scrim-dark" />
           </div>
           <div className="card-content">
@@ -349,6 +343,7 @@ export default function Home() {
             src="/empresa/ethos-cube-wordmark.jpg"
             alt="Símbolo del cubo Ethos IA junto a un androide, representando la investigación en inteligencia artificial responsable"
             fill
+            sizes="(max-width: 900px) 100vw, 50vw"
             className="ethos-img"
           />
         </div>
@@ -370,7 +365,7 @@ export default function Home() {
 
       <section className="historia" id="historia">
         <div className="historia-bg">
-          <Image src="/empresa/historia-bg.webp" alt="" fill sizes="100vw" className="historia-bg-img" />
+          <Image src="/empresa/historia-bg.webp" alt="" fill sizes="(max-width: 900px) 200vw, 100vw" className="historia-bg-img" />
           <div className="historia-scrim" />
         </div>
         <Reveal as="span" className="section-label light">NUESTRA HISTORIA</Reveal>
@@ -526,7 +521,7 @@ export default function Home() {
         <div className="foot-top">
           <div className="foot-headline">Inteligencia artificial segura, software sólido y tecnología que puedes auditar.</div>
           <div className="foot-badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#5c7267" strokeWidth="1.6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#93aabb" strokeWidth="1.6">
               <circle cx="12" cy="12" r="9" />
               <path d="M8 12l2.5 2.5L16 9" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -538,7 +533,7 @@ export default function Home() {
           <div className="foot-col foot-col-brand">
             <div className="foot-logo">
               <span className="brand-badge small">
-                <Image src="/empresa/ethos-ia-logo.png" alt="Ethos IA" width={26} height={26} className="brand-mark-img" />
+                <Image src="/empresa/ethos-ia-logo-v2.png" alt="Ethos IA" width={30} height={30} className="brand-mark-img" />
               </span>
               <span className="brand-name">Ethos IA</span>
             </div>
@@ -590,20 +585,20 @@ export default function Home() {
       <style jsx>{`
         :global(html) { scroll-behavior: smooth; }
         :global(body) {
-          background: #eaf3f8;
-          color: #0c1726;
-          font-family: 'IBM Plex Sans', sans-serif;
+          background: #eaf2f8;
+          color: #071a2a;
+          font-family: var(--font-brand), sans-serif;
           margin: 0;
         }
         .page {
-          font-family: 'IBM Plex Sans', -apple-system, sans-serif;
-          color: #0a0f1a;
-          background: linear-gradient(180deg, #eff5f8 0%, #edf2f7 100%);
+          font-family: var(--font-brand), -apple-system, sans-serif;
+          color: #05111e;
+          background: linear-gradient(180deg, #edf4fa 0%, #e6eef7 100%);
           min-height: 100vh;
           overflow-x: hidden;
         }
-        a { color: #12766d; text-decoration: none; }
-        a:hover { color: #1bc7b7; }
+        a { color: #0b5f75; text-decoration: none; }
+        a:hover { color: #3ddcf5; }
 
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
@@ -612,7 +607,7 @@ export default function Home() {
           display: flex; align-items: center; justify-content: space-between;
           padding: 16px 32px;
           position: sticky; top: 0; z-index: 20;
-          background: rgba(10, 15, 26, 0.65);
+          background: rgba(5, 17, 30, 0.65);
           backdrop-filter: blur(14px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -623,66 +618,66 @@ export default function Home() {
           background: rgba(255,255,255,0.04);
           border-radius: 999px;
         }
-        .brand-badge { width: 40px; height: 40px; border-radius: 50%; background: rgba(47,216,201,0.12); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-        .brand-badge.small { width: 26px; height: 26px; }
-        :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: cover; }
-        .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
+        .brand-badge { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .brand-badge.small { width: 30px; height: 30px; }
+        :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: contain; }
+        .brand-name { font-family: var(--font-brand), sans-serif; font-size: 15px; font-weight: 600; color: #eaf2f8; }
         .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.02); }
-        :global(.nav-pill-link) {
+        .nav-pill :global(.nav-pill-link) {
           display: inline-flex; align-items: center; justify-content: center;
           min-height: 36px; box-sizing: border-box;
           padding: 9px 18px; font-size: 13px; line-height: 1;
-          color: #eef3f6; border-radius: 999px; text-decoration: none;
+          color: #eaf2f8; border-radius: 999px; text-decoration: none;
           transition: background 0.2s, color 0.2s;
         }
-        :global(.nav-pill-link:hover) { background: rgba(47,216,201,0.12); color: #2fd8c9; }
+        .nav-pill :global(.nav-pill-link:hover) { background: rgba(4,235,255,0.12); color: #04ebff; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
-        .nav-login { font-size: 13px; color: #c9d1cc; }
+        .nav-login { font-size: 13px; color: #c4d3e0; }
         .nav-cta {
-          padding: 12px 24px; background: linear-gradient(135deg, #dffef8 0%, #b7fff1 100%);
-          color: #0a0f1a; border-radius: 999px; font-weight: 700; font-size: 13px;
-          box-shadow: 0 14px 26px rgba(31, 200, 183, 0.18);
+          padding: 12px 24px; background: linear-gradient(135deg, #dcfaff 0%, #8eecff 100%);
+          color: #05111e; border-radius: 999px; font-weight: 700; font-size: 13px;
+          box-shadow: 0 14px 26px rgba(4, 235, 255, 0.18);
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .nav-cta:hover {
-          color: #0a0f1a; background: linear-gradient(135deg, #ebfffc 0%, #84f6dd 100%);
+          color: #05111e; background: linear-gradient(135deg, #e6fbff 0%, #9cf2ff 100%);
           transform: translateY(-1px);
-          box-shadow: 0 18px 32px rgba(31, 200, 183, 0.24);
+          box-shadow: 0 18px 32px rgba(4, 235, 255, 0.24);
         }
 
         .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; background: transparent; cursor: pointer; padding: 0; }
-        .nav-burger span { display: block; width: 18px; height: 2px; background: #eef3f6; margin: 0 auto; transition: transform 0.25s, opacity 0.25s; }
+        .nav-burger span { display: block; width: 18px; height: 2px; background: #eaf2f8; margin: 0 auto; transition: transform 0.25s, opacity 0.25s; }
         .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .nav-burger.open span:nth-child(2) { opacity: 0; }
         .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(10,15,26,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+        .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(5,17,30,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
         .nav-mobile.open { max-height: 400px; }
-        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eef3f6; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); }
-        .nav-mobile :global(a:hover) { color: #2fd8c9; }
-        .nav-mobile-cta { color: #2fd8c9 !important; font-weight: 700; }
+        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eaf2f8; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); }
+        .nav-mobile :global(a:hover) { color: #04ebff; }
+        .nav-mobile-cta { color: #04ebff !important; font-weight: 700; }
 
-        .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: #0a0f1a; }
+        .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: #05111e; }
         :global(.hero-bg-img) {
           object-fit: cover; object-position: 100% 50%; z-index: 0;
         }
         .hero-scrim {
           position: absolute; inset: 0; z-index: 1;
           background:
-            linear-gradient(to right, rgba(10,15,26,0.96) 0%, rgba(10,15,26,0.78) 30%, rgba(10,15,26,0.32) 58%, rgba(10,15,26,0.18) 100%),
-            radial-gradient(circle at 20% 75%, rgba(47,216,201,0.12), transparent 34%),
-            radial-gradient(circle at 6% 12%, rgba(169,116,27,0.10), transparent 24%);
+            linear-gradient(to right, rgba(5,17,30,0.96) 0%, rgba(5,17,30,0.78) 30%, rgba(5,17,30,0.32) 58%, rgba(5,17,30,0.18) 100%),
+            radial-gradient(circle at 20% 75%, rgba(4,235,255,0.12), transparent 34%),
+            radial-gradient(circle at 6% 12%, rgba(15,88,118,0.10), transparent 24%);
         }
         .hero-inner { position: relative; z-index: 2; width: 100%; padding: 40px 48px 40px; }
         .hero-content { max-width: 640px; }
-        .eyebrow { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; color: #2fd8c9; }
-        .eyebrow.accent { color: #2fd8c9; }
+        .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #04ebff; }
+        .eyebrow.accent { color: #04ebff; }
         .hero h1 {
-          font-family: Georgia, serif; font-size: clamp(2.1rem, 3.8vw, 3.2rem); line-height: 1.12;
-          font-weight: 600; margin: 16px 0 0; color: #eef3f6; text-wrap: balance;
+          font-family: var(--font-brand), sans-serif; font-size: clamp(2.1rem, 3.8vw, 3.2rem); line-height: 1.12;
+          font-weight: 600; margin: 16px 0 0; color: #eaf2f8; text-wrap: balance;
           letter-spacing: -0.02em;
         }
-        .hero-sub { font-size: 16px; line-height: 1.7; color: #d5dde3; margin: 22px 0 0; max-width: 52ch; }
+        .hero-sub { font-size: 16px; line-height: 1.7; color: #d3dde8; margin: 22px 0 0; max-width: 52ch; }
         .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
         .hero-btn {
           display: inline-flex; align-items: center; justify-content: center;
@@ -690,64 +685,66 @@ export default function Home() {
           transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
         }
         .hero-btn.primary {
-          background: linear-gradient(135deg, #5ef6dc 0%, #2fd8c9 100%);
-          color: #04140a; box-shadow: 0 18px 32px rgba(47, 216, 201, 0.18);
+          background: linear-gradient(135deg, #7df3ff 0%, #04ebff 100%);
+          color: #04141e; box-shadow: 0 18px 32px rgba(4, 235, 255, 0.18);
         }
         .hero-btn.primary:hover {
-          transform: translateY(-2px); background: linear-gradient(135deg, #8afce7 0%, #6ae3d8 100%);
-          box-shadow: 0 20px 36px rgba(47, 216, 201, 0.22);
+          transform: translateY(-2px); background: linear-gradient(135deg, #a5f5ff 0%, #6deeff 100%);
+          box-shadow: 0 20px 36px rgba(4, 235, 255, 0.22);
         }
         .hero-btn.ghost {
-          border: 1px solid rgba(238,243,246,0.35); color: #eef3f6; background: rgba(255,255,255,0.015);
+          border: 1px solid rgba(234,242,248,0.35); color: #eaf2f8; background: rgba(255,255,255,0.015);
         }
-        .hero-btn.ghost:hover { border-color: #2fd8c9; color: #2fd8c9; box-shadow: 0 10px 26px rgba(47,216,201,0.10); }
+        .hero-btn.ghost:hover { border-color: #04ebff; color: #04ebff; box-shadow: 0 10px 26px rgba(4,235,255,0.10); }
 
         @media (max-width: 760px) {
           :global(.hero-bg-img) { display: none; }
           .hero-scrim {
             background:
-              radial-gradient(ellipse 55% 70% at 78% 45%, rgba(47,216,201,0.16), transparent 65%),
-              radial-gradient(ellipse 45% 60% at 15% 85%, rgba(232,178,58,0.08), transparent 65%);
+              radial-gradient(ellipse 55% 70% at 78% 45%, rgba(4,235,255,0.16), transparent 65%),
+              radial-gradient(ellipse 45% 60% at 15% 85%, rgba(43,135,173,0.08), transparent 65%);
           }
         }
 
-        .xyz { padding: 64px 48px 24px; background: #eef3f6; }
-        :global(.xyz-title) { display: block; text-align: center; font-family: Georgia, serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 26ch; margin: 0 auto 48px; color: #0a0f1a; }
+        .xyz { padding: 64px 48px 24px; background: #eaf2f8; }
+        :global(.xyz-title) { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 26ch; margin: 0 auto 48px; color: #05111e; }
         .xyz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
-        :global(.xyz-item) { padding: 28px 26px; border-radius: 12px; background: #ffffff; border: 1px solid rgba(10,15,26,0.08); }
-        .xyz-tag { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; font-weight: 700; color: #186a63; margin-bottom: 14px; }
-        :global(.xyz-item) p { font-size: 14px; color: #3d474e; line-height: 1.7; margin: 0; }
+        :global(.xyz-item) { padding: 28px 26px; border-radius: 12px; background: #ffffff; border: 1px solid rgba(5,17,30,0.08); }
+        .xyz-tag { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.14em; font-weight: 700; color: #0b5f75; margin-bottom: 14px; }
+        :global(.xyz-item) p { font-size: 14px; color: #33414d; line-height: 1.7; margin: 0; }
 
         .grid { padding: 0 48px 20px; display: grid; margin-top: 40px; }
         .grid-2 { grid-template-columns: 1fr 1fr; gap: 24px; }
         :global(.card) { position: relative; overflow: hidden; border-radius: 14px; min-height: 380px; }
-        :global(.card-teal) { background: #1fa89c; }
-        :global(.card-dark) { background: #0a0f1a; }
+        :global(.card-teal) { background: #7fd9ec; }
+        :global(.card-dark) { background: #05111e; }
         .card-bg { position: absolute; inset: 0; z-index: 0; }
         :global(.card-bg-img) { object-fit: cover; }
         .card-scrim { position: absolute; inset: 0; }
-        .card-scrim-teal { background: linear-gradient(155deg, rgba(91,232,219,0.55) 0%, rgba(47,216,201,0.6) 55%, rgba(20,90,84,0.75) 100%); }
-        .card-scrim-dark { background: linear-gradient(165deg, rgba(10,15,26,0.55) 0%, rgba(10,15,26,0.85) 100%); }
+        /* El velo se mantiene claro de arriba a abajo: antes terminaba en un azul oscuro
+           y el texto oscuro de la tarjeta quedaba ilegible en la mitad inferior. */
+        .card-scrim-teal { background: linear-gradient(155deg, rgba(160,247,255,0.82) 0%, rgba(90,225,247,0.80) 55%, rgba(30,160,190,0.82) 100%); }
+        .card-scrim-dark { background: linear-gradient(165deg, rgba(5,17,30,0.55) 0%, rgba(5,17,30,0.85) 100%); }
         .card-content { position: relative; z-index: 1; padding: 36px; display: flex; flex-direction: column; gap: 14px; }
-        .card-tag { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #04302c; font-weight: 700; }
-        .card-tag-light { color: #2fd8c9; }
-        :global(.card) h2 { font-family: 'IBM Plex Sans', sans-serif; font-size: 26px; line-height: 1.2; font-weight: 700; max-width: 16ch; margin: 0; color: #04140a; }
-        :global(.card) h2.light { color: #eef3f6; max-width: 16ch; font-size: 22px; }
+        .card-tag { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.14em; color: #04222e; font-weight: 700; }
+        .card-tag-light { color: #04ebff; }
+        :global(.card) h2 { font-family: var(--font-brand), sans-serif; font-size: 26px; line-height: 1.2; font-weight: 700; max-width: 16ch; margin: 0; color: #04141e; }
+        :global(.card) h2.light { color: #eaf2f8; max-width: 16ch; }
         .card-icon-wrap { margin: 8px 0; display: flex; align-items: center; justify-content: center; }
-        .card-icon { width: 80px; height: 80px; border-radius: 50%; background: #2fd8c9; display: flex; align-items: center; justify-content: center; }
-        .card-icon.card-icon-ink { background: #0a0f1a; }
-        .card-detail { font-size: 13px; line-height: 1.65; color: #04302c; margin: 0; }
-        .card-detail.light { color: #a9b8c4; }
+        .card-icon { width: 80px; height: 80px; border-radius: 50%; background: #04ebff; display: flex; align-items: center; justify-content: center; }
+        .card-icon.card-icon-ink { background: #05111e; }
+        .card-detail { font-size: 13px; line-height: 1.65; color: #04222e; margin: 0; }
+        .card-detail.light { color: #c3d2de; }
 
 
-        .ethos-deep { display: flex; align-items: stretch; background: #0a0f1a; color: #eef3f6; }
+        .ethos-deep { display: flex; align-items: stretch; background: #05111e; color: #eaf2f8; }
         :global(.ethos-visual) { position: relative; flex: 0 0 50%; max-width: 50%; aspect-ratio: 1376 / 768; order: 2; }
         :global(.ethos-img) { object-fit: cover; }
         :global(.ethos-copy) { order: 1; flex: 0 0 50%; max-width: 50%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 48px 56px; }
         .ethos-deep .eyebrow { font-size: 13px; margin-bottom: 4px; }
-        .ethos-deep h2 { font-family: Georgia, serif; font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.25; font-weight: 600; margin: 18px 0 22px; }
-        .ethos-deep p { font-size: 16.5px; line-height: 1.8; color: #a9b8c4; margin: 0 0 18px; }
-        .ethos-vision { color: #eef3f6 !important; font-style: italic; font-size: 17.5px !important; }
+        .ethos-deep h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.25; font-weight: 600; margin: 18px 0 22px; }
+        .ethos-deep p { font-size: 16.5px; line-height: 1.8; color: #c3d2de; margin: 0 0 18px; }
+        .ethos-vision { color: #eaf2f8 !important; font-style: italic; font-size: 17.5px !important; }
 
         @media (max-width: 900px) {
           .ethos-deep { flex-direction: column; }
@@ -755,68 +752,68 @@ export default function Home() {
           :global(.ethos-copy) { padding: 40px 24px; }
         }
 
-        .historia { position: relative; overflow: hidden; padding: 88px 48px; background: #0a0f1a; }
+        .historia { position: relative; overflow: hidden; padding: 88px 48px; background: #05111e; }
         .historia-bg { position: absolute; inset: 0; z-index: 0; }
         :global(.historia-bg-img) { object-fit: cover; }
-        .historia-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,15,26,0.55) 0%, rgba(10,15,26,0.88) 100%); }
-        :global(.historia-title) { position: relative; z-index: 1; display: block; text-align: center; font-family: Georgia, serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 30ch; margin: 0 auto 48px; color: #0a0f1a; }
-        :global(.historia-title.light) { color: #eef3f6; }
+        .historia-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,17,30,0.55) 0%, rgba(5,17,30,0.88) 100%); }
+        :global(.historia-title) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 30ch; margin: 0 auto 48px; color: #05111e; }
+        :global(.historia-title.light) { color: #eaf2f8; }
         .historia-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto; }
-        :global(.historia-item) h3 { font-family: Georgia, serif; font-size: 18px; font-weight: 600; margin: 0 0 10px; color: #eef3f6; }
-        :global(.historia-item) p { font-size: 14px; color: #b7c2ca; line-height: 1.7; margin: 0; }
-        :global(.historia-item) .proceso-num { color: #2fd8c9; }
+        :global(.historia-item) h3 { font-family: var(--font-brand), sans-serif; font-size: 18px; font-weight: 600; margin: 0 0 10px; color: #eaf2f8; }
+        :global(.historia-item) p { font-size: 14px; color: #b4c4d2; line-height: 1.7; margin: 0; }
+        :global(.historia-item) .proceso-num { color: #04ebff; }
         :global(.historia-cta-bottom) { position: relative; z-index: 1; display: block; text-align: right; max-width: 1100px; margin: 56px auto 0; }
-        :global(.historia-btn) { display: inline-block; padding: 14px 30px; border-radius: 999px; background: #2fd8c9; color: #04140a; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
-        :global(.historia-btn:hover) { background: #4fe6d8; transform: translateY(-2px); }
+        :global(.historia-btn) { display: inline-block; padding: 14px 30px; border-radius: 999px; background: #04ebff; color: #04141e; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
+        :global(.historia-btn:hover) { background: #5df0ff; transform: translateY(-2px); }
 
         .mv { padding: 72px 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; background: #ffffff; }
-        .mv-label { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; font-weight: 700; margin-bottom: 14px; }
-        .mv-label.teal { color: #186a63; }
-        .mv-label.gold { color: #a87a1e; }
-        .mv-label.ink { color: #5c666e; }
-        .mv p { font-family: Georgia, serif; font-size: 17px; line-height: 1.65; color: #1a232b; margin: 0; }
+        .mv-label { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.16em; font-weight: 700; margin-bottom: 14px; }
+        .mv-label.teal { color: #0b5f75; }
+        .mv-label.gold { color: #0f5876; }
+        .mv-label.ink { color: #4a5866; }
+        .mv p { font-family: var(--font-brand), sans-serif; font-size: 17px; line-height: 1.65; color: #14202b; margin: 0; }
 
-        :global(.section-label) { position: relative; z-index: 1; display: block; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #8a9298; margin-bottom: 48px; }
-        :global(.section-label.light) { color: #8fa89c; }
-        .proceso { padding: 72px 48px; background: #eef3f6; }
-        :global(.proceso-title) { display: block; text-align: center; font-family: Georgia, serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 600; max-width: 32ch; margin: 0 auto 48px; color: #0a0f1a; }
+        :global(.section-label) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #526373; margin-bottom: 48px; }
+        :global(.section-label.light) { color: #93aabb; }
+        .proceso { padding: 72px 48px; background: #eaf2f8; }
+        :global(.proceso-title) { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 600; max-width: 32ch; margin: 0 auto 48px; color: #05111e; }
         .proceso-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; max-width: 1000px; margin: 0 auto; }
-        .proceso-num { font-family: Georgia, serif; font-size: 30px; color: #186a63; font-weight: 600; margin-bottom: 12px; }
-        :global(.proceso-item) h3 { font-family: Georgia, serif; font-size: 17px; font-weight: 600; margin: 0 0 8px; color: #0a0f1a; }
-        :global(.proceso-item) p { font-size: 14px; color: #5c666e; line-height: 1.7; margin: 0; max-width: 42ch; }
+        .proceso-num { font-family: var(--font-brand), sans-serif; font-size: 30px; color: #0b5f75; font-weight: 600; margin-bottom: 12px; }
+        :global(.proceso-item) h3 { font-family: var(--font-brand), sans-serif; font-size: 17px; font-weight: 600; margin: 0 0 8px; color: #05111e; }
+        :global(.proceso-item) p { font-size: 14px; color: #4a5866; line-height: 1.7; margin: 0; max-width: 42ch; }
 
 
-        .contacto { padding: 80px 48px; background: #0a0f1a; color: #eef3f6; display: flex; justify-content: center; }
+        .contacto { padding: 80px 48px; background: #05111e; color: #eaf2f8; display: flex; justify-content: center; }
         :global(.contacto-inner) { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
-        .contacto h2 { font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; margin: 14px 0 10px; }
-        .contacto-sub { font-size: 14px; color: #a9b8c4; margin: 0 0 32px; }
+        .contacto h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; margin: 14px 0 10px; }
+        .contacto-sub { font-size: 14px; color: #c3d2de; margin: 0 0 32px; }
         .quote-form { width: 100%; max-width: 480px; text-align: left; display: flex; flex-direction: column; gap: 16px; }
         .qf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .quote-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #a9b8c4; }
-        .quote-form input, .quote-form select, .quote-form textarea { background: rgba(255,255,255,0.05); border: 1px solid #1d2b42; border-radius: 6px; padding: 11px 13px; color: #eef3f6; font-family: inherit; font-size: 14px; }
-        .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus { outline: none; border-color: #2fd8c9; }
+        .quote-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #c3d2de; }
+        .quote-form input, .quote-form select, .quote-form textarea { background: rgba(255,255,255,0.05); border: 1px solid #123048; border-radius: 6px; padding: 11px 13px; color: #eaf2f8; font-family: inherit; font-size: 14px; }
+        .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus { outline: none; border-color: #04ebff; }
         .quote-form textarea { resize: vertical; min-height: 80px; }
         .consent-row { flex-direction: row !important; align-items: flex-start; gap: 8px !important; font-size: 12px !important; line-height: 1.5; cursor: pointer; }
         .consent-row input { margin-top: 2px; flex-shrink: 0; }
-        .consent-row :global(a) { color: #2fd8c9; }
+        .consent-row :global(a) { color: #04ebff; }
         .form-error { color: #ff9f9f; font-size: 13px; margin: 0; }
-        .qf-submit { background: #2fd8c9; color: #04140a; border: none; border-radius: 999px; padding: 13px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
-        .qf-submit:hover:not(:disabled) { background: #4fe6d8; transform: translateY(-1px); }
+        .qf-submit { background: #04ebff; color: #04141e; border: none; border-radius: 999px; padding: 13px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+        .qf-submit:hover:not(:disabled) { background: #5df0ff; transform: translateY(-1px); }
         .qf-submit:disabled { opacity: 0.6; cursor: wait; }
         .form-ok { padding: 12px 0 0; }
         .form-ok-check { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(57,255,106,0.12); border: 1px solid rgba(57,255,106,0.4); color: #39ff6a; font-size: 1.2rem; margin-bottom: 12px; }
-        .form-ok p { color: #c9d1cc; font-size: 14px; }
+        .form-ok p { color: #c4d3e0; font-size: 14px; }
 
         /* clamp() en vez de aspect-ratio fijo: el alto crece con el ancho de
            pantalla (como antes) pero nunca pasa de 620px -- en un monitor
            ultra-wide de verdad, aspect-ratio puro hacía que la franja
            creciera sin límite y quedara desproporcionadamente alta frente
            al resto de secciones. */
-        .brand-banner { position: relative; width: 100%; height: clamp(280px, 32vw, 620px); background: #0a0f1a; overflow: hidden; }
+        .brand-banner { position: relative; width: 100%; height: clamp(280px, 32vw, 620px); background: #05111e; overflow: hidden; }
         :global(.brand-banner-img) { object-fit: cover; object-position: center; }
         .brand-banner-fade { position: absolute; left: 0; right: 0; height: clamp(40px, 9vw, 100px); z-index: 1; pointer-events: none; }
-        .brand-banner-fade-top { top: 0; background: linear-gradient(180deg, #0a0f1a 0%, rgba(10,15,26,0) 100%); }
-        .brand-banner-fade-bottom { bottom: 0; background: linear-gradient(0deg, #060a10 0%, rgba(6,10,16,0) 100%); }
+        .brand-banner-fade-top { top: 0; background: linear-gradient(180deg, #05111e 0%, rgba(5,17,30,0) 100%); }
+        .brand-banner-fade-bottom { bottom: 0; background: linear-gradient(0deg, #030a12 0%, rgba(3,10,18,0) 100%); }
         @media (max-width: 640px) {
           /* En pantallas angostas el lema queda demasiado chico si se recorta
              por altura -- se deja ver el ancho completo aunque el banner
@@ -826,23 +823,24 @@ export default function Home() {
           .brand-banner-fade { height: 36px; }
         }
 
-        .foot { background: #060a10; color: #eef3f6; padding: 64px 48px 0; }
+        .foot { background: #030a12; color: #eaf2f8; padding: 64px 48px 0; }
         .foot-top { max-width: 1200px; margin: 0 auto; }
-        .foot-headline { font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; max-width: 20ch; line-height: 1.2; }
+        .foot-headline { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; max-width: 20ch; line-height: 1.2; }
         .foot-badge { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
         .foot-badge svg { width: 14px; height: 14px; }
-        .foot-badge span { font-size: 12px; color: #5c7267; }
+        .foot-badge span { font-size: 12px; color: #93aabb; }
         .foot-cols { max-width: 1200px; margin: 48px auto 0; display: grid; grid-template-columns: 1.2fr repeat(4, 1fr); gap: 20px; }
         .foot-col { display: flex; flex-direction: column; gap: 11px; font-size: 13px; }
-        .foot-col :global(a) { color: #c9d1cc; text-decoration: none; }
-        .foot-col :global(a:hover) { color: #2fd8c9; }
-        .foot-col span { color: #5c7267; }
-        .foot-heading { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #5c7267 !important; font-style: normal !important; margin-bottom: 2px; }
+        .foot-col :global(a) { color: #c4d3e0; text-decoration: none; }
+        .foot-col :global(a:hover) { color: #04ebff; }
+        .foot-col span { color: #93aabb; }
+        .foot-heading { font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #93aabb !important; font-style: normal !important; margin-bottom: 2px; }
         .foot-logo { display: flex; align-items: center; gap: 8px; }
-        .foot-desc { font-size: 13px; color: #8fa89c; line-height: 1.6; max-width: 24ch; }
-        .foot-bottom { max-width: 1200px; margin: 48px auto 0; padding: 24px 0; border-top: 1px solid #1d2b42; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: #5c7267; }
+        .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 24ch; }
+        /* El padding inferior reserva el espacio del botón flotante de chat, que si no tapa el aviso legal. */
+        .foot-bottom { max-width: 1200px; margin: 48px auto 0; padding: 24px 0 96px; border-top: 1px solid #123048; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: #93aabb; }
         .foot-legal { display: flex; gap: 24px; }
-        .foot-legal :global(a) { color: #5c7267; }
+        .foot-legal :global(a) { color: #93aabb; }
 
         @media (max-width: 900px) {
           .grid-2 { grid-template-columns: 1fr; }

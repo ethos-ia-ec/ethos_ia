@@ -232,12 +232,12 @@ export default function ChatWidget() {
           width: 56px;
           height: 56px;
           border-radius: 50%;
-          background: #04140a;
-          border: 2px solid #2fd8c9;
+          background: #04141e;
+          border: 2px solid #04ebff;
           padding: 0;
           overflow: hidden;
           cursor: pointer;
-          box-shadow: 0 8px 24px rgba(4, 20, 10, 0.35), 0 0 0 4px rgba(47, 216, 201, 0.12);
+          box-shadow: 0 8px 24px rgba(4, 20, 30, 0.35), 0 0 0 4px rgba(4, 235, 255, 0.12);
           z-index: 60;
           display: flex;
           align-items: center;
@@ -258,8 +258,8 @@ export default function ChatWidget() {
           right: 24px;
           width: min(380px, calc(100vw - 32px));
           height: min(520px, calc(100vh - 120px));
-          background: #0d1420;
-          border: 1px solid #1d2b42;
+          background: #081724;
+          border: 1px solid #123048;
           border-radius: 18px;
           box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
           display: flex;
@@ -285,11 +285,11 @@ export default function ChatWidget() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-bottom: 1px solid #17223a;
-          font-family: 'IBM Plex Mono', monospace;
+          border-bottom: 1px solid #0f2739;
+          font-family: var(--font-brand), sans-serif;
           font-size: 12.5px;
           letter-spacing: 0.03em;
-          color: #c9d1cc;
+          color: #c4d3e0;
           flex-shrink: 0;
         }
         .chat-head-id {
@@ -322,8 +322,8 @@ export default function ChatWidget() {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #2fd8c9;
-          border: 2px solid #0d1420;
+          background: #04ebff;
+          border: 2px solid #081724;
         }
         .chat-head-actions {
           display: flex;
@@ -332,7 +332,7 @@ export default function ChatWidget() {
         .chat-icon-btn {
           background: transparent;
           border: none;
-          color: #8fa0b8;
+          color: #8ba0b5;
           font-size: 15px;
           width: 28px;
           height: 28px;
@@ -344,8 +344,8 @@ export default function ChatWidget() {
           transition: background 0.15s ease, color 0.15s ease;
         }
         .chat-icon-btn:hover {
-          background: #17223a;
-          color: #eef3f6;
+          background: #0f2739;
+          color: #eaf2f8;
         }
 
         .chat-list {
@@ -370,8 +370,8 @@ export default function ChatWidget() {
         }
         .chat-bubble {
           max-width: 82%;
-          background: #2fd8c9;
-          color: #04140a;
+          background: #04ebff;
+          color: #04141e;
           padding: 10px 14px;
           border-radius: 14px;
           border-bottom-right-radius: 4px;
@@ -400,7 +400,7 @@ export default function ChatWidget() {
         }
         .chat-plain {
           max-width: 100%;
-          color: #eef3f6;
+          color: #eaf2f8;
           font-size: 14.5px;
           line-height: 1.65;
           display: flex;
@@ -419,8 +419,8 @@ export default function ChatWidget() {
         .chat-voice-btn {
           flex-shrink: 0;
           background: transparent;
-          border: 1px solid #1d2b42;
-          color: #8fa0b8;
+          border: 1px solid #123048;
+          color: #8ba0b5;
           width: 26px;
           height: 26px;
           border-radius: 50%;
@@ -431,13 +431,13 @@ export default function ChatWidget() {
           justify-content: center;
         }
         .chat-voice-btn:hover {
-          border-color: #2fd8c9;
-          color: #2fd8c9;
+          border-color: #04ebff;
+          color: #04ebff;
         }
         .chat-voice-btn.speaking {
-          color: #04140a;
-          background: #2fd8c9;
-          border-color: #2fd8c9;
+          color: #04141e;
+          background: #04ebff;
+          border-color: #04ebff;
         }
 
         .chat-input-row {
@@ -453,19 +453,19 @@ export default function ChatWidget() {
           display: flex;
           align-items: center;
           gap: 8px;
-          background: #131c2c;
-          border: 1px solid #223252;
+          background: #0c2030;
+          border: 1px solid #17384f;
           border-radius: 999px;
           padding: 6px 8px 6px 16px;
         }
         .chat-input-inner:focus-within {
-          border-color: #2fd8c9;
+          border-color: #04ebff;
         }
         .chat-input-inner input {
           flex: 1;
           background: transparent;
           border: none;
-          color: #eef3f6;
+          color: #eaf2f8;
           font-size: 14px;
           padding: 8px 0;
         }
@@ -473,8 +473,8 @@ export default function ChatWidget() {
           outline: none;
         }
         .chat-input-inner button {
-          background: #2fd8c9;
-          color: #04140a;
+          background: #04ebff;
+          color: #04141e;
           border: none;
           border-radius: 50%;
           width: 34px;
