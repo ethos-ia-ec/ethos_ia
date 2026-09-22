@@ -35,24 +35,6 @@ function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
   );
 }
 
-function Mark({ size = 22, light = false }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        fill={light ? '#2fd8c9' : '#0a0f1a'}
-        opacity={light ? 1 : 0.08}
-      />
-      <path
-        d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        stroke={light ? '#04140a' : '#2fd8c9'}
-        strokeWidth="1.3"
-      />
-      <path d="M8.3 12.1l2.6 2.6 4.8-4.9" stroke={light ? '#04140a' : '#2fd8c9'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function EquipoDirectivo() {
   return (
     <div className="page">
@@ -63,6 +45,8 @@ export default function EquipoDirectivo() {
           content="Gobernanza y dirección de ETHOSLAB S.A.S., la empresa detrás de Ethos IA: origen del ecosistema y perfiles directivos."
         />
         <link rel="canonical" href={`${SITE_URL}/equipo`} />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ethos IA" />
         <meta property="og:title" content="Dirección General y Técnica — Ethos IA" />
@@ -88,7 +72,9 @@ export default function EquipoDirectivo() {
 
       <nav className="nav">
         <Link className="brand" href="/">
-          <span className="brand-badge"><Mark size={16} light /></span>
+          <span className="brand-badge">
+            <img src="/empresa/ethos-ia-logo.png" alt="Ethos IA" width="22" height="22" loading="lazy" decoding="async" />
+          </span>
           <span className="brand-name">Ethos IA</span>
         </Link>
         <Link className="nav-back" href="/">← Volver al sitio</Link>
@@ -192,6 +178,22 @@ export default function EquipoDirectivo() {
               </p>
             </div>
           </Reveal>
+          <Reveal className="team-card" style={{ transitionDelay: '90ms' }}>
+            <div className="team-photo">
+              <img src="/empresa/william-toscano-avatar.jpg" alt="William Alejandro Toscano Pérez — Diseño y creación del logotipo" width="180" height="180" loading="lazy" decoding="async" />
+            </div>
+            <div>
+              <div className="perfil-role teal">DISEÑO Y CREACIÓN DEL LOGOTIPO</div>
+              <div className="perfil-name">William Alejandro Toscano Pérez</div>
+              <p>
+                Ideó, diseñó y creó la identidad visual y el logotipo de Ethos IA. Licenciado en{' '}
+                <a href="https://www.unemi.edu.ec/index.php/carreras-presencial/multimedia-y-produccion-audiovisual/" target="_blank" rel="noopener">
+                  Multimedia y Producción Audiovisual
+                </a>{' '}
+                por la Universidad Estatal de Milagro (UNEMI).
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -223,7 +225,8 @@ export default function EquipoDirectivo() {
 
         .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; background: #0a0f1a; }
         :global(.brand) { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border: 1px solid #1d2b42; border-radius: 999px; text-decoration: none; }
-        .brand-badge { width: 22px; height: 22px; border-radius: 50%; background: rgba(47,216,201,0.12); display: flex; align-items: center; justify-content: center; }
+        .brand-badge { width: 22px; height: 22px; border-radius: 50%; background: rgba(47,216,201,0.12); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .brand-badge img { width: 100%; height: 100%; object-fit: cover; }
         .brand-name { font-family: Georgia, serif; font-size: 15px; font-weight: 600; color: #eef3f6; }
         :global(.nav-back) { font-size: 13px; color: #c9d1cc; text-decoration: none; }
         :global(.nav-back:hover) { color: #2fd8c9; }

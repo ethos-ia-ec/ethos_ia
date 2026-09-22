@@ -131,6 +131,8 @@ export default function Home() {
         />
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#0a0f1a" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta
           name="keywords"
           content="Ethos IA, software a medida Ecuador, inteligencia artificial responsable, auditoría IA, consultoría tecnológica, automatización empresarial, desarrollo web Cuenca"
@@ -535,7 +537,9 @@ export default function Home() {
         <div className="foot-cols">
           <div className="foot-col foot-col-brand">
             <div className="foot-logo">
-              <span className="brand-badge small"><Mark size={13} light /></span>
+              <span className="brand-badge small">
+                <Image src="/empresa/ethos-ia-logo.png" alt="Ethos IA" width={26} height={26} className="brand-mark-img" />
+              </span>
               <span className="brand-name">Ethos IA</span>
             </div>
             <span className="foot-desc">Software a medida e inteligencia artificial responsable, desde Cuenca para Ecuador.</span>
