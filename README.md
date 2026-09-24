@@ -166,6 +166,7 @@ El equipo detrás del proyecto está en [ethosia.tech/equipo](https://www.ethosi
 - **Sitio** — [ethosia.tech](https://www.ethosia.tech)
 - **Correo** — ethos.ia.ec@gmail.com
 - **WhatsApp** — [+593 98 602 3149](https://wa.me/593986023149)
+- **Redes** — [Facebook](https://www.facebook.com/profile.php?id=61593810909958) · [Instagram](https://www.instagram.com/ethos.ia.ec/) · [TikTok](https://www.tiktok.com/@ethos_ia_ec) · [X](https://x.com/Ethos_IA_EC) · [YouTube](https://www.youtube.com/@EthosIA-ec)
 - **Organización** — [github.com/ethos-ia-ec](https://github.com/ethos-ia-ec)
 
 ---

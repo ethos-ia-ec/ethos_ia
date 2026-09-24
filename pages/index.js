@@ -23,24 +23,44 @@ const AREAS = [
 // el footer solo muestra los canales con URL real, nunca un enlace falso o "próximamente".
 const CONTACT = {
   whatsapp: 'https://wa.me/593986023149',
-  facebook: 'https://www.facebook.com/profile.php?id=61593170550264',
-  youtube: 'https://www.youtube.com/@ElClubDeLaIngenier%C3%ADa',
-  instagram: null,
+  facebook: 'https://www.facebook.com/profile.php?id=61593810909958',
+  instagram: 'https://www.instagram.com/ethos.ia.ec/',
+  tiktok: 'https://www.tiktok.com/@ethos_ia_ec',
+  x: 'https://x.com/Ethos_IA_EC',
+  youtube: 'https://www.youtube.com/@EthosIA-ec',
+  github: 'https://github.com/ethos-ia-ec',
   linkedin: null,
-  tiktok: null,
-  x: null,
   email: null,
   phone: null,
 };
 
+// El orden de estas claves es el orden en que se muestran los íconos del footer.
 const SOCIAL_LABELS = {
-  whatsapp: 'WhatsApp',
   facebook: 'Facebook',
-  youtube: 'YouTube',
   instagram: 'Instagram',
-  linkedin: 'LinkedIn',
   tiktok: 'TikTok',
-  x: 'X (Twitter)',
+  x: 'X',
+  youtube: 'YouTube',
+  linkedin: 'LinkedIn',
+  github: 'GitHub',
+  whatsapp: 'WhatsApp',
+};
+
+const SOCIAL_ICONS = {
+  facebook: <path d="M13.5 21v-8.2h2.75l.4-3.2h-3.15V7.4c0-.93.26-1.56 1.6-1.56h1.7V2.98c-.3-.04-1.3-.13-2.47-.13-2.45 0-4.13 1.5-4.13 4.24v2.5H7.5v3.2h2.75V21h3.25z" />,
+  instagram: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" strokeWidth="1.9" />
+      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.9" />
+      <circle cx="17.2" cy="6.8" r="1.2" />
+    </>
+  ),
+  tiktok: <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />,
+  x: <path d="M18.9 3H21.7L15.6 10.1L22.8 21H17.1L12.7 14.7L7.6 21H4.8L11.3 13.4L4.4 3H10.2L14.2 8.8L18.9 3ZM17.9 19.2H19.5L9.4 4.7H7.7L17.9 19.2Z" />,
+  youtube: <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />,
+  linkedin: <path d="M6.94 8.5H3.56V20.5H6.94V8.5ZM5.25 3.5C4.14 3.5 3.25 4.4 3.25 5.5C3.25 6.6 4.14 7.5 5.25 7.5C6.36 7.5 7.25 6.6 7.25 5.5C7.25 4.4 6.36 3.5 5.25 3.5ZM20.5 20.5V13.87C20.5 10.5 18.72 8.94 16.35 8.94C14.47 8.94 13.62 9.98 13.15 10.7V8.5H9.77C9.82 9.53 9.77 20.5 9.77 20.5H13.15V13.9C13.15 13.55 13.17 13.2 13.27 12.95C13.55 12.25 14.2 11.52 15.28 11.52C16.7 11.52 17.13 12.6 17.13 14.18V20.5H20.5Z" />,
+  github: <path d="M12 2C6.48 2 2 6.58 2 12.2C2 16.68 4.87 20.47 8.84 21.8C9.34 21.9 9.52 21.58 9.52 21.31C9.52 21.07 9.51 20.24 9.51 19.36C7 19.9 6.35 18.72 6.15 18.1C6.04 17.79 5.52 16.85 5.06 16.6C4.68 16.4 4.14 15.87 5.05 15.86C5.91 15.85 6.52 16.66 6.72 16.98C7.69 18.63 9.24 18.16 9.86 17.89C9.96 17.17 10.24 16.68 10.55 16.4C8.12 16.12 5.58 15.16 5.58 10.94C5.58 9.74 5.99 8.75 6.7 7.98C6.59 7.7 6.22 6.57 6.8 5.05C6.8 5.05 7.7 4.75 9.52 5.98C10.29 5.76 11.11 5.65 11.93 5.65C12.75 5.65 13.57 5.76 14.34 5.98C16.16 4.74 17.06 5.05 17.06 5.05C17.64 6.57 17.27 7.7 17.16 7.98C17.87 8.75 18.28 9.73 18.28 10.94C18.28 15.18 15.73 16.12 13.3 16.39C13.69 16.72 14.03 17.36 14.03 18.35C14.03 19.76 14.02 20.96 14.02 21.31C14.02 21.58 14.2 21.91 14.7 21.8C18.65 20.46 21.52 16.68 21.52 12.2C21.52 6.58 17.04 2 12 2Z" />,
+  whatsapp: <path d="M12 2C6.5 2 2 6.5 2 12C2 13.8 2.47 15.5 3.34 17L2 22L7.15 20.68C8.61 21.49 10.27 21.92 12 21.92H12.01C17.51 21.92 22 17.42 22 11.92C22 9.26 20.95 6.76 19.05 4.87C17.15 2.98 14.66 2 12 2ZM12 20.15C10.46 20.15 8.96 19.73 7.65 18.94L7.34 18.75L4.32 19.54L5.12 16.61L4.9 16.28C4.03 14.92 3.57 13.35 3.57 11.72C3.57 7.07 7.35 3.28 12 3.28C14.25 3.28 16.36 4.16 17.94 5.75C19.53 7.34 20.43 9.46 20.43 11.72C20.42 16.38 16.65 20.15 12 20.15ZM16.6 13.85C16.35 13.72 15.11 13.11 14.88 13.02C14.65 12.94 14.48 12.9 14.32 13.16C14.15 13.41 13.67 13.98 13.52 14.15C13.38 14.32 13.23 14.34 12.98 14.21C12.73 14.08 11.92 13.81 10.96 12.95C10.21 12.28 9.7 11.46 9.56 11.2C9.42 10.95 9.55 10.81 9.68 10.68C9.79 10.57 9.93 10.39 10.06 10.25C10.19 10.1 10.23 10 10.31 9.84C10.4 9.67 10.35 9.53 10.29 9.4C10.23 9.28 9.72 8.03 9.5 7.53C9.29 7.03 9.08 7.1 8.92 7.09C8.77 7.08 8.6 7.08 8.44 7.08C8.28 7.08 8.02 7.14 7.79 7.39C7.57 7.64 6.95 8.22 6.95 9.47C6.95 10.72 7.81 11.93 7.94 12.1C8.07 12.27 9.71 14.8 12.23 15.9C13.79 16.58 14.4 16.64 15.18 16.52C15.65 16.45 16.63 15.92 16.85 15.34C17.06 14.76 17.06 14.27 17 14.15C16.94 14.03 16.85 13.98 16.6 13.85Z" />,
 };
 
 const TRUST = ['Más de 5 años de experiencia', 'Empresa constituida en Ecuador', 'Alineados a la LOPDP'];
@@ -298,7 +318,7 @@ export default function Home() {
                 addressCountry: 'EC',
               },
               sameAs: Object.keys(SOCIAL_LABELS)
-                .filter((key) => CONTACT[key])
+                .filter((key) => key !== 'whatsapp' && CONTACT[key])
                 .map((key) => CONTACT[key]),
             }),
           }}
@@ -677,11 +697,23 @@ export default function Home() {
           </div>
           <div className="foot-col">
             <span className="foot-heading">SÍGUENOS</span>
-            {Object.keys(SOCIAL_LABELS)
-              .filter((key) => CONTACT[key])
-              .map((key) => (
-                <a key={key} href={CONTACT[key]} target="_blank" rel="noopener noreferrer">{SOCIAL_LABELS[key]}</a>
-              ))}
+            <div className="foot-social">
+              {Object.keys(SOCIAL_LABELS)
+                .filter((key) => CONTACT[key])
+                .map((key) => (
+                  <a
+                    key={key}
+                    className="social-link"
+                    href={CONTACT[key]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Ethos IA en ${SOCIAL_LABELS[key]}`}
+                    title={SOCIAL_LABELS[key]}
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{SOCIAL_ICONS[key]}</svg>
+                  </a>
+                ))}
+            </div>
             {CONTACT.email && <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>}
             {CONTACT.phone && <a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a>}
           </div>
@@ -981,6 +1013,15 @@ export default function Home() {
         .foot-col :global(a:hover) { color: #04ebff; }
         .foot-col span { color: #93aabb; }
         .foot-heading { font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #93aabb !important; margin-bottom: 2px; }
+        .foot-social { display: flex; flex-wrap: wrap; gap: 8px; max-width: 180px; }
+        .social-link {
+          box-sizing: border-box; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+          border-radius: 10px; border: 1px solid #123048; background: rgba(4, 28, 44, 0.55);
+          transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+        .social-link svg { width: 17px; height: 17px; }
+        .social-link:hover { border-color: #04ebff; transform: translateY(-2px); }
+        .social-link:focus-visible { outline: 2px solid #04ebff; outline-offset: 2px; }
         .foot-logo { display: flex; align-items: center; gap: 8px; }
         .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 26ch; }
         /* El padding inferior reserva el espacio del botón flotante de chat, que si no tapa el aviso legal. */
@@ -1022,6 +1063,7 @@ export default function Home() {
           .desafio, .servicios, .nosotros, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
           .proceso-grid, .valores-grid, .principios { grid-template-columns: 1fr; }
           .foot-cols { grid-template-columns: 1fr; gap: 28px; }
+          .foot-social { max-width: none; }
           .foot-top, .foot-bottom { flex-direction: column; align-items: flex-start; }
           :global(.section-title) { font-size: 1.4rem; }
           :global(.serv-card) { padding: 30px 24px; }
