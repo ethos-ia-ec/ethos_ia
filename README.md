@@ -8,7 +8,7 @@
 
 <br>
 
-**Sitio web corporativo de Ethos IA**, la marca de software e inteligencia artificial de **ETHOSLAB S.A.S.** — Cuenca, Ecuador.
+**Sitio web corporativo de Ethos IA**, la firma de inteligencia artificial ética y responsable de **ETHOSLAB S.A.S.** — Cuenca, Ecuador.
 
 <br>
 

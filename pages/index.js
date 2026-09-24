@@ -6,11 +6,16 @@ import ChatWidget from '../components/ChatWidget';
 
 const SITE_URL = 'https://www.ethosia.tech';
 
+const META_DESCRIPTION =
+  'Ethos IA acompaña a pequeñas y medianas empresas en la adopción de inteligencia artificial ética y segura: automatización de procesos, auditoría de IA y ciberseguridad para proteger sus datos.';
+const SHARE_DESCRIPTION =
+  'Inteligencia artificial ética y segura para empresas: automatización de procesos y auditoría de IA. Desde Ecuador para Latinoamérica y el mundo.';
+
 const AREAS = [
-  'Inteligencia artificial',
-  'Ciberseguridad y auditoría',
-  'Software a medida',
-  'Consultoría tecnológica',
+  'Adopción de IA y automatización',
+  'Auditoría de IA y ciberseguridad',
+  'Gobernanza y ética de IA',
+  'Capacitación empresarial',
   'Otro',
 ];
 
@@ -37,6 +42,139 @@ const SOCIAL_LABELS = {
   tiktok: 'TikTok',
   x: 'X (Twitter)',
 };
+
+const TRUST = ['Más de 5 años de experiencia', 'Empresa constituida en Ecuador', 'Alineados a la LOPDP'];
+
+const SERVICIOS = [
+  {
+    n: '01',
+    icon: 'zap',
+    title: 'Adopción de IA y automatización de procesos',
+    text: 'Identificamos qué procesos de tu empresa pueden automatizarse con inteligencia artificial e implementamos asistentes, agentes y flujos inteligentes integrados a tus sistemas actuales, con seguridad y privacidad desde el diseño.',
+    items: ['Diagnóstico de procesos automatizables', 'Asistentes y agentes de IA para tu operación', 'Integración segura con tus sistemas y datos'],
+  },
+  {
+    n: '02',
+    icon: 'shield',
+    featured: true,
+    title: 'Auditoría de IA y ciberseguridad',
+    text: 'Revisamos cómo se ha implementado la inteligencia artificial dentro de tus procesos y detectamos las brechas que un ciberdelincuente podría explotar para acceder a tus datos, manipular tus sistemas o afectar tu operación.',
+    items: ['Evaluación de riesgos y vulnerabilidades', 'Pruebas de fuga de datos y manipulación de modelos', 'Informe ejecutivo con plan de remediación'],
+  },
+  {
+    n: '03',
+    icon: 'scale',
+    title: 'Gobernanza y ética de IA',
+    text: 'Establecemos políticas de uso responsable, criterios de transparencia y supervisión humana, y alineamos el tratamiento de datos con la Ley Orgánica de Protección de Datos Personales (LOPDP) del Ecuador.',
+    items: ['Políticas de uso responsable de IA', 'Protección de datos y cumplimiento de la LOPDP', 'Capacitación para equipos directivos y operativos'],
+  },
+];
+
+const PRINCIPIOS = ['Seguridad desde el diseño', 'Transparencia y explicabilidad', 'Privacidad de los datos', 'Supervisión humana'];
+
+const HITOS = [
+  {
+    label: 'TRAYECTORIA',
+    title: 'Más de cinco años de experiencia',
+    text: 'Desarrollando soluciones tecnológicas para empresas y organizaciones, con la misma disciplina técnica que hoy aplicamos a la inteligencia artificial.',
+  },
+  {
+    label: 'SOLIDEZ INSTITUCIONAL',
+    title: 'ETHOSLAB S.A.S.',
+    text: 'Sociedad constituida ante la Superintendencia de Compañías, Valores y Seguros, y registrada en el Servicio de Rentas Internas (SRI) del Ecuador.',
+  },
+  {
+    label: 'EQUIPO',
+    title: 'Talento multidisciplinario',
+    text: 'Profesionales de ingeniería, economía y diseño unidos por una meta común: llevar la inteligencia artificial responsable de Ecuador a Latinoamérica y al mundo.',
+  },
+];
+
+const VALORES = [
+  { icon: 'compass', name: 'Ética', text: 'Cada decisión tecnológica considera su impacto en las personas y en sus datos.' },
+  { icon: 'lock', name: 'Seguridad', text: 'La protección de la información es un requisito de diseño, nunca un añadido.' },
+  { icon: 'eye', name: 'Transparencia', text: 'Explicamos qué hacemos, cómo funciona y qué riesgos existen.' },
+  { icon: 'award', name: 'Excelencia', text: 'Estándares técnicos de nivel internacional en cada proyecto, sin importar su tamaño.' },
+];
+
+const PROCESO = [
+  ['01', 'Diagnóstico', 'Mapeamos tus procesos, los datos que manejan y cómo se utiliza hoy la inteligencia artificial en tu empresa, para identificar oportunidades de automatización y riesgos reales antes de invertir.'],
+  ['02', 'Diseño seguro', 'Definimos la solución con seguridad y privacidad desde el diseño: qué automatizar, qué datos intervienen, quién accede a ellos y qué controles se aplican.'],
+  ['03', 'Implementación', 'Desplegamos de forma iterativa, con entregas visibles desde las primeras semanas, integración con tus sistemas y capacitación para que tu equipo adopte la solución con confianza.'],
+  ['04', 'Auditoría continua', 'Verificamos que todo funcione como fue diseñado: pruebas de seguridad, monitoreo y reportes periódicos para detectar y cerrar nuevas brechas a tiempo.'],
+];
+
+const ICON_PATHS = {
+  zap: <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12L13 2Z" />,
+  shield: (
+    <>
+      <path d="M12 3 5 5.8v5.6c0 4.4 2.9 8.2 7 9.6 4.1-1.4 7-5.2 7-9.6V5.8L12 3Z" />
+      <path d="m9 12 2.2 2.2L15.5 10" />
+    </>
+  ),
+  scale: (
+    <>
+      <path d="M12 4v16M8 20h8M5 8h14" />
+      <path d="M5 8 2.5 13.5a2.8 2.8 0 0 0 5 0L5 8ZM19 8l-2.5 5.5a2.8 2.8 0 0 0 5 0L19 8Z" />
+    </>
+  ),
+  target: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="5" />
+      <circle cx="12" cy="12" r="1.2" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z" />
+    </>
+  ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2 5-5 2 2-5 5-2Z" />
+    </>
+  ),
+  lock: (
+    <>
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7.5a4 4 0 0 1 8 0V11" />
+    </>
+  ),
+  eye: (
+    <>
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  award: (
+    <>
+      <circle cx="12" cy="9" r="6" />
+      <path d="M8.6 13.8 7.5 21l4.5-2.6 4.5 2.6-1.1-7.2" />
+    </>
+  ),
+  check: <path d="m5 12.5 4.2 4.2L19 7" />,
+};
+
+function Icon({ name, size = 24, color = 'currentColor', strokeWidth = 1.7 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {ICON_PATHS[name]}
+    </svg>
+  );
+}
 
 function useReveal() {
   const ref = useRef(null);
@@ -65,24 +203,6 @@ function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
     <Tag ref={ref} className={`reveal ${visible ? 'in' : ''} ${className}`} {...rest}>
       {children}
     </Tag>
-  );
-}
-
-function Mark({ size = 22, light = false }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        fill={light ? '#04ebff' : '#05111e'}
-        opacity={light ? 1 : 0.08}
-      />
-      <path
-        d="M12 2.5l8 3.2v6.1c0 5.1-3.4 8.6-8 9.7-4.6-1.1-8-4.6-8-9.7V5.7l8-3.2Z"
-        stroke={light ? '#04141e' : '#04ebff'}
-        strokeWidth="1.3"
-      />
-      <path d="M8.3 12.1l2.6 2.6 4.8-4.9" stroke={light ? '#04141e' : '#04ebff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
 
@@ -124,35 +244,26 @@ export default function Home() {
   return (
     <div className="page">
       <Head>
-        <title>Ethos IA — Inteligencia Artificial, Ciberseguridad y Software</title>
-        <meta
-          name="description"
-          content="Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza."
-        />
+        <title>Ethos IA — Inteligencia Artificial Ética, Automatización y Auditoría de IA</title>
+        <meta name="description" content={META_DESCRIPTION} />
         <meta name="robots" content="index, follow" />
         <meta name="theme-color" content="#05111e" />
         <meta
           name="keywords"
-          content="Ethos IA, software a medida Ecuador, inteligencia artificial responsable, auditoría IA, consultoría tecnológica, automatización empresarial, desarrollo web Cuenca"
+          content="Ethos IA, inteligencia artificial ética, IA responsable, auditoría de inteligencia artificial, automatización de procesos con IA, ciberseguridad para pymes, gobernanza de IA, LOPDP Ecuador, Cuenca"
         />
         <link rel="canonical" href={SITE_URL} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Ethos IA" />
-        <meta property="og:title" content="Ethos IA — Inteligencia Artificial, Ciberseguridad y Software" />
-        <meta
-          property="og:description"
-          content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
-        />
+        <meta property="og:title" content="Ethos IA — Inteligencia Artificial Ética y Segura para Empresas" />
+        <meta property="og:description" content={SHARE_DESCRIPTION} />
         <meta property="og:url" content={SITE_URL} />
-        <meta property="og:image" content={`${SITE_URL}/empresa/hero-cyborg-cube-v1.jpg`} />
+        <meta property="og:image" content={`${SITE_URL}/empresa/ethos-og-card.png`} />
         <meta property="og:locale" content="es_EC" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Ethos IA — Inteligencia Artificial, Ciberseguridad y Software" />
-        <meta
-          name="twitter:description"
-          content="Software a medida e inteligencia artificial responsable, construida en Ecuador para competir en cualquier parte del mundo."
-        />
-        <meta name="twitter:image" content={`${SITE_URL}/empresa/hero-cyborg-cube-v1.jpg`} />
+        <meta name="twitter:title" content="Ethos IA — Inteligencia Artificial Ética y Segura para Empresas" />
+        <meta name="twitter:description" content={SHARE_DESCRIPTION} />
+        <meta name="twitter:image" content={`${SITE_URL}/empresa/ethos-og-card.png`} />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
@@ -178,8 +289,7 @@ export default function Home() {
               alternateName: 'Ethos IA',
               url: SITE_URL,
               logo: `${SITE_URL}/empresa/ethos-ia-logo-v2.png`,
-              description:
-                'Ethos IA integra inteligencia artificial, ciberseguridad y software a medida para ayudar a las empresas a crecer con seguridad, control y confianza.',
+              description: META_DESCRIPTION,
               address: {
                 '@type': 'PostalAddress',
                 streetAddress: 'Av. Antonio Muñoz Borrero y calle Señor de Belén',
@@ -203,13 +313,13 @@ export default function Home() {
           <span className="brand-name">Ethos IA</span>
         </a>
         <div className="nav-pill">
-          <a className="nav-pill-link" href="#lineas">Software</a>
-          <a className="nav-pill-link" href="#ethos">Ética &amp; IA</a>
-          <a className="nav-pill-link" href="#historia">Nosotros</a>
+          <a className="nav-pill-link" href="#servicios">Servicios</a>
+          <a className="nav-pill-link" href="#enfoque">Enfoque ético</a>
+          <a className="nav-pill-link" href="#nosotros">Nosotros</a>
           <Link className="nav-pill-link" href="/equipo">Equipo</Link>
         </div>
         <div className="nav-right">
-          <a className="nav-cta" href="#contacto">Solicitar cotización</a>
+          <a className="nav-cta" href="#contacto">Agendar diagnóstico</a>
           <button
             type="button"
             className={`nav-burger ${menuOpen ? 'open' : ''}`}
@@ -225,11 +335,12 @@ export default function Home() {
       </nav>
 
       <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>
-        <a href="#lineas" onClick={() => setMenuOpen(false)}>Software</a>
-        <a href="#ethos" onClick={() => setMenuOpen(false)}>Ética &amp; IA</a>
-        <a href="#historia" onClick={() => setMenuOpen(false)}>Nosotros</a>
+        <a href="#servicios" onClick={() => setMenuOpen(false)}>Servicios</a>
+        <a href="#enfoque" onClick={() => setMenuOpen(false)}>Enfoque ético</a>
+        <a href="#nosotros" onClick={() => setMenuOpen(false)}>Nosotros</a>
+        <a href="#mision" onClick={() => setMenuOpen(false)}>Misión y visión</a>
         <Link href="/equipo" onClick={() => setMenuOpen(false)}>Equipo</Link>
-        <a className="nav-mobile-cta" href="#contacto" onClick={() => setMenuOpen(false)}>Solicitar cotización</a>
+        <a className="nav-mobile-cta" href="#contacto" onClick={() => setMenuOpen(false)}>Agendar diagnóstico</a>
       </div>
 
       <header className="hero" id="top">
@@ -245,205 +356,208 @@ export default function Home() {
         <div className="hero-scrim" />
         <div className="hero-inner">
           <div className="hero-content">
-            <span className="eyebrow">INTELIGENCIA ARTIFICIAL · CIBERSEGURIDAD · SOFTWARE</span>
-            <h1>Integra inteligencia artificial con seguridad, control y visión de negocio.</h1>
+            <span className="eyebrow">IA ÉTICA · AUTOMATIZACIÓN SEGURA · AUDITORÍA DE IA</span>
+            <h1>Inteligencia artificial ética y segura para que tu empresa crezca con confianza.</h1>
             <p className="hero-sub">
-              Ethos IA ayuda a las empresas a adoptar inteligencia artificial de forma segura,
-              responsable y controlada. Combinamos software a medida, ciberseguridad y auditoría
-              tecnológica para proteger tus datos, procesos, infraestructura y reputación.
+              Acompañamos a pequeñas y medianas empresas en la adopción de inteligencia artificial:
+              automatizamos sus procesos con seguridad desde el diseño y auditamos cada implementación
+              para cerrar las brechas que los ciberdelincuentes podrían explotar.
             </p>
             <div className="hero-actions">
-              <a className="hero-btn primary" href="#contacto">Hablar con un especialista</a>
-              <a className="hero-btn ghost" href="#ethos">Conocer nuestro enfoque</a>
+              <a className="hero-btn primary" href="#contacto">Agendar un diagnóstico</a>
+              <a className="hero-btn ghost" href="#servicios">Conocer los servicios</a>
             </div>
+            <ul className="hero-trust">
+              {TRUST.map((t) => (
+                <li key={t}>
+                  <Icon name="check" size={16} color="#04ebff" strokeWidth={2.2} />
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </header>
 
-      <section className="xyz">
-        <Reveal as="span" className="section-label">NUESTRO ENFOQUE CORPORATIVO</Reveal>
-        <Reveal as="h2" className="xyz-title">Tecnología estratégica para empresas que no pueden improvisar</Reveal>
-        <div className="xyz-grid">
-          <Reveal className="xyz-item">
-            <span className="xyz-tag">EL PROBLEMA</span>
+      <section className="desafio">
+        <Reveal as="span" className="section-label">EL DESAFÍO</Reveal>
+        <Reveal as="h2" className="section-title">
+          La inteligencia artificial ya está en tu empresa. La pregunta es si está segura.
+        </Reveal>
+        <div className="desafio-grid">
+          <Reveal className="desafio-item">
+            <span className="desafio-tag">EL RIESGO</span>
             <p>
-              Muchas organizaciones ya incorporan inteligencia artificial en sus procesos, pero sin
-              una estrategia clara de seguridad, gobernanza ni control. Esa falta de preparación
-              puede abrir brechas de ciberseguridad, provocar errores operativos y exponer datos sensibles.
+              Cada vez más empresas incorporan chatbots, asistentes y automatizaciones con IA sin una
+              evaluación de seguridad. Una integración mal configurada puede exponer datos de clientes,
+              credenciales o información financiera a ciberdelincuentes.
             </p>
           </Reveal>
-          <Reveal className="xyz-item" style={{ transitionDelay: '90ms' }}>
-            <span className="xyz-tag">LA SOLUCIÓN</span>
+          <Reveal className="desafio-item" style={{ transitionDelay: '90ms' }}>
+            <span className="desafio-tag">NUESTRA RESPUESTA</span>
             <p>
-              Analizamos cómo funciona la IA dentro de tu operación, evaluamos riesgos, detectamos
-              amenazas y diseñamos mecanismos de control. Así la tecnología se integra de forma
-              segura, transparente y alineada con los objetivos de tu organización.
+              Diagnosticamos cómo se usa la IA en cada proceso, identificamos vulnerabilidades y
+              diseñamos controles técnicos y de gobernanza, para que la tecnología trabaje a favor de
+              tu empresa y no en su contra.
             </p>
           </Reveal>
-          <Reveal className="xyz-item" style={{ transitionDelay: '160ms' }}>
-            <span className="xyz-tag">EL IMPACTO</span>
+          <Reveal className="desafio-item" style={{ transitionDelay: '160ms' }}>
+            <span className="desafio-tag">EL RESULTADO</span>
             <p>
-              Eficiencia, continuidad operativa y confianza verificable. Protegemos la información,
-              fortalecemos la infraestructura y convertimos la IA en un aliado estratégico, no en
-              una fuente de vulnerabilidad o riesgo operativo.
+              Procesos más eficientes, datos protegidos y la tranquilidad de una implementación que
+              puedes auditar y explicar a tus clientes, socios y entes de control.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="grid grid-2" id="lineas" aria-label="Capacidades corporativas">
-        <Reveal as="article" className="card card-teal">
-          <div className="card-bg">
-            <Image src="/empresa/software-bg.webp" alt="" fill sizes="(max-width: 900px) 150vw, 50vw" className="card-bg-img" />
-            <div className="card-scrim card-scrim-teal" />
-          </div>
-          <div className="card-content">
-            <span className="card-tag">SOFTWARE A MEDIDA Y AUTOMATIZACIÓN</span>
-            <div className="card-icon-wrap">
-              <span className="card-icon card-icon-ink">
-                <svg width={30} height={30} viewBox="0 0 24 24" fill="none" stroke="#04ebff" strokeWidth="1.8" aria-hidden="true">
-                  <path d="M8 6 2 12l6 6M16 6l6 6-6 6M13.5 4 10.5 20" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </div>
-            <h2>Software que se adapta a tu negocio y convierte procesos en activos digitales</h2>
-            <p className="card-detail">
-              Diseñamos, programamos e implementamos soluciones que se acoplan a tus procesos reales.
-              Automatizamos tareas, conectamos sistemas y construimos arquitecturas escalables con
-              transferencia total de propiedad del código: tu inversión se convierte en un activo
-              tecnológico, no en una dependencia eterna.
-            </p>
-          </div>
+      <section className="servicios" id="servicios">
+        <Reveal as="span" className="section-label">SERVICIOS</Reveal>
+        <Reveal as="h2" className="section-title">
+          Tres líneas de servicio para adoptar inteligencia artificial sin poner en riesgo tu operación
         </Reveal>
-
-        <Reveal as="article" className="card card-dark" style={{ transitionDelay: '80ms' }}>
-          <div className="card-bg">
-            <Image src="/empresa/auditoria-bg.webp" alt="" fill sizes="(max-width: 900px) 150vw, 50vw" className="card-bg-img" />
-            <div className="card-scrim card-scrim-dark" />
-          </div>
-          <div className="card-content">
-            <span className="card-tag card-tag-light">CIBERSEGURIDAD, AUDITORÍA Y GOBERNANZA DE IA</span>
-            <div className="card-icon-wrap">
-              <span className="card-icon"><Mark size={34} light /></span>
-            </div>
-            <h2 className="light">Protección y control para adoptar IA sin exponer tu operación</h2>
-            <p className="card-detail light">
-              Evaluamos modelos, procesos e infraestructura antes y durante la puesta en producción.
-              Identificamos sesgos, brechas, amenazas y riesgos de cumplimiento para proteger tus
-              datos y tu reputación, con alineación técnica a la Ley Orgánica de Protección de
-              Datos Personales (LOPDP) de Ecuador.
-            </p>
-          </div>
-        </Reveal>
+        <div className="serv-grid">
+          {SERVICIOS.map((s, i) => (
+            <Reveal
+              as="article"
+              key={s.n}
+              className={`serv-card ${s.featured ? 'featured' : ''}`}
+              style={{ transitionDelay: `${i * 80}ms` }}
+            >
+              <div className="serv-head">
+                <span className="serv-icon">
+                  <Icon name={s.icon} size={26} color={s.featured ? '#04141e' : '#04ebff'} />
+                </span>
+                <span className="serv-num">{s.n}</span>
+              </div>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <ul className="serv-list">
+                {s.items.map((it) => (
+                  <li key={it}>
+                    <Icon name="check" size={16} color={s.featured ? '#04ebff' : '#0b5f75'} strokeWidth={2.2} />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
-      <section className="ethos-deep" id="ethos">
-        <div className="ethos-visual">
+      <section className="enfoque" id="enfoque">
+        <div className="enfoque-visual">
           <Image
-            src="/empresa/ethos-cube-wordmark.jpg"
-            alt="Símbolo del cubo Ethos IA junto a un androide, representando la investigación en inteligencia artificial responsable"
+            src="/empresa/ethos-brand-visual.png"
+            alt="Logotipo de Ethos IA: cubo con las letras E, I y A junto al nombre de la marca"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            className="ethos-img"
+            className="enfoque-img"
           />
         </div>
-        <Reveal className="ethos-copy">
-          <span className="eyebrow accent">LA PROPUESTA DE ETHOS IA</span>
-          <h2>La inteligencia artificial necesita estrategia, seguridad y responsabilidad</h2>
+        <Reveal className="enfoque-copy">
+          <span className="eyebrow">POR QUÉ ETHOS</span>
+          <h2>Ethos significa carácter. Es el principio que guía cada implementación.</h2>
           <p>
-            Ethos IA es una firma especializada en ética, gobernanza y seguridad aplicada a la
-            inteligencia artificial. Acompañamos a organizaciones que ya incorporan IA, pero
-            necesitan evaluar, controlar y mitigar los riesgos asociados a su adopción.
+            En griego, <em>ethos</em> designa el carácter y los valores que definen a quien actúa. Nuestra
+            firma nace de esa convicción: la inteligencia artificial solo genera valor sostenible cuando es
+            segura, transparente y responsable con las personas cuyos datos procesa.
           </p>
-          <p className="ethos-vision">
-            Combinamos inteligencia artificial, ciberseguridad y desarrollo de software para que la
-            tecnología se convierta en una herramienta de crecimiento, eficiencia y confianza,
-            nunca en una fuente de exposición, vulnerabilidad o riesgo operativo.
-          </p>
+          <ul className="principios">
+            {PRINCIPIOS.map((p) => (
+              <li key={p}>
+                <Icon name="check" size={16} color="#04ebff" strokeWidth={2.2} />
+                {p}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </section>
 
-      <section className="historia" id="historia">
-        <div className="historia-bg">
-          <Image src="/empresa/historia-bg.webp" alt="" fill sizes="(max-width: 900px) 200vw, 100vw" className="historia-bg-img" />
-          <div className="historia-scrim" />
-        </div>
-        <Reveal as="span" className="section-label light">NUESTRA HISTORIA</Reveal>
-        <Reveal as="h2" className="historia-title light">De una oficina en casa, en Cuenca, a construir la inteligencia artificial que representará a Ecuador en Latinoamérica</Reveal>
-        <div className="historia-grid">
-          <Reveal className="historia-item">
-            <div className="proceso-num">5</div>
-            <h3>El comienzo</h3>
-            <p>
-              Como las firmas de tecnología que hoy admira el mundo, todo empezó en un espacio
-              pequeño: una oficina en casa, en Cuenca. Sin gran infraestructura ni departamento de
-              marketing — solo la convicción de construir software capaz de competir con cualquier
-              consultora internacional.
+      <section className="nosotros" id="nosotros">
+        <div className="nos-inner">
+          <Reveal className="nos-copy">
+            <span className="nos-label">NOSOTROS</span>
+            <h2>Experiencia comprobada, consolidada en una firma con visión internacional</h2>
+            <p className="nos-intro">
+              Ethos IA nació en Cuenca como un proyecto de ingeniería con una convicción: la tecnología debe
+              generar confianza. Hoy esa convicción es una empresa formalmente constituida que acompaña a
+              organizaciones en su transformación con inteligencia artificial.
             </p>
+            <div className="nos-items">
+              {HITOS.map((h) => (
+                <div className="nos-item" key={h.label}>
+                  <span className="nos-item-label">{h.label}</span>
+                  <h3>{h.title}</h3>
+                  <p>{h.text}</p>
+                </div>
+              ))}
+            </div>
+            <Link className="nos-btn" href="/equipo">Conocer al equipo directivo →</Link>
           </Reveal>
-          <Reveal className="historia-item" style={{ transitionDelay: '90ms' }}>
-            <div className="proceso-num">↑</div>
-            <h3>La prueba</h3>
-            <p>
-              Cinco años entregando software de nivel corporativo de forma ininterrumpida — medido
-              en cada arquitectura, cada auditoría y cada proyecto completado — sosteniendo ese
-              ritmo de entrega incluso sin el respaldo de una estructura legal formal.
-            </p>
-          </Reveal>
-          <Reveal className="historia-item" style={{ transitionDelay: '160ms' }}>
-            <div className="proceso-num">✓</div>
-            <h3>Lo que viene</h3>
-            <p>
-              Esa misma experiencia opera hoy bajo ETHOSLAB S.A.S., con la ambición de
-              convertirse en una empresa pionera de inteligencia artificial en Ecuador — y un
-              referente a nivel de Latinoamérica.
-            </p>
+          <Reveal className="nos-visual" style={{ transitionDelay: '120ms' }}>
+            <div className="nos-frame">
+              <Image
+                src="/empresa/ethos-senaletica-oficina.jpg"
+                alt="Señalética de Ethos IA en un corredor de oficinas, con el cubo y el nombre de la marca iluminados sobre un panel de vidrio"
+                fill
+                sizes="(max-width: 900px) 100vw, 44vw"
+                className="nos-img"
+              />
+            </div>
           </Reveal>
         </div>
-        <Reveal className="historia-cta-bottom" style={{ transitionDelay: '220ms' }}>
-          <Link className="historia-btn" href="/equipo">Conocer al equipo directivo →</Link>
-        </Reveal>
       </section>
 
       <section className="mv" id="mision">
-        <Reveal>
-          <span className="mv-label teal">MISIÓN</span>
-          <p>
-            Que ninguna empresa ecuatoriana vuelva a perder dinero por software que no se ajusta a
-            su operación, ni asuma el riesgo de una inteligencia artificial o una infraestructura
-            que nadie evalúa.
-          </p>
-        </Reveal>
-        <Reveal style={{ transitionDelay: '90ms' }}>
-          <span className="mv-label gold">VISIÓN</span>
-          <p>
-            Que &quot;hecho en Ecuador&quot; deje de ser una disculpa y se convierta en una garantía:
-            ser la firma que una empresa elige para construir software, proteger su operación y
-            adoptar inteligencia artificial con confianza.
-          </p>
-        </Reveal>
-        <Reveal style={{ transitionDelay: '160ms' }}>
-          <span className="mv-label ink">COMPROMISO</span>
-          <p>
-            Escribimos código para que dure, no para desecharse. Cada arquitectura que diseñamos
-            busca reducir el desperdicio computacional de nuestros clientes — menos servidores,
-            procesos más cortos, infraestructura que no se reemplaza cada año. Para nosotros, la
-            responsabilidad ambiental de una empresa de software empieza por la eficiencia de lo que
-            construye.
-          </p>
+        <div className="mv-glow" aria-hidden="true" />
+        <Reveal as="span" className="section-label light">IDENTIDAD CORPORATIVA</Reveal>
+        <Reveal as="h2" className="section-title light">Lo que nos impulsa y hacia dónde vamos</Reveal>
+        <div className="mv-grid">
+          <Reveal as="article" className="mv-card">
+            <span className="mv-icon">
+              <Icon name="target" size={26} color="#04ebff" />
+            </span>
+            <span className="mv-label">MISIÓN</span>
+            <p>
+              Impulsar la adopción de inteligencia artificial ética, segura y responsable en las pequeñas y
+              medianas empresas, automatizando sus procesos y auditando cada implementación para proteger
+              sus datos y convertir la tecnología en una ventaja competitiva verificable.
+            </p>
+          </Reveal>
+          <Reveal as="article" className="mv-card" style={{ transitionDelay: '90ms' }}>
+            <span className="mv-icon">
+              <Icon name="globe" size={26} color="#04ebff" />
+            </span>
+            <span className="mv-label">VISIÓN</span>
+            <p>
+              Ser reconocidos en Latinoamérica y a nivel internacional como la firma de referencia en
+              inteligencia artificial responsable y auditoría de IA, demostrando que la innovación
+              tecnológica y la seguridad de la información pueden y deben avanzar juntas.
+            </p>
+          </Reveal>
+        </div>
+        <Reveal className="valores" style={{ transitionDelay: '140ms' }}>
+          <span className="valores-label">NUESTROS VALORES</span>
+          <div className="valores-grid">
+            {VALORES.map((v) => (
+              <div className="valor" key={v.name}>
+                <span className="valor-icon">
+                  <Icon name={v.icon} size={22} color="#04ebff" />
+                </span>
+                <h3>{v.name}</h3>
+                <p>{v.text}</p>
+              </div>
+            ))}
+          </div>
         </Reveal>
       </section>
 
       <section className="proceso">
         <Reveal as="span" className="section-label">CÓMO TRABAJAMOS</Reveal>
-        <Reveal as="h2" className="proceso-title">Cada fase protege tu inversión, no solo entrega código</Reveal>
+        <Reveal as="h2" className="section-title">Una metodología clara, de principio a fin</Reveal>
         <div className="proceso-grid">
-          {[
-            ['01', 'Diagnóstico', 'Antes de escribir una sola línea de código, mapeamos tu operación real: dónde se pierde tiempo, qué proceso se rompe, qué decisión depende de datos que hoy nadie audita. Diagnosticar mal el problema es la forma más cara de construir la solución equivocada — ese costo lo evitamos desde el día uno.'],
-            ['02', 'Diseño', 'Cada sistema se diseña desde cero para tu flujo de trabajo — no adaptamos una plantilla genérica a tu negocio. Una arquitectura mal pensada se paga después en horas de soporte y reescrituras; una bien pensada se paga sola en el tiempo y el dinero que no vas a perder.'],
-            ['03', 'Desarrollo', 'Construcción iterativa con entregas visibles desde la primera semana — nunca una caja negra que aparece meses después. Cada entrega es una oportunidad de corregir el rumbo antes de que un error de alcance te cueste semanas de presupuesto.'],
-            ['04', 'Acompañamiento', 'El trabajo no termina en el lanzamiento. Un sistema sin mantenimiento se convierte en un pasivo técnico que cuesta más reparar que construir de nuevo — lo sostenemos con la misma disciplina que garantizó cinco años de operación real, para que nunca llegues a ese punto.'],
-          ].map(([n, t, d], i) => (
+          {PROCESO.map(([n, t, d], i) => (
             <Reveal key={n} className="proceso-item" style={{ transitionDelay: `${i * 70}ms` }}>
               <div className="proceso-num">{n}</div>
               <h3>{t}</h3>
@@ -455,8 +569,8 @@ export default function Home() {
 
       <section className="contacto" id="contacto">
         <Reveal className="contacto-inner">
-          <span className="eyebrow accent">HABLEMOS</span>
-          <h2>¿Tienes un proyecto en mente?</h2>
+          <span className="eyebrow">HABLEMOS</span>
+          <h2>¿Tu empresa ya usa inteligencia artificial?</h2>
 
           {status === 'ok' ? (
             <div className="form-ok">
@@ -465,7 +579,10 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <p className="contacto-sub">Un miembro real del equipo te responde en 48 horas.</p>
+              <p className="contacto-sub">
+                Conversemos sobre cómo automatizar tus procesos o auditar tu implementación actual.
+                Un especialista del equipo te responde en 48 horas.
+              </p>
               <form className="quote-form" onSubmit={handleSubmit}>
                 <div className="qf-row">
                   <label>
@@ -474,7 +591,7 @@ export default function Home() {
                   </label>
                   <label>
                     <span>Correo</span>
-                    <input required type="email" value={form.correo} onChange={(e) => setForm({ ...form, correo: e.target.value })} placeholder="tu@correo.com" />
+                    <input required type="email" value={form.correo} onChange={(e) => setForm({ ...form, correo: e.target.value })} placeholder="tu@empresa.com" />
                   </label>
                 </div>
                 <label>
@@ -485,7 +602,7 @@ export default function Home() {
                 </label>
                 <label>
                   <span>Cuéntanos brevemente qué necesitas</span>
-                  <textarea rows={4} value={form.mensaje} onChange={(e) => setForm({ ...form, mensaje: e.target.value })} placeholder="..." />
+                  <textarea rows={4} value={form.mensaje} onChange={(e) => setForm({ ...form, mensaje: e.target.value })} placeholder="Por ejemplo: usamos un chatbot con clientes y queremos saber si es seguro." />
                 </label>
                 <label className="consent-row">
                   <input type="checkbox" checked={form.consentimiento} onChange={(e) => setForm({ ...form, consentimiento: e.target.checked })} />
@@ -503,15 +620,14 @@ export default function Home() {
 
       <section className="brand-banner">
         <Image
-          src="/empresa/ethos-ia-brand-banner.png"
-          alt="Cubo de Ethos IA sobre fondo de red neuronal, con el lema: tecnología ecuatoriana construida para competir al más alto nivel"
+          src="/empresa/ethos-brand-banner-v2.png"
+          alt="Logotipo de Ethos IA sobre fondo azul profundo"
           fill
           sizes="100vw"
           className="brand-banner-img"
         />
-        {/* Mismo patrón que .historia-scrim / .hero-scrim: una capa de
-            degradado del mismo color que la sección vecina para que la
-            imagen se funda con el negro de arriba (contacto) y abajo
+        {/* Capa de degradado del mismo color que las secciones vecinas para que
+            la imagen se funda con el negro de arriba (contacto) y abajo
             (footer) en vez de cortar en seco. */}
         <div className="brand-banner-fade brand-banner-fade-top" />
         <div className="brand-banner-fade brand-banner-fade-bottom" />
@@ -519,13 +635,13 @@ export default function Home() {
 
       <footer className="foot">
         <div className="foot-top">
-          <div className="foot-headline">Inteligencia artificial segura, software sólido y tecnología que puedes auditar.</div>
+          <div className="foot-headline">Inteligencia artificial ética, segura y auditable.</div>
           <div className="foot-badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="#93aabb" strokeWidth="1.6">
               <circle cx="12" cy="12" r="9" />
               <path d="M8 12l2.5 2.5L16 9" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span>Sociedad por Acciones Simplificada — inscrita en Ecuador</span>
+            <span>Sociedad por Acciones Simplificada — constituida en Ecuador</span>
           </div>
         </div>
 
@@ -537,27 +653,27 @@ export default function Home() {
               </span>
               <span className="brand-name">Ethos IA</span>
             </div>
-            <span className="foot-desc">Software a medida e inteligencia artificial responsable, desde Cuenca para Ecuador.</span>
+            <span className="foot-desc">Inteligencia artificial ética y responsable para las empresas de Ecuador y Latinoamérica.</span>
           </div>
           <div className="foot-col">
-            <span className="foot-heading">SOFTWARE</span>
-            <a href="#lineas">Desarrollo a medida</a>
-            <a href="#lineas">Consultoría técnica</a>
-            <a href="#contacto">Integraciones</a>
-            <a href="#contacto">Soporte y mantenimiento</a>
+            <span className="foot-heading">SERVICIOS</span>
+            <a href="#servicios">Adopción de IA</a>
+            <a href="#servicios">Automatización de procesos</a>
+            <a href="#servicios">Auditoría de IA</a>
+            <a href="#servicios">Ciberseguridad</a>
           </div>
           <div className="foot-col">
-            <span className="foot-heading">ÉTICA &amp; IA</span>
-            <a href="#ethos">Auditoría de sesgos</a>
-            <a href="#ethos">Investigación aplicada</a>
-            <a href="#contacto">Asesoría en IA responsable</a>
+            <span className="foot-heading">ÉTICA Y GOBERNANZA</span>
+            <a href="#enfoque">Enfoque ético</a>
+            <a href="#servicios">Protección de datos</a>
+            <a href="#contacto">Capacitación</a>
           </div>
           <div className="foot-col">
             <span className="foot-heading">EMPRESA</span>
+            <a href="#nosotros">Nosotros</a>
             <a href="#mision">Misión y visión</a>
             <Link href="/equipo">Equipo</Link>
             <a href="#contacto">Contacto</a>
-            <span>ETHOSLAB S.A.S.</span>
           </div>
           <div className="foot-col">
             <span className="foot-heading">SÍGUENOS</span>
@@ -593,21 +709,23 @@ export default function Home() {
         .page {
           font-family: var(--font-brand), -apple-system, sans-serif;
           color: #05111e;
-          background: linear-gradient(180deg, #edf4fa 0%, #e6eef7 100%);
+          background: #f3f7fb;
           min-height: 100vh;
           overflow-x: hidden;
         }
         a { color: #0b5f75; text-decoration: none; }
         a:hover { color: #3ddcf5; }
+        :global(section[id]), :global(header[id]) { scroll-margin-top: 76px; }
 
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
 
+        /* ── Navegación ─────────────────────────────────────────────── */
         .nav {
           display: flex; align-items: center; justify-content: space-between;
-          padding: 16px 32px;
+          padding: 14px 32px;
           position: sticky; top: 0; z-index: 20;
-          background: rgba(5, 17, 30, 0.65);
+          background: rgba(5, 17, 30, 0.72);
           backdrop-filter: blur(14px);
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -632,7 +750,6 @@ export default function Home() {
         }
         .nav-pill :global(.nav-pill-link:hover) { background: rgba(4,235,255,0.12); color: #04ebff; }
         .nav-right { display: flex; align-items: center; gap: 16px; }
-        .nav-login { font-size: 13px; color: #c4d3e0; }
         .nav-cta {
           padding: 12px 24px; background: linear-gradient(135deg, #dcfaff 0%, #8eecff 100%);
           color: #05111e; border-radius: 999px; font-weight: 700; font-size: 13px;
@@ -644,19 +761,30 @@ export default function Home() {
           transform: translateY(-1px);
           box-shadow: 0 18px 32px rgba(4, 235, 255, 0.24);
         }
-
         .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; background: transparent; cursor: pointer; padding: 0; }
         .nav-burger span { display: block; width: 18px; height: 2px; background: #eaf2f8; margin: 0 auto; transition: transform 0.25s, opacity 0.25s; }
         .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
         .nav-burger.open span:nth-child(2) { opacity: 0; }
         .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
         .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(5,17,30,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
-        .nav-mobile.open { max-height: 400px; }
+        .nav-mobile.open { max-height: 460px; }
         .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eaf2f8; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); }
         .nav-mobile :global(a:hover) { color: #04ebff; }
         .nav-mobile-cta { color: #04ebff !important; font-weight: 700; }
 
+        /* ── Utilidades de sección ──────────────────────────────────── */
+        .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; font-weight: 600; color: #04ebff; }
+        :global(.section-label) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #0b5f75; margin-bottom: 16px; }
+        :global(.section-label.light) { color: #04ebff; }
+        :global(.section-title) {
+          position: relative; z-index: 1; display: block; text-align: center;
+          font-family: var(--font-brand), sans-serif; font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+          line-height: 1.25; font-weight: 600; letter-spacing: -0.015em;
+          max-width: 30ch; margin: 0 auto 56px; color: #05111e; text-wrap: balance;
+        }
+        :global(.section-title.light) { color: #eaf2f8; }
+
+        /* ── Hero ───────────────────────────────────────────────────── */
         .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: #05111e; }
         :global(.hero-bg-img) {
           object-fit: cover; object-position: 100% 50%; z-index: 0;
@@ -670,8 +798,7 @@ export default function Home() {
         }
         .hero-inner { position: relative; z-index: 2; width: 100%; padding: 40px 48px 40px; }
         .hero-content { max-width: 640px; }
-        .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #04ebff; }
-        .eyebrow.accent { color: #04ebff; }
+        .hero .eyebrow { font-weight: 400; }
         .hero h1 {
           font-family: var(--font-brand), sans-serif; font-size: clamp(2.1rem, 3.8vw, 3.2rem); line-height: 1.12;
           font-weight: 600; margin: 16px 0 0; color: #eaf2f8; text-wrap: balance;
@@ -696,6 +823,8 @@ export default function Home() {
           border: 1px solid rgba(234,242,248,0.35); color: #eaf2f8; background: rgba(255,255,255,0.015);
         }
         .hero-btn.ghost:hover { border-color: #04ebff; color: #04ebff; box-shadow: 0 10px 26px rgba(4,235,255,0.10); }
+        .hero-trust { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-wrap: wrap; gap: 12px 26px; }
+        .hero-trust li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #c3d2de; }
 
         @media (max-width: 760px) {
           :global(.hero-bg-img) { display: none; }
@@ -706,123 +835,140 @@ export default function Home() {
           }
         }
 
-        .xyz { padding: 64px 48px 24px; background: #eaf2f8; }
-        :global(.xyz-title) { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 26ch; margin: 0 auto 48px; color: #05111e; }
-        .xyz-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
-        :global(.xyz-item) { padding: 28px 26px; border-radius: 12px; background: #ffffff; border: 1px solid rgba(5,17,30,0.08); }
-        .xyz-tag { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.14em; font-weight: 700; color: #0b5f75; margin-bottom: 14px; }
-        :global(.xyz-item) p { font-size: 14px; color: #33414d; line-height: 1.7; margin: 0; }
+        /* ── El desafío ─────────────────────────────────────────────── */
+        .desafio { padding: 96px 48px 72px; background: #ffffff; }
+        .desafio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1140px; margin: 0 auto; }
+        :global(.desafio-item) { padding: 32px 28px; border-radius: 16px; background: #f3f7fb; border: 1px solid rgba(5,17,30,0.07); }
+        .desafio-tag { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.16em; font-weight: 700; color: #0b5f75; margin-bottom: 14px; }
+        :global(.desafio-item) p { font-size: 14.5px; color: #33414d; line-height: 1.75; margin: 0; }
 
-        .grid { padding: 0 48px 20px; display: grid; margin-top: 40px; }
-        .grid-2 { grid-template-columns: 1fr 1fr; gap: 24px; }
-        :global(.card) { position: relative; overflow: hidden; border-radius: 14px; min-height: 380px; }
-        :global(.card-teal) { background: #7fd9ec; }
-        :global(.card-dark) { background: #05111e; }
-        .card-bg { position: absolute; inset: 0; z-index: 0; }
-        :global(.card-bg-img) { object-fit: cover; }
-        .card-scrim { position: absolute; inset: 0; }
-        /* El velo se mantiene claro de arriba a abajo: antes terminaba en un azul oscuro
-           y el texto oscuro de la tarjeta quedaba ilegible en la mitad inferior. */
-        .card-scrim-teal { background: linear-gradient(155deg, rgba(160,247,255,0.82) 0%, rgba(90,225,247,0.80) 55%, rgba(30,160,190,0.82) 100%); }
-        .card-scrim-dark { background: linear-gradient(165deg, rgba(5,17,30,0.55) 0%, rgba(5,17,30,0.85) 100%); }
-        .card-content { position: relative; z-index: 1; padding: 36px; display: flex; flex-direction: column; gap: 14px; }
-        .card-tag { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.14em; color: #04222e; font-weight: 700; }
-        .card-tag-light { color: #04ebff; }
-        :global(.card) h2 { font-family: var(--font-brand), sans-serif; font-size: 26px; line-height: 1.2; font-weight: 700; max-width: 16ch; margin: 0; color: #04141e; }
-        :global(.card) h2.light { color: #eaf2f8; max-width: 16ch; }
-        .card-icon-wrap { margin: 8px 0; display: flex; align-items: center; justify-content: center; }
-        .card-icon { width: 80px; height: 80px; border-radius: 50%; background: #04ebff; display: flex; align-items: center; justify-content: center; }
-        .card-icon.card-icon-ink { background: #05111e; }
-        .card-detail { font-size: 13px; line-height: 1.65; color: #04222e; margin: 0; }
-        .card-detail.light { color: #c3d2de; }
-
-
-        .ethos-deep { display: flex; align-items: stretch; background: #05111e; color: #eaf2f8; }
-        :global(.ethos-visual) { position: relative; flex: 0 0 50%; max-width: 50%; aspect-ratio: 1376 / 768; order: 2; }
-        :global(.ethos-img) { object-fit: cover; }
-        :global(.ethos-copy) { order: 1; flex: 0 0 50%; max-width: 50%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 48px 56px; }
-        .ethos-deep .eyebrow { font-size: 13px; margin-bottom: 4px; }
-        .ethos-deep h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.25; font-weight: 600; margin: 18px 0 22px; }
-        .ethos-deep p { font-size: 16.5px; line-height: 1.8; color: #c3d2de; margin: 0 0 18px; }
-        .ethos-vision { color: #eaf2f8 !important; font-style: italic; font-size: 17.5px !important; }
-
-        @media (max-width: 900px) {
-          .ethos-deep { flex-direction: column; }
-          :global(.ethos-visual), :global(.ethos-copy) { flex: 0 0 auto; max-width: 100%; order: initial; }
-          :global(.ethos-copy) { padding: 40px 24px; }
+        /* ── Servicios ──────────────────────────────────────────────── */
+        .servicios { padding: 96px 48px; background: #eef4f9; }
+        .serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1180px; margin: 0 auto; align-items: stretch; }
+        :global(.serv-card) {
+          position: relative; display: flex; flex-direction: column; gap: 16px;
+          padding: 36px 32px; border-radius: 20px; background: #ffffff;
+          border: 1px solid rgba(5,17,30,0.08);
+          box-shadow: 0 18px 40px rgba(5,17,30,0.06);
+          transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease, opacity 0.65s cubic-bezier(0.16,1,0.3,1);
         }
+        :global(.serv-card.in:hover) { transform: translateY(-4px); box-shadow: 0 26px 56px rgba(5,17,30,0.12); }
+        /* Degradado tomado de las caras del cubo del logotipo (#08283c → #05111e). */
+        :global(.serv-card.featured) { background: linear-gradient(160deg, #08283c 0%, #05111e 100%); border-color: rgba(4,235,255,0.28); box-shadow: 0 26px 60px rgba(5,17,30,0.28); }
+        .serv-head { display: flex; align-items: center; justify-content: space-between; }
+        .serv-icon { width: 56px; height: 56px; border-radius: 16px; background: #05111e; display: flex; align-items: center; justify-content: center; }
+        :global(.serv-card.featured) .serv-icon { background: #04ebff; }
+        .serv-num { font-family: var(--font-brand), sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #93a4b3; }
+        :global(.serv-card) h3 { font-family: var(--font-brand), sans-serif; font-size: 21px; line-height: 1.3; font-weight: 600; margin: 8px 0 0; color: #05111e; text-wrap: balance; }
+        :global(.serv-card) p { font-size: 14.5px; line-height: 1.75; color: #3e4d5a; margin: 0; }
+        :global(.serv-card.featured) h3 { color: #eaf2f8; }
+        :global(.serv-card.featured) p { color: #c3d2de; }
+        .serv-list { list-style: none; padding: 18px 0 0; margin: auto 0 0; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(5,17,30,0.08); }
+        :global(.serv-card.featured) .serv-list { border-top-color: rgba(255,255,255,0.12); }
+        .serv-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; line-height: 1.5; color: #14202b; font-weight: 500; }
+        :global(.serv-card.featured) .serv-list li { color: #eaf2f8; }
+        .serv-list li :global(svg) { flex-shrink: 0; margin-top: 1px; }
 
-        .historia { position: relative; overflow: hidden; padding: 88px 48px; background: #05111e; }
-        .historia-bg { position: absolute; inset: 0; z-index: 0; }
-        :global(.historia-bg-img) { object-fit: cover; }
-        .historia-scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,17,30,0.55) 0%, rgba(5,17,30,0.88) 100%); }
-        :global(.historia-title) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; max-width: 30ch; margin: 0 auto 48px; color: #05111e; }
-        :global(.historia-title.light) { color: #eaf2f8; }
-        .historia-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1100px; margin: 0 auto; }
-        :global(.historia-item) h3 { font-family: var(--font-brand), sans-serif; font-size: 18px; font-weight: 600; margin: 0 0 10px; color: #eaf2f8; }
-        :global(.historia-item) p { font-size: 14px; color: #b4c4d2; line-height: 1.7; margin: 0; }
-        :global(.historia-item) .proceso-num { color: #04ebff; }
-        :global(.historia-cta-bottom) { position: relative; z-index: 1; display: block; text-align: right; max-width: 1100px; margin: 56px auto 0; }
-        :global(.historia-btn) { display: inline-block; padding: 14px 30px; border-radius: 999px; background: #04ebff; color: #04141e; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
-        :global(.historia-btn:hover) { background: #5df0ff; transform: translateY(-2px); }
+        /* ── Enfoque ético ──────────────────────────────────────────── */
+        .enfoque { display: flex; align-items: stretch; background: #05111e; color: #eaf2f8; }
+        .enfoque-visual { position: relative; flex: 0 0 50%; max-width: 50%; aspect-ratio: 1376 / 768; order: 2; }
+        :global(.enfoque-img) { object-fit: cover; }
+        :global(.enfoque-copy) { order: 1; flex: 0 0 50%; max-width: 50%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 64px 64px 64px 72px; }
+        .enfoque h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.7rem, 3vw, 2.35rem); line-height: 1.25; font-weight: 600; margin: 18px 0 20px; text-wrap: balance; }
+        .enfoque p { font-size: 16px; line-height: 1.8; color: #c3d2de; margin: 0; }
+        .enfoque em { color: #eaf2f8; }
+        .principios { list-style: none; padding: 0; margin: 30px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; }
+        .principios li { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: #eaf2f8; font-weight: 500; }
+        .principios li :global(svg) { flex-shrink: 0; }
 
-        .mv { padding: 72px 48px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 48px; background: #ffffff; }
-        .mv-label { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.16em; font-weight: 700; margin-bottom: 14px; }
-        .mv-label.teal { color: #0b5f75; }
-        .mv-label.gold { color: #0f5876; }
-        .mv-label.ink { color: #4a5866; }
-        .mv p { font-family: var(--font-brand), sans-serif; font-size: 17px; line-height: 1.65; color: #14202b; margin: 0; }
+        /* ── Nosotros ───────────────────────────────────────────────── */
+        .nosotros { padding: 104px 48px; background: #ffffff; }
+        .nos-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+        .nos-label { display: block; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #0b5f75; }
+        :global(.nos-copy) h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 2.7vw, 2.15rem); line-height: 1.25; font-weight: 600; letter-spacing: -0.015em; margin: 16px 0 18px; color: #05111e; text-wrap: balance; }
+        .nos-intro { font-size: 16px; line-height: 1.8; color: #3e4d5a; margin: 0; }
+        .nos-items { margin-top: 34px; display: flex; flex-direction: column; gap: 22px; }
+        .nos-item { padding-left: 20px; border-left: 2px solid #04ebff; }
+        .nos-item-label { display: block; font-family: var(--font-brand), sans-serif; font-size: 10.5px; letter-spacing: 0.18em; font-weight: 700; color: #0b5f75; }
+        .nos-item h3 { font-family: var(--font-brand), sans-serif; font-size: 17px; font-weight: 600; margin: 6px 0 6px; color: #05111e; }
+        .nos-item p { font-size: 14.5px; line-height: 1.7; color: #4a5866; margin: 0; }
+        :global(.nos-btn) { display: inline-block; text-decoration: none; margin-top: 36px; padding: 14px 30px; border-radius: 999px; background: #05111e; color: #eaf2f8; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
+        :global(.nos-btn:hover) { background: #0b2a40; color: #04ebff; transform: translateY(-2px); }
+        .nos-frame { position: relative; aspect-ratio: 1195 / 896; border-radius: 22px; overflow: hidden; box-shadow: 0 34px 80px rgba(5,17,30,0.18); border: 1px solid rgba(5,17,30,0.06); }
+        :global(.nos-img) { object-fit: cover; }
 
-        :global(.section-label) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.18em; color: #526373; margin-bottom: 48px; }
-        :global(.section-label.light) { color: #93aabb; }
-        .proceso { padding: 72px 48px; background: #eaf2f8; }
-        :global(.proceso-title) { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: clamp(1.4rem, 2.6vw, 1.9rem); font-weight: 600; max-width: 32ch; margin: 0 auto 48px; color: #05111e; }
-        .proceso-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; max-width: 1000px; margin: 0 auto; }
-        .proceso-num { font-family: var(--font-brand), sans-serif; font-size: 30px; color: #0b5f75; font-weight: 600; margin-bottom: 12px; }
+        /* ── Misión, visión y valores ───────────────────────────────── */
+        .mv { position: relative; overflow: hidden; padding: 104px 48px; background: #05111e; }
+        .mv-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background:
+            radial-gradient(circle at 18% 20%, rgba(4,235,255,0.10), transparent 38%),
+            radial-gradient(circle at 85% 85%, rgba(15,88,118,0.30), transparent 42%);
+        }
+        .mv-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; max-width: 1140px; margin: 0 auto; }
+        :global(.mv-card) {
+          position: relative; padding: 44px 40px; border-radius: 22px;
+          background: linear-gradient(160deg, rgba(8,40,60,0.85) 0%, rgba(4,20,32,0.7) 100%);
+          border: 1px solid rgba(4,235,255,0.22);
+          box-shadow: 0 30px 70px rgba(0,0,0,0.30);
+        }
+        .mv-icon { width: 54px; height: 54px; border-radius: 16px; background: rgba(4,235,255,0.10); border: 1px solid rgba(4,235,255,0.30); display: flex; align-items: center; justify-content: center; }
+        .mv-label { display: block; margin-top: 24px; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.22em; font-weight: 700; color: #04ebff; }
+        :global(.mv-card) p { font-family: var(--font-brand), sans-serif; font-size: 18px; line-height: 1.7; color: #eaf2f8; margin: 14px 0 0; font-weight: 400; }
+        :global(.valores) { position: relative; z-index: 1; max-width: 1140px; margin: 64px auto 0; }
+        .valores-label { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #93aabb; margin-bottom: 28px; }
+        .valores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .valor { padding: 26px 24px; border-radius: 16px; background: rgba(4,28,44,0.55); border: 1px solid rgba(255,255,255,0.08); }
+        .valor-icon { width: 42px; height: 42px; border-radius: 12px; background: rgba(4,235,255,0.08); display: flex; align-items: center; justify-content: center; }
+        .valor h3 { font-family: var(--font-brand), sans-serif; font-size: 16px; font-weight: 600; margin: 16px 0 6px; color: #eaf2f8; }
+        .valor p { font-size: 13.5px; line-height: 1.65; color: #aebfcd; margin: 0; }
+
+        /* ── Cómo trabajamos ────────────────────────────────────────── */
+        .proceso { padding: 96px 48px; background: #f3f7fb; }
+        .proceso-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1180px; margin: 0 auto; }
+        :global(.proceso-item) { padding: 30px 26px; border-radius: 18px; background: #ffffff; border: 1px solid rgba(5,17,30,0.07); }
+        .proceso-num { font-family: var(--font-brand), sans-serif; font-size: 30px; color: #0b5f75; font-weight: 600; margin-bottom: 14px; }
         :global(.proceso-item) h3 { font-family: var(--font-brand), sans-serif; font-size: 17px; font-weight: 600; margin: 0 0 8px; color: #05111e; }
-        :global(.proceso-item) p { font-size: 14px; color: #4a5866; line-height: 1.7; margin: 0; max-width: 42ch; }
+        :global(.proceso-item) p { font-size: 14px; color: #4a5866; line-height: 1.7; margin: 0; }
 
-
-        .contacto { padding: 80px 48px; background: #05111e; color: #eaf2f8; display: flex; justify-content: center; }
+        /* ── Contacto ───────────────────────────────────────────────── */
+        .contacto { padding: 96px 48px; background: #05111e; color: #eaf2f8; display: flex; justify-content: center; }
         :global(.contacto-inner) { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
-        .contacto h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; margin: 14px 0 10px; }
-        .contacto-sub { font-size: 14px; color: #c3d2de; margin: 0 0 32px; }
-        .quote-form { width: 100%; max-width: 480px; text-align: left; display: flex; flex-direction: column; gap: 16px; }
+        .contacto h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; margin: 14px 0 12px; text-wrap: balance; }
+        .contacto-sub { font-size: 14.5px; line-height: 1.7; color: #c3d2de; margin: 0 0 34px; max-width: 52ch; }
+        .quote-form { width: 100%; max-width: 520px; text-align: left; display: flex; flex-direction: column; gap: 16px; }
         .qf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .quote-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #c3d2de; }
-        .quote-form input, .quote-form select, .quote-form textarea { background: rgba(255,255,255,0.05); border: 1px solid #123048; border-radius: 6px; padding: 11px 13px; color: #eaf2f8; font-family: inherit; font-size: 14px; }
+        .quote-form input, .quote-form select, .quote-form textarea { background: rgba(255,255,255,0.05); border: 1px solid #123048; border-radius: 8px; padding: 12px 14px; color: #eaf2f8; font-family: inherit; font-size: 14px; }
+        .quote-form select option { color: #05111e; }
         .quote-form input:focus, .quote-form select:focus, .quote-form textarea:focus { outline: none; border-color: #04ebff; }
-        .quote-form textarea { resize: vertical; min-height: 80px; }
+        .quote-form textarea { resize: vertical; min-height: 90px; }
         .consent-row { flex-direction: row !important; align-items: flex-start; gap: 8px !important; font-size: 12px !important; line-height: 1.5; cursor: pointer; }
         .consent-row input { margin-top: 2px; flex-shrink: 0; }
         .consent-row :global(a) { color: #04ebff; }
         .form-error { color: #ff9f9f; font-size: 13px; margin: 0; }
-        .qf-submit { background: #04ebff; color: #04141e; border: none; border-radius: 999px; padding: 13px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+        .qf-submit { background: #04ebff; color: #04141e; border: none; border-radius: 999px; padding: 14px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
         .qf-submit:hover:not(:disabled) { background: #5df0ff; transform: translateY(-1px); }
         .qf-submit:disabled { opacity: 0.6; cursor: wait; }
         .form-ok { padding: 12px 0 0; }
         .form-ok-check { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(57,255,106,0.12); border: 1px solid rgba(57,255,106,0.4); color: #39ff6a; font-size: 1.2rem; margin-bottom: 12px; }
         .form-ok p { color: #c4d3e0; font-size: 14px; }
 
-        /* clamp() en vez de aspect-ratio fijo: el alto crece con el ancho de
-           pantalla (como antes) pero nunca pasa de 620px -- en un monitor
-           ultra-wide de verdad, aspect-ratio puro hacía que la franja
-           creciera sin límite y quedara desproporcionadamente alta frente
-           al resto de secciones. */
+        /* ── Banner de marca ────────────────────────────────────────── */
+        /* clamp() en vez de aspect-ratio fijo: en un monitor ultra-wide el
+           banner no crece sin límite frente al resto de secciones. */
         .brand-banner { position: relative; width: 100%; height: clamp(280px, 32vw, 620px); background: #05111e; overflow: hidden; }
         :global(.brand-banner-img) { object-fit: cover; object-position: center; }
         .brand-banner-fade { position: absolute; left: 0; right: 0; height: clamp(40px, 9vw, 100px); z-index: 1; pointer-events: none; }
         .brand-banner-fade-top { top: 0; background: linear-gradient(180deg, #05111e 0%, rgba(5,17,30,0) 100%); }
         .brand-banner-fade-bottom { bottom: 0; background: linear-gradient(0deg, #030a12 0%, rgba(3,10,18,0) 100%); }
         @media (max-width: 640px) {
-          /* En pantallas angostas el lema queda demasiado chico si se recorta
-             por altura -- se deja ver el ancho completo aunque el banner
-             quede más alto, en vez de forzar el recorte de object-fit:cover. */
           .brand-banner { height: auto; aspect-ratio: 1408 / 688; }
           :global(.brand-banner-img) { object-fit: contain; }
           .brand-banner-fade { height: 36px; }
         }
 
+        /* ── Footer ─────────────────────────────────────────────────── */
         .foot { background: #030a12; color: #eaf2f8; padding: 64px 48px 0; }
         .foot-top { max-width: 1200px; margin: 0 auto; }
         .foot-headline { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; max-width: 20ch; line-height: 1.2; }
@@ -834,46 +980,51 @@ export default function Home() {
         .foot-col :global(a) { color: #c4d3e0; text-decoration: none; }
         .foot-col :global(a:hover) { color: #04ebff; }
         .foot-col span { color: #93aabb; }
-        .foot-heading { font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #93aabb !important; font-style: normal !important; margin-bottom: 2px; }
+        .foot-heading { font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.1em; color: #93aabb !important; margin-bottom: 2px; }
         .foot-logo { display: flex; align-items: center; gap: 8px; }
-        .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 24ch; }
+        .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 26ch; }
         /* El padding inferior reserva el espacio del botón flotante de chat, que si no tapa el aviso legal. */
         .foot-bottom { max-width: 1200px; margin: 48px auto 0; padding: 24px 0 96px; border-top: 1px solid #123048; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: #93aabb; }
         .foot-legal { display: flex; gap: 24px; }
         .foot-legal :global(a) { color: #93aabb; }
 
-        @media (max-width: 900px) {
-          .grid-2 { grid-template-columns: 1fr; }
-          .mv, .qf-row, .historia-grid, .xyz-grid { grid-template-columns: 1fr; }
-          .proceso-grid { grid-template-columns: 1fr 1fr; row-gap: 32px; }
-          .equipo-grid { grid-template-columns: 1fr; }
-          .foot-cols { grid-template-columns: 1fr 1fr; }
-          .nav-pill { display: none; }
-          .nav-cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 14px;
-            font-size: 12px;
-            white-space: nowrap;
-          }
-          .nav-burger { display: flex; }
-          .nav-mobile { display: flex; }
-          .hero-inner { padding: 40px 24px; }
-          .hero-content { max-width: none; }
+        /* ── Responsivo ─────────────────────────────────────────────── */
+        @media (max-width: 1080px) {
+          .proceso-grid { grid-template-columns: 1fr 1fr; }
+          .valores-grid { grid-template-columns: 1fr 1fr; }
+          :global(.enfoque-copy) { padding: 48px 40px; }
         }
 
-        @media (max-width: 480px) {
-          .nav { padding: 14px 18px; }
+        @media (max-width: 900px) {
+          .hero-inner { padding: 40px 24px; }
+          .hero-content { max-width: none; }
+          .desafio-grid, .serv-grid, .mv-grid, .qf-row { grid-template-columns: 1fr; }
+          .nos-inner { grid-template-columns: 1fr; gap: 44px; }
+          .enfoque { flex-direction: column; }
+          .enfoque-visual, :global(.enfoque-copy) { flex: 0 0 auto; max-width: 100%; order: initial; }
+          :global(.enfoque-copy) { padding: 44px 24px 56px; }
+          .foot-cols { grid-template-columns: 1fr 1fr; }
+          .nav-pill { display: none; }
+          .nav-cta { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+          .nav-burger { display: flex; }
+          .nav-mobile { display: flex; }
+          .desafio, .servicios, .nosotros, .mv, .proceso, .contacto { padding: 72px 24px; }
+          :global(.section-title) { margin-bottom: 40px; }
+          :global(.mv-card) { padding: 34px 28px; }
+          :global(.mv-card) p { font-size: 16.5px; }
+        }
+
+        @media (max-width: 560px) {
+          .nav { padding: 12px 16px; }
           .brand-name { font-size: 13px; }
           .nav-cta { padding: 9px 11px; font-size: 11px; }
-          .xyz, .grid, .historia, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
           .hero-inner { padding: 32px 18px; }
-          .proceso-grid { grid-template-columns: 1fr; row-gap: 28px; }
+          .desafio, .servicios, .nosotros, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
+          .proceso-grid, .valores-grid, .principios { grid-template-columns: 1fr; }
           .foot-cols { grid-template-columns: 1fr; gap: 28px; }
           .foot-top, .foot-bottom { flex-direction: column; align-items: flex-start; }
-          :global(.historia-title), :global(.xyz-title) { font-size: 1.35rem; }
-          .qf-row { gap: 12px; }
+          :global(.section-title) { font-size: 1.4rem; }
+          :global(.serv-card) { padding: 30px 24px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
