@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
+import EmailChooser from '../components/EmailChooser';
+import { COMPANY_EMAIL, whatsappLink } from '../lib/contactLinks';
 
 const SITE_URL = 'https://www.ethosia.tech';
 
@@ -22,7 +24,7 @@ const AREAS = [
 // Ecosistema digital de la empresa. Deja en `null` cualquier canal que todavía no exista —
 // el footer solo muestra los canales con URL real, nunca un enlace falso o "próximamente".
 const CONTACT = {
-  whatsapp: 'https://wa.me/593986023149',
+  whatsapp: whatsappLink,
   facebook: 'https://www.facebook.com/profile.php?id=61593810909958',
   instagram: 'https://www.instagram.com/ethos.ia.ec/',
   tiktok: 'https://www.tiktok.com/@ethos_ia_ec',
@@ -30,7 +32,7 @@ const CONTACT = {
   youtube: 'https://www.youtube.com/@EthosIA-ec',
   github: 'https://github.com/ethos-ia-ec',
   linkedin: null,
-  email: null,
+  email: COMPANY_EMAIL,
   phone: null,
 };
 
@@ -44,7 +46,11 @@ const SOCIAL_LABELS = {
   linkedin: 'LinkedIn',
   github: 'GitHub',
   whatsapp: 'WhatsApp',
+  email: 'Correo electrónico',
 };
+
+// Canales de contacto directo: no son perfiles, así que no van en el sameAs del JSON-LD.
+const DIRECT_CHANNELS = ['whatsapp', 'email'];
 
 const SOCIAL_ICONS = {
   facebook: <path d="M13.5 21v-8.2h2.75l.4-3.2h-3.15V7.4c0-.93.26-1.56 1.6-1.56h1.7V2.98c-.3-.04-1.3-.13-2.47-.13-2.45 0-4.13 1.5-4.13 4.24v2.5H7.5v3.2h2.75V21h3.25z" />,
@@ -61,6 +67,7 @@ const SOCIAL_ICONS = {
   linkedin: <path d="M6.94 8.5H3.56V20.5H6.94V8.5ZM5.25 3.5C4.14 3.5 3.25 4.4 3.25 5.5C3.25 6.6 4.14 7.5 5.25 7.5C6.36 7.5 7.25 6.6 7.25 5.5C7.25 4.4 6.36 3.5 5.25 3.5ZM20.5 20.5V13.87C20.5 10.5 18.72 8.94 16.35 8.94C14.47 8.94 13.62 9.98 13.15 10.7V8.5H9.77C9.82 9.53 9.77 20.5 9.77 20.5H13.15V13.9C13.15 13.55 13.17 13.2 13.27 12.95C13.55 12.25 14.2 11.52 15.28 11.52C16.7 11.52 17.13 12.6 17.13 14.18V20.5H20.5Z" />,
   github: <path d="M12 2C6.48 2 2 6.58 2 12.2C2 16.68 4.87 20.47 8.84 21.8C9.34 21.9 9.52 21.58 9.52 21.31C9.52 21.07 9.51 20.24 9.51 19.36C7 19.9 6.35 18.72 6.15 18.1C6.04 17.79 5.52 16.85 5.06 16.6C4.68 16.4 4.14 15.87 5.05 15.86C5.91 15.85 6.52 16.66 6.72 16.98C7.69 18.63 9.24 18.16 9.86 17.89C9.96 17.17 10.24 16.68 10.55 16.4C8.12 16.12 5.58 15.16 5.58 10.94C5.58 9.74 5.99 8.75 6.7 7.98C6.59 7.7 6.22 6.57 6.8 5.05C6.8 5.05 7.7 4.75 9.52 5.98C10.29 5.76 11.11 5.65 11.93 5.65C12.75 5.65 13.57 5.76 14.34 5.98C16.16 4.74 17.06 5.05 17.06 5.05C17.64 6.57 17.27 7.7 17.16 7.98C17.87 8.75 18.28 9.73 18.28 10.94C18.28 15.18 15.73 16.12 13.3 16.39C13.69 16.72 14.03 17.36 14.03 18.35C14.03 19.76 14.02 20.96 14.02 21.31C14.02 21.58 14.2 21.91 14.7 21.8C18.65 20.46 21.52 16.68 21.52 12.2C21.52 6.58 17.04 2 12 2Z" />,
   whatsapp: <path d="M12 2C6.5 2 2 6.5 2 12C2 13.8 2.47 15.5 3.34 17L2 22L7.15 20.68C8.61 21.49 10.27 21.92 12 21.92H12.01C17.51 21.92 22 17.42 22 11.92C22 9.26 20.95 6.76 19.05 4.87C17.15 2.98 14.66 2 12 2ZM12 20.15C10.46 20.15 8.96 19.73 7.65 18.94L7.34 18.75L4.32 19.54L5.12 16.61L4.9 16.28C4.03 14.92 3.57 13.35 3.57 11.72C3.57 7.07 7.35 3.28 12 3.28C14.25 3.28 16.36 4.16 17.94 5.75C19.53 7.34 20.43 9.46 20.43 11.72C20.42 16.38 16.65 20.15 12 20.15ZM16.6 13.85C16.35 13.72 15.11 13.11 14.88 13.02C14.65 12.94 14.48 12.9 14.32 13.16C14.15 13.41 13.67 13.98 13.52 14.15C13.38 14.32 13.23 14.34 12.98 14.21C12.73 14.08 11.92 13.81 10.96 12.95C10.21 12.28 9.7 11.46 9.56 11.2C9.42 10.95 9.55 10.81 9.68 10.68C9.79 10.57 9.93 10.39 10.06 10.25C10.19 10.1 10.23 10 10.31 9.84C10.4 9.67 10.35 9.53 10.29 9.4C10.23 9.28 9.72 8.03 9.5 7.53C9.29 7.03 9.08 7.1 8.92 7.09C8.77 7.08 8.6 7.08 8.44 7.08C8.28 7.08 8.02 7.14 7.79 7.39C7.57 7.64 6.95 8.22 6.95 9.47C6.95 10.72 7.81 11.93 7.94 12.1C8.07 12.27 9.71 14.8 12.23 15.9C13.79 16.58 14.4 16.64 15.18 16.52C15.65 16.45 16.63 15.92 16.85 15.34C17.06 14.76 17.06 14.27 17 14.15C16.94 14.03 16.85 13.98 16.6 13.85Z" />,
+  email: <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13Zm2.2.3 6.8 5.1 6.8-5.1H5.2ZM19 7.4l-6.7 5-.6.4-.6-.4L4.4 7.4V18.5c0 .6.4 1 1 1h13c.6 0 1-.4 1-1V7.4Z" />,
 };
 
 const TRUST = ['Más de 5 años de experiencia', 'Empresa constituida en Ecuador', 'Alineados a la LOPDP'];
@@ -318,7 +325,7 @@ export default function Home() {
                 addressCountry: 'EC',
               },
               sameAs: Object.keys(SOCIAL_LABELS)
-                .filter((key) => key !== 'whatsapp' && CONTACT[key])
+                .filter((key) => !DIRECT_CHANNELS.includes(key) && CONTACT[key])
                 .map((key) => CONTACT[key]),
             }),
           }}
@@ -700,21 +707,35 @@ export default function Home() {
             <div className="foot-social">
               {Object.keys(SOCIAL_LABELS)
                 .filter((key) => CONTACT[key])
-                .map((key) => (
-                  <a
-                    key={key}
-                    className="social-link"
-                    href={CONTACT[key]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Ethos IA en ${SOCIAL_LABELS[key]}`}
-                    title={SOCIAL_LABELS[key]}
-                  >
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{SOCIAL_ICONS[key]}</svg>
-                  </a>
-                ))}
+                .map((key) =>
+                  key === 'email' ? (
+                    <EmailChooser key={key}>
+                      {(props) => (
+                        <a
+                          {...props}
+                          className="social-link"
+                          aria-label={`Escribir un correo a Ethos IA (${CONTACT.email})`}
+                          title={SOCIAL_LABELS[key]}
+                        >
+                          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{SOCIAL_ICONS[key]}</svg>
+                        </a>
+                      )}
+                    </EmailChooser>
+                  ) : (
+                    <a
+                      key={key}
+                      className="social-link"
+                      href={CONTACT[key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={key === 'whatsapp' ? 'Escribir a Ethos IA por WhatsApp' : `Ethos IA en ${SOCIAL_LABELS[key]}`}
+                      title={SOCIAL_LABELS[key]}
+                    >
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{SOCIAL_ICONS[key]}</svg>
+                    </a>
+                  ),
+                )}
             </div>
-            {CONTACT.email && <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>}
             {CONTACT.phone && <a href={`tel:${CONTACT.phone}`}>{CONTACT.phone}</a>}
           </div>
         </div>
@@ -1063,7 +1084,6 @@ export default function Home() {
           .desafio, .servicios, .nosotros, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
           .proceso-grid, .valores-grid, .principios { grid-template-columns: 1fr; }
           .foot-cols { grid-template-columns: 1fr; gap: 28px; }
-          .foot-social { max-width: none; }
           .foot-top, .foot-bottom { flex-direction: column; align-items: flex-start; }
           :global(.section-title) { font-size: 1.4rem; }
           :global(.serv-card) { padding: 30px 24px; }
