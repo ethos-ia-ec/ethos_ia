@@ -1,21 +1,58 @@
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+import { debeMostrarIntro } from '../../lib/introRegla';
 import { programarSonidoIntro } from '../../lib/sonidoIntro';
 
 // Intro minimalista de la marca: el cubo aparece, se expande y salta; luego las letras «ETHOS IA» se
 // despliegan de izquierda a derecha con un brillo metálico que las recorre, y el velo se retira.
-// Se muestra una vez por sesión, se puede saltar y nunca bloquea el contenido (que ya está debajo).
+// Se muestra la primera vez de cada 24 h y en toda recarga intencional de la portada (F5, botón de actualizar o
+// arrastrar para recargar); no al volver desde otras páginas del sitio. Se puede saltar y nunca bloquea el contenido.
 const T = { total: 4300, tope: 5200 }; // ms: cuándo empieza la salida y límite duro para retirar el velo
-const CLAVE = 'ethos-intro-vista';
+const ULTIMA = 'ethos-intro-ultima';
 const MUDO = 'ethos-intro-mudo';
 // Se ejecuta antes de pintar: si ya se vio (o se pidió reducir el movimiento) el velo ni aparece.
-const GUARDA = `try{if(sessionStorage.getItem('${CLAVE}')==='1'||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('ic-vista')}catch(e){}`;
+// Replica la regla de lib/introRegla.js antes de pintar para que el velo no parpadee cuando no corresponde.
+const GUARDA = `try{var n=performance.getEntriesByType('navigation')[0],p=new URL(n?n.name:location.href).pathname,u=Number(localStorage.getItem('${ULTIMA}')),f=/[?&]intro=1/.test(location.search),r=matchMedia('(prefers-reduced-motion: reduce)').matches,m=!r&&(f||(p==='/'&&((n&&n.type==='reload')||!u||Date.now()-u>=864e5)));if(!m)document.documentElement.classList.add('ic-vista')}catch(e){}`;
+
+// La decisión se toma una sola vez por carga de documento: si el visitante vuelve a la portada desde otra
+// página del sitio (menú, enlaces, logotipo), el componente se monta de nuevo pero la intro no se repite.
+// WAV de 0,1 s en silencio: al reproducirlo dentro de un toque, iOS pasa la sesión de audio a «reproducción» y el sonido
+// de Web Audio se oye aunque el interruptor lateral esté en silencio.
+const SILENCIO = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+let consumida = false;
+function decidirIntro() {
+  let nav; let ultima = null;
+  try { nav = performance.getEntriesByType('navigation')[0]; } catch { /* sin API */ }
+  try { ultima = localStorage.getItem(ULTIMA); } catch { /* sin almacenamiento */ }
+  let pathInicial = window.location.pathname;
+  try { if (nav?.name) pathInicial = new URL(nav.name).pathname; } catch { /* URL no válida */ }
+  return debeMostrarIntro({
+    pathInicial,
+    tipo: nav?.type,
+    ultima,
+    ahora: Date.now(),
+    forzar: /[?&]intro=1/.test(window.location.search),
+    reducir: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  });
+}
 
 export default function IntroCubo() {
-  const [fase, setFase] = useState('activa'); // nada | activa | saliendo (se pinta ya en el HTML inicial para evitar el parpadeo)
+  // nada | activa | saliendo. En la carga inicial se pinta «activa» (igual que el HTML del servidor) para evitar el parpadeo;
+  // en montajes posteriores (navegación interna) empieza en «nada».
+  const [fase, setFase] = useState(() => (typeof window !== 'undefined' && consumida ? 'nada' : 'activa'));
+  const decision = useRef(null);
+
+  // Va antes que los demás efectos: ellos leen la decisión. La referencia sobrevive al doble montaje del modo estricto.
+  useEffect(() => {
+    if (decision.current === null) {
+      decision.current = consumida ? false : decidirIntro();
+      consumida = true;
+    }
+  }, []);
   const [mudo, setMudo] = useState(false);
   const [bloqueado, setBloqueado] = useState(false); // el navegador no deja sonar hasta que haya un toque
   const audio = useRef({ ctx: null, detener: null, inicio: 0 });
+  const bloqueadoRef = useRef(false);
 
   // Sonido: los navegadores solo lo permiten si el visitante ya interactuó con el sitio (p. ej. al llegar desde un enlace).
   // Si lo bloquean, la intro corre en silencio. Se respeta la preferencia de silenciar.
@@ -24,8 +61,7 @@ export default function IntroCubo() {
     try { silenciado = localStorage.getItem(MUDO) === '1'; } catch { /* sin almacenamiento */ }
     const t = setTimeout(() => setMudo(silenciado), 0);
     const AC = window.AudioContext || window.webkitAudioContext;
-    const vista = document.documentElement.classList.contains('ic-vista');
-    if (!AC || silenciado || vista) return () => clearTimeout(t);
+    if (!AC || silenciado || !decision.current) return () => clearTimeout(t);
     let vivo = true;
     audio.current.inicio = performance.now();
     let aviso;
@@ -36,8 +72,8 @@ export default function IntroCubo() {
         if (vivo && ctx.state === 'running') audio.current.detener = programarSonidoIntro(ctx, ctx.currentTime + 0.05);
       }).catch(() => {});
       // Si pasado un instante el navegador sigue bloqueándolo, se ofrece activarlo con un toque.
-      aviso = setTimeout(() => { if (vivo && ctx.state !== 'running') setBloqueado(true); }, 300);
-    } catch { aviso = setTimeout(() => setBloqueado(true), 0); }
+      aviso = setTimeout(() => { if (vivo && ctx.state !== 'running') { bloqueadoRef.current = true; setBloqueado(true); } }, 300);
+    } catch { aviso = setTimeout(() => { bloqueadoRef.current = true; setBloqueado(true); }, 0); }
     return () => {
       vivo = false; clearTimeout(t); clearTimeout(aviso);
       try { audio.current.detener?.(); audio.current.ctx?.close(); } catch { /* ya cerrado */ }
@@ -45,40 +81,49 @@ export default function IntroCubo() {
     };
   }, []);
 
-  const alternarSonido = async (e) => {
+  // Con el audio bloqueado, un toque es el gesto que el navegador exige: se activa y suena lo que falta de la intro.
+  const activarSonido = async () => {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    try {
+      try { const mudoIos = new Audio(SILENCIO); mudoIos.play()?.catch(() => {}); } catch { /* sin Audio */ }
+      let ctx = audio.current.ctx;
+      if (!ctx || ctx.state === 'closed') { ctx = new AC(); audio.current.ctx = ctx; }
+      await ctx.resume();
+      if (ctx.state === 'running') {
+        const transcurrido = (performance.now() - (audio.current.inicio || performance.now())) / 1000;
+        audio.current.detener = programarSonidoIntro(ctx, ctx.currentTime + 0.05 - transcurrido, 0.5, transcurrido);
+        bloqueadoRef.current = false; setBloqueado(false); setMudo(false);
+        try { localStorage.setItem(MUDO, '0'); } catch { /* sin almacenamiento */ }
+      }
+    } catch { /* sin audio */ }
+  };
+
+  const alternarSonido = (e) => {
     e.stopPropagation();
-    // Con el audio bloqueado, el toque es el gesto que el navegador exige: se activa y suena lo que falta de la intro.
-    if (bloqueado || (!mudo && audio.current.ctx && audio.current.ctx.state !== 'running')) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      try {
-        let ctx = audio.current.ctx;
-        if (!ctx || ctx.state === 'closed') { ctx = new AC(); audio.current.ctx = ctx; }
-        await ctx.resume();
-        if (ctx.state === 'running') {
-          const transcurrido = (performance.now() - (audio.current.inicio || performance.now())) / 1000;
-          audio.current.detener = programarSonidoIntro(ctx, ctx.currentTime + 0.05 - transcurrido, 0.5, transcurrido);
-          setBloqueado(false); setMudo(false);
-          try { localStorage.setItem(MUDO, '0'); } catch { /* sin almacenamiento */ }
-        }
-      } catch { /* sin audio */ }
-      return;
-    }
+    if (bloqueado || (!mudo && audio.current.ctx && audio.current.ctx.state !== 'running')) { activarSonido(); return; }
     const nuevo = !mudo;
     setMudo(nuevo);
     try { localStorage.setItem(MUDO, nuevo ? '1' : '0'); } catch { /* sin almacenamiento */ }
     if (nuevo) { try { audio.current.detener?.(); } catch { /* ya cerrado */ } }
   };
 
+  // Un toque en cualquier parte: si el audio está bloqueado lo activa (sin saltar la intro); si no, salta la intro.
+  const alTocar = () => {
+    if (bloqueadoRef.current) { activarSonido(); return; }
+    setFase((f) => (f === 'activa' ? 'saliendo' : f));
+  };
+
   useEffect(() => {
-    let vista = false;
-    try { vista = sessionStorage.getItem(CLAVE) === '1'; } catch { /* sin almacenamiento */ }
-    const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (vista || reducir) { const t = setTimeout(() => setFase('nada'), 0); return () => clearTimeout(t); }
-    try { sessionStorage.setItem(CLAVE, '1'); } catch { /* sin almacenamiento */ }
+    if (!decision.current) { const t = setTimeout(() => setFase('nada'), 0); return () => clearTimeout(t); }
+    try { localStorage.setItem(ULTIMA, String(Date.now())); } catch { /* sin almacenamiento */ }
 
     document.body.style.overflow = 'hidden';
     // El toque en el botón de sonido no debe saltar la intro: es el gesto que activa el audio.
-    const salir = (e) => { if (e?.target instanceof Element && e.target.closest('.sonido')) return; setFase((f) => (f === 'activa' ? 'saliendo' : f)); };
+    const salir = (e) => {
+      if (e?.target instanceof Element && e.target.closest('.sonido')) return;
+      if (e?.type === 'touchstart' && bloqueadoRef.current) return; // ese toque activa el sonido (ver alTocar)
+      setFase((f) => (f === 'activa' ? 'saliendo' : f));
+    };
     const t1 = setTimeout(() => salir(), T.total);
     const t2 = setTimeout(() => setFase('nada'), T.tope);
     window.addEventListener('keydown', salir);
@@ -106,7 +151,7 @@ export default function IntroCubo() {
     <>
       <Head><script dangerouslySetInnerHTML={{ __html: GUARDA }} /></Head>
       <noscript><style>{'.ic{display:none!important}'}</style></noscript>
-      <div className={fase === 'saliendo' ? 'ic saliendo' : 'ic'} role="presentation" onClick={() => setFase('saliendo')}>
+      <div className={fase === 'saliendo' ? 'ic saliendo' : 'ic'} role="presentation" onClick={alTocar}>
         <div className="escena">
           <span className="halo" aria-hidden="true" />
           <div className="salto">
@@ -122,12 +167,15 @@ export default function IntroCubo() {
             <span className="brillo" aria-hidden="true" />
           </div>
         </div>
+        {bloqueado && <p className="pista-sonido" aria-live="polite">Toca la pantalla para activar el sonido</p>}
         <button type="button" className={bloqueado ? 'sonido pide' : 'sonido'} onClick={alternarSonido} aria-label={bloqueado || mudo ? 'Activar el sonido de la intro' : 'Silenciar el sonido de la intro'}>{bloqueado || mudo ? '🔈' : '🔊'}{bloqueado && <span> Activar sonido</span>}</button>
 
         <style jsx>{`
           .ic { position: fixed; inset: 0; z-index: 200; background: #05111e; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.6s ease 0.1s, visibility 0.6s ease 0.1s; }
           .ic.saliendo { opacity: 0; visibility: hidden; pointer-events: none; }
           .sonido { position: absolute; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); width: 44px; height: 44px; border-radius: 50%; border: 1px solid #123048; background: rgba(255,255,255,0.04); color: #eaf2f8; font-size: 18px; cursor: pointer; opacity: 0; animation: ic-aparece 0.6s ease 0.8s forwards; }
+          .pista-sonido { position: absolute; left: 0; right: 0; bottom: calc(76px + env(safe-area-inset-bottom)); margin: 0; text-align: center; color: #c4d3e0; font-size: 13px; letter-spacing: 0.04em; animation: ic-pulso 1.6s ease-in-out infinite; pointer-events: none; }
+          @keyframes ic-pulso { 50% { opacity: 0.45; } }
           .sonido:hover { border-color: #04ebff; }
           .sonido.pide { width: auto; padding: 0 18px; border-radius: 999px; font-size: 14px; border-color: #04ebff; color: #04ebff; }
           .sonido span { font-size: 13px; font-weight: 600; }

@@ -9,9 +9,9 @@ import { useEffect } from 'react';
 // Todo se aplica con atributos data-* y propiedades CSS independientes de `transform`, así no pisa
 // las animaciones de aparición ni el estado de React. Se desactiva con «reducir movimiento».
 const TARJETAS = '.desafio-item, .serv-card, .mv-card, .valor, .ing-card, .nos-item';
-const MAGNETICOS = '.nav-cta, .nos-btn, .qf-submit, .ing-more a';
+const MAGNETICOS = '.nav-cta, .nos-btn, .qf-submit, .ing-more a, .social-link';
 const PARALLAX = '.nos-img, .brand-banner-img';
-const ESCALONADOS = '.serv-list li, .principios li, .valor, .nos-item, .ing-card, .faq .item';
+const ESCALONADOS = '.serv-list li, .principios li, .valor, .nos-item, .ing-card, .faq .item, .social-link';
 const SECCIONES_OSCURAS = '.ing, .mv, .contacto, .cifras';
 
 export default function EfectosInteractivos() {
@@ -123,7 +123,7 @@ export default function EfectosInteractivos() {
 
       .pw { display: inline-block; opacity: 0; translate: 0 0.6em; transition: opacity 0.55s ease, translate 0.55s cubic-bezier(0.16, 1, 0.3, 1); transition-delay: calc(var(--i, 0) * 45ms); }
       .reveal.in .pw { opacity: 1; translate: 0 0; }
-      @media (prefers-reduced-motion: reduce) { .pw { opacity: 1; translate: none; transition: none; } [data-rvx] { opacity: 1; translate: none; transition: none; } }
+      @media (prefers-reduced-motion: reduce) { .social-link svg { animation: none !important; } .pw { opacity: 1; translate: none; transition: none; } [data-rvx] { opacity: 1; translate: none; transition: none; } }
     `}</style>
   );
 }

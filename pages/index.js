@@ -738,6 +738,7 @@ export default function Home() {
                         <a
                           {...props}
                           className="social-link"
+                          data-red={key}
                           aria-label={`Escribir un correo a Ethos IA (${CONTACT.email})`}
                           title={SOCIAL_LABELS[key]}
                         >
@@ -749,6 +750,7 @@ export default function Home() {
                     <a
                       key={key}
                       className="social-link"
+                      data-red={key}
                       href={CONTACT[key]}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -1055,10 +1057,25 @@ export default function Home() {
         .social-link {
           box-sizing: border-box; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
           border-radius: 10px; border: 1px solid #123048; background: rgba(4, 28, 44, 0.55);
-          transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+          transition: color 0.2s ease, border-color 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease, translate 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease var(--rvx-delay, 0ms);
         }
-        .social-link svg { width: 17px; height: 17px; }
-        .social-link:hover { border-color: #04ebff; transform: translateY(-2px); }
+        .social-link { position: relative; overflow: hidden; color: #c4d3e0; }
+        .social-link svg { width: 17px; height: 17px; position: relative; z-index: 1; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        /* relleno con el color de cada red que sube desde abajo */
+        .social-link::before { content: ''; position: absolute; inset: 0; background: var(--rc, #04ebff); transform: translateY(101%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .social-link:hover::before, .social-link:focus-visible::before { transform: translateY(0); }
+        .social-link:hover, .social-link:focus-visible { color: var(--ri, #05111e); border-color: var(--rc, #04ebff); transform: translateY(-3px); box-shadow: 0 10px 22px color-mix(in srgb, var(--rc, #04ebff) 35%, transparent); }
+        .social-link:hover svg, .social-link:focus-visible svg { animation: red-salto 0.55s cubic-bezier(0.3, 0, 0.3, 1); }
+        .social-link[data-red='facebook'] { --rc: #1877f2; --ri: #ffffff; }
+        .social-link[data-red='instagram'] { --rc: #e4405f; --ri: #ffffff; }
+        .social-link[data-red='tiktok'] { --rc: #25f4ee; --ri: #05111e; }
+        .social-link[data-red='x'] { --rc: #eaf2f8; --ri: #05111e; }
+        .social-link[data-red='youtube'] { --rc: #ff0033; --ri: #ffffff; }
+        .social-link[data-red='linkedin'] { --rc: #0a66c2; --ri: #ffffff; }
+        .social-link[data-red='github'] { --rc: #8b949e; --ri: #05111e; }
+        .social-link[data-red='whatsapp'] { --rc: #25d366; --ri: #05111e; }
+        .social-link[data-red='email'] { --rc: #04ebff; --ri: #05111e; }
+        @keyframes red-salto { 0% { transform: translateY(0) scale(1); } 35% { transform: translateY(-5px) scale(1.2) rotate(-6deg); } 65% { transform: translateY(0) scale(0.92, 1.05); } 100% { transform: none; } }
         .social-link:focus-visible { outline: 2px solid #04ebff; outline-offset: 2px; }
         .foot-logo { display: flex; align-items: center; gap: 8px; }
         .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 26ch; }
