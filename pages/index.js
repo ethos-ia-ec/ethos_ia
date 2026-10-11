@@ -4,6 +4,13 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
 import EmailChooser from '../components/EmailChooser';
+import Cifras from '../components/home/Cifras';
+import EfectosInteractivos from '../components/home/EfectosInteractivos';
+import Palabras from '../components/home/Palabras';
+import Faq from '../components/home/Faq';
+import Marquee from '../components/home/Marquee';
+import ProcesoInteractivo from '../components/home/ProcesoInteractivo';
+import Header from '../components/home/Header';
 import { COMPANY_EMAIL, whatsappLink } from '../lib/contactLinks';
 
 const SITE_URL = 'https://www.ethosia.tech';
@@ -71,6 +78,33 @@ const SOCIAL_ICONS = {
 };
 
 const TRUST = ['Más de 5 años de experiencia', 'Empresa constituida en Ecuador', 'Alineados a la LOPDP'];
+
+const INGENIERIA = [
+  {
+    titulo: 'Paneles de los laboratorios',
+    texto: 'Las interfaces reales de la mesa de ayuda, la red segmentada y la auditoría de seguridad, levantadas en Docker.',
+    imagen: '/paneles/Lab_D12_panel_de_soporte.webp',
+    alt: 'Panel de soporte de la mesa de ayuda del laboratorio',
+    href: '/plataforma?pestana=paneles',
+    cta: 'Ver los paneles',
+  },
+  {
+    titulo: 'Pipeline DevSecOps',
+    texto: 'Diez compuertas de calidad y seguridad antes de producción, con una herramienta para probar la compuerta de dependencias.',
+    imagen: '/paneles/Lab_C10_zap_baseline_local.webp',
+    alt: 'Resultado del escaneo de seguridad del laboratorio',
+    href: '/plataforma?pestana=devops',
+    cta: 'Ver el kit',
+  },
+  {
+    titulo: 'Servicios reutilizables',
+    texto: 'Red segmentada, mesa de ayuda, auditoría del sitio y kit de prácticas, listos para replicar en otra empresa.',
+    imagen: '/paneles/Lab_06_matriz_reglas_entre_vlan.webp',
+    alt: 'Matriz de reglas entre segmentos de red con 16 de 16 pruebas',
+    href: '/plataforma?pestana=servicios',
+    cta: 'Ver los servicios',
+  },
+];
 
 const SERVICIOS = [
   {
@@ -237,7 +271,6 @@ export default function Home() {
   const [form, setForm] = useState({ nombre: '', correo: '', area: AREAS[0], mensaje: '', consentimiento: false });
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
-  const [menuOpen, setMenuOpen] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -332,43 +365,9 @@ export default function Home() {
         />
       </Head>
 
-      <nav className="nav">
-        <a className="brand" href="#top">
-          <span className="brand-badge">
-            <Image src="/empresa/ethos-ia-logo-v2.png" alt="Ethos IA" width={42} height={42} priority className="brand-mark-img" />
-          </span>
-          <span className="brand-name">Ethos IA</span>
-        </a>
-        <div className="nav-pill">
-          <a className="nav-pill-link" href="#servicios">Servicios</a>
-          <a className="nav-pill-link" href="#enfoque">Enfoque ético</a>
-          <a className="nav-pill-link" href="#nosotros">Nosotros</a>
-          <Link className="nav-pill-link" href="/equipo">Equipo</Link>
-        </div>
-        <div className="nav-right">
-          <a className="nav-cta" href="#contacto">Agendar diagnóstico</a>
-          <button
-            type="button"
-            className={`nav-burger ${menuOpen ? 'open' : ''}`}
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
-      </nav>
+      <EfectosInteractivos />
 
-      <div className={`nav-mobile ${menuOpen ? 'open' : ''}`}>
-        <a href="#servicios" onClick={() => setMenuOpen(false)}>Servicios</a>
-        <a href="#enfoque" onClick={() => setMenuOpen(false)}>Enfoque ético</a>
-        <a href="#nosotros" onClick={() => setMenuOpen(false)}>Nosotros</a>
-        <a href="#mision" onClick={() => setMenuOpen(false)}>Misión y visión</a>
-        <Link href="/equipo" onClick={() => setMenuOpen(false)}>Equipo</Link>
-        <a className="nav-mobile-cta" href="#contacto" onClick={() => setMenuOpen(false)}>Agendar diagnóstico</a>
-      </div>
+      <Header inicio />
 
       <header className="hero" id="top">
         <Image
@@ -393,6 +392,7 @@ export default function Home() {
             <div className="hero-actions">
               <a className="hero-btn primary" href="#contacto">Agendar un diagnóstico</a>
               <a className="hero-btn ghost" href="#servicios">Conocer los servicios</a>
+              <Link className="hero-btn eng" href="/plataforma">Ver Ethos Ingeniería <span className="hero-arr" aria-hidden="true">→</span></Link>
             </div>
             <ul className="hero-trust">
               {TRUST.map((t) => (
@@ -406,14 +406,17 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="desafio">
+      <Cifras />
+      <Marquee />
+
+      <section className="desafio" id="contenido-principal">
         <Reveal as="span" className="section-label">EL DESAFÍO</Reveal>
         <Reveal as="h2" className="section-title">
-          La inteligencia artificial ya está en tu empresa. La pregunta es si está segura.
+          <Palabras texto={"La inteligencia artificial ya está en tu empresa. La pregunta es si está segura."} />
         </Reveal>
         <div className="desafio-grid">
           <Reveal className="desafio-item">
-            <span className="desafio-tag">EL RIESGO</span>
+            <span className="desafio-tag"><Icon name="shield" size={16} color="#04ebff" /> EL RIESGO</span>
             <p>
               Cada vez más empresas incorporan chatbots, asistentes y automatizaciones con IA sin una
               evaluación de seguridad. Una integración mal configurada puede exponer datos de clientes,
@@ -421,7 +424,7 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal className="desafio-item" style={{ transitionDelay: '90ms' }}>
-            <span className="desafio-tag">NUESTRA RESPUESTA</span>
+            <span className="desafio-tag"><Icon name="target" size={16} color="#04ebff" /> NUESTRA RESPUESTA</span>
             <p>
               Diagnosticamos cómo se usa la IA en cada proceso, identificamos vulnerabilidades y
               diseñamos controles técnicos y de gobernanza, para que la tecnología trabaje a favor de
@@ -429,7 +432,7 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal className="desafio-item" style={{ transitionDelay: '160ms' }}>
-            <span className="desafio-tag">EL RESULTADO</span>
+            <span className="desafio-tag"><Icon name="award" size={16} color="#04ebff" /> EL RESULTADO</span>
             <p>
               Procesos más eficientes, datos protegidos y la tranquilidad de una implementación que
               puedes auditar y explicar a tus clientes, socios y entes de control.
@@ -441,7 +444,7 @@ export default function Home() {
       <section className="servicios" id="servicios">
         <Reveal as="span" className="section-label">SERVICIOS</Reveal>
         <Reveal as="h2" className="section-title">
-          Tres líneas de servicio para adoptar inteligencia artificial sin poner en riesgo tu operación
+          <Palabras texto={"Tres líneas de servicio para adoptar inteligencia artificial sin poner en riesgo tu operación"} />
         </Reveal>
         <div className="serv-grid">
           {SERVICIOS.map((s, i) => (
@@ -470,6 +473,30 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+      </section>
+
+      <section className="ing" id="ingenieria">
+        <Reveal as="span" className="section-label">ETHOS INGENIERÍA</Reveal>
+        <Reveal as="h2" className="section-title">
+          <Palabras texto={"La ingeniería detrás de Ethos IA, visible: laboratorios, pipeline de seguridad y programa de prácticas"} />
+        </Reveal>
+        <div className="ing-grid">
+          {INGENIERIA.map((c, i) => (
+            <Reveal as="div" key={c.titulo} style={{ transitionDelay: `${i * 80}ms` }}>
+              <Link className="ing-card" href={c.href}>
+                <span className="ing-img">
+                  <Image src={c.imagen} alt={c.alt} width={640} height={360} />
+                </span>
+                <h3>{c.titulo}</h3>
+                <p>{c.texto}</p>
+                <span className="ing-link">{c.cta} →</span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal as="p" className="ing-more">
+          <Link href="/plataforma">Abrir Ethos Ingeniería →</Link>
+        </Reveal>
       </section>
 
       <section className="enfoque" id="enfoque">
@@ -539,7 +566,7 @@ export default function Home() {
       <section className="mv" id="mision">
         <div className="mv-glow" aria-hidden="true" />
         <Reveal as="span" className="section-label light">IDENTIDAD CORPORATIVA</Reveal>
-        <Reveal as="h2" className="section-title light">Lo que nos impulsa y hacia dónde vamos</Reveal>
+        <Reveal as="h2" className="section-title light"><Palabras texto={"Lo que nos impulsa y hacia dónde vamos"} /></Reveal>
         <div className="mv-grid">
           <Reveal as="article" className="mv-card">
             <span className="mv-icon">
@@ -582,16 +609,14 @@ export default function Home() {
 
       <section className="proceso">
         <Reveal as="span" className="section-label">CÓMO TRABAJAMOS</Reveal>
-        <Reveal as="h2" className="section-title">Una metodología clara, de principio a fin</Reveal>
-        <div className="proceso-grid">
-          {PROCESO.map(([n, t, d], i) => (
-            <Reveal key={n} className="proceso-item" style={{ transitionDelay: `${i * 70}ms` }}>
-              <div className="proceso-num">{n}</div>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal as="h2" className="section-title"><Palabras texto={"Una metodología clara, de principio a fin"} /></Reveal>
+        <ProcesoInteractivo pasos={PROCESO} />
+      </section>
+
+      <section className="faq-sec" id="preguntas">
+        <Reveal as="span" className="section-label">PREGUNTAS FRECUENTES</Reveal>
+        <Reveal as="h2" className="section-title"><Palabras texto={"Lo que suelen preguntarnos antes de empezar"} /></Reveal>
+        <Faq />
       </section>
 
       <section className="contacto" id="contacto">
@@ -700,6 +725,7 @@ export default function Home() {
             <a href="#nosotros">Nosotros</a>
             <a href="#mision">Misión y visión</a>
             <Link href="/equipo">Equipo</Link>
+            <Link href="/plataforma">Ethos Ingeniería</Link>
             <a href="#contacto">Contacto</a>
           </div>
           <div className="foot-col">
@@ -773,58 +799,6 @@ export default function Home() {
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
 
-        /* ── Navegación ─────────────────────────────────────────────── */
-        .nav {
-          display: flex; align-items: center; justify-content: space-between;
-          padding: 14px 32px;
-          position: sticky; top: 0; z-index: 20;
-          background: rgba(5, 17, 30, 0.72);
-          backdrop-filter: blur(14px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .brand {
-          display: flex; align-items: center; gap: 10px;
-          padding: 6px 16px 6px 6px;
-          border: 1px solid rgba(255,255,255,0.14);
-          background: rgba(255,255,255,0.04);
-          border-radius: 999px;
-        }
-        .brand-badge { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .brand-badge.small { width: 30px; height: 30px; }
-        :global(.brand-mark-img) { width: 100%; height: 100%; object-fit: contain; }
-        .brand-name { font-family: var(--font-brand), sans-serif; font-size: 15px; font-weight: 600; color: #eaf2f8; }
-        .nav-pill { display: flex; gap: 6px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.02); }
-        .nav-pill :global(.nav-pill-link) {
-          display: inline-flex; align-items: center; justify-content: center;
-          min-height: 36px; box-sizing: border-box;
-          padding: 9px 18px; font-size: 13px; line-height: 1;
-          color: #eaf2f8; border-radius: 999px; text-decoration: none;
-          transition: background 0.2s, color 0.2s;
-        }
-        .nav-pill :global(.nav-pill-link:hover) { background: rgba(4,235,255,0.12); color: #04ebff; }
-        .nav-right { display: flex; align-items: center; gap: 16px; }
-        .nav-cta {
-          padding: 12px 24px; background: linear-gradient(135deg, #dcfaff 0%, #8eecff 100%);
-          color: #05111e; border-radius: 999px; font-weight: 700; font-size: 13px;
-          box-shadow: 0 14px 26px rgba(4, 235, 255, 0.18);
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .nav-cta:hover {
-          color: #05111e; background: linear-gradient(135deg, #e6fbff 0%, #9cf2ff 100%);
-          transform: translateY(-1px);
-          box-shadow: 0 18px 32px rgba(4, 235, 255, 0.24);
-        }
-        .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.16); border-radius: 10px; background: transparent; cursor: pointer; padding: 0; }
-        .nav-burger span { display: block; width: 18px; height: 2px; background: #eaf2f8; margin: 0 auto; transition: transform 0.25s, opacity 0.25s; }
-        .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-burger.open span:nth-child(2) { opacity: 0; }
-        .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-        .nav-mobile { display: none; flex-direction: column; position: sticky; top: 65px; z-index: 9; background: rgba(5,17,30,0.96); border-bottom: 1px solid rgba(255,255,255,0.08); overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
-        .nav-mobile.open { max-height: 460px; }
-        .nav-mobile :global(a) { padding: 16px 32px; font-size: 15px; color: #eaf2f8; text-decoration: none; border-top: 1px solid rgba(255,255,255,0.08); }
-        .nav-mobile :global(a:hover) { color: #04ebff; }
-        .nav-mobile-cta { color: #04ebff !important; font-weight: 700; }
-
         /* ── Utilidades de sección ──────────────────────────────────── */
         .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; font-weight: 600; color: #04ebff; }
         :global(.section-label) { position: relative; z-index: 1; display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #0b5f75; margin-bottom: 16px; }
@@ -838,7 +812,7 @@ export default function Home() {
         :global(.section-title.light) { color: #eaf2f8; }
 
         /* ── Hero ───────────────────────────────────────────────────── */
-        .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; background: #05111e; }
+        .hero { position: relative; min-height: 92vh; padding-top: 72px; box-sizing: border-box; display: flex; align-items: center; overflow: hidden; background: #05111e; }
         :global(.hero-bg-img) {
           object-fit: cover; object-position: 100% 50%; z-index: 0;
         }
@@ -858,7 +832,7 @@ export default function Home() {
           letter-spacing: -0.02em;
         }
         .hero-sub { font-size: 16px; line-height: 1.7; color: #d3dde8; margin: 22px 0 0; max-width: 52ch; }
-        .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+        .hero-actions { display: flex; gap: 16px; margin-top: 38px; flex-wrap: wrap; }
         .hero-btn {
           display: inline-flex; align-items: center; justify-content: center;
           padding: 13px 26px; border-radius: 999px; font-weight: 700; font-size: 14px;
@@ -875,6 +849,18 @@ export default function Home() {
         .hero-btn.ghost {
           border: 1px solid rgba(234,242,248,0.35); color: #eaf2f8; background: rgba(255,255,255,0.015);
         }
+        .hero-actions :global(.hero-btn) {
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 13px 26px; border-radius: 999px; font-weight: 700; font-size: 14px;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+        }
+        .hero-actions :global(.hero-btn.eng) {
+          border: 1px solid transparent; color: #eaf2f8; gap: 8px; text-decoration: none;
+          background: linear-gradient(#08182a, #08182a) padding-box, linear-gradient(135deg, #04ebff, #7aa7ff) border-box;
+        }
+        .hero-actions :global(.hero-btn.eng:hover) { transform: translateY(-2px); color: #04ebff; box-shadow: 0 14px 30px rgba(4,235,255,0.18); }
+        .hero-arr { display: inline-block; transition: transform 0.25s ease; }
+        .hero-actions :global(.hero-btn.eng:hover) .hero-arr { transform: translateX(4px); }
         .hero-btn.ghost:hover { border-color: #04ebff; color: #04ebff; box-shadow: 0 10px 26px rgba(4,235,255,0.10); }
         .hero-trust { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-wrap: wrap; gap: 12px 26px; }
         .hero-trust li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #c3d2de; }
@@ -896,6 +882,25 @@ export default function Home() {
         :global(.desafio-item) p { font-size: 14.5px; color: #33414d; line-height: 1.75; margin: 0; }
 
         /* ── Servicios ──────────────────────────────────────────────── */
+        .ing { padding: 96px 48px; background: #05111e; color: #eaf2f8; }
+        .ing :global(.section-label) { color: #04ebff; }
+        .ing :global(.section-title) { color: #eaf2f8; }
+        .ing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 1100px; margin: 48px auto 0; }
+        .ing :global(.ing-card), .ing :global(.ing-more a) { text-decoration: none; }
+        .ing :global(.ing-card) { display: flex; flex-direction: column; height: 100%; background: #0a1b2b; border: 1px solid #123048; border-radius: 16px; padding: 24px; color: #c4d3e0; transition: transform 0.2s ease, border-color 0.2s ease; }
+        .ing :global(.ing-card:hover) { transform: translateY(-4px); border-color: #04ebff; color: #c4d3e0; }
+        .ing-img { display: block; border-radius: 10px; overflow: hidden; margin-bottom: 22px; background: #05111e; aspect-ratio: 16 / 9; }
+        .ing-img :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+        .ing :global(.ing-card) h3 { font-size: 18px; margin: 0 0 8px; color: #eaf2f8; }
+        .ing :global(.ing-card) p { font-size: 14px; line-height: 1.65; margin: 0 0 24px; flex: 1; }
+        .ing-link { align-self: flex-start; font-size: 13px; font-weight: 700; color: #04ebff; padding: 9px 16px; border: 1px solid #123048; border-radius: 999px; transition: background 0.2s ease, border-color 0.2s ease; }
+        .ing :global(.ing-card:hover) .ing-link { background: rgba(4,235,255,0.1); border-color: #04ebff; }
+        .ing :global(.ing-more) { text-align: center; margin: 64px 0 0; font-weight: 700; }
+        .ing :global(.ing-more a) { color: #04ebff; }
+        .faq-sec { padding: 96px 48px; background: #eef4f9; }
+        .desafio-grid :global(.desafio-item) { position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+        .desafio-grid :global(.desafio-item:hover) { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(5,17,30,0.12); }
+        .desafio-tag { display: inline-flex; align-items: center; gap: 8px; }
         .servicios { padding: 96px 48px; background: #eef4f9; }
         .serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1180px; margin: 0 auto; align-items: stretch; }
         :global(.serv-card) {
@@ -945,7 +950,7 @@ export default function Home() {
         .nos-item-label { display: block; font-family: var(--font-brand), sans-serif; font-size: 10.5px; letter-spacing: 0.18em; font-weight: 700; color: #0b5f75; }
         .nos-item h3 { font-family: var(--font-brand), sans-serif; font-size: 17px; font-weight: 600; margin: 6px 0 6px; color: #05111e; }
         .nos-item p { font-size: 14.5px; line-height: 1.7; color: #4a5866; margin: 0; }
-        :global(.nos-btn) { display: inline-block; text-decoration: none; margin-top: 36px; padding: 14px 30px; border-radius: 999px; background: #05111e; color: #eaf2f8; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
+        :global(.nos-btn) { display: inline-block; text-decoration: none; margin-top: 48px; padding: 14px 30px; border-radius: 999px; background: #05111e; color: #eaf2f8; font-weight: 700; font-size: 14px; transition: background 0.2s, transform 0.2s; }
         :global(.nos-btn:hover) { background: #0b2a40; color: #04ebff; transform: translateY(-2px); }
         .nos-frame { position: relative; aspect-ratio: 1195 / 896; border-radius: 22px; overflow: hidden; box-shadow: 0 34px 80px rgba(5,17,30,0.18); border: 1px solid rgba(5,17,30,0.06); }
         :global(.nos-img) { object-fit: cover; }
@@ -989,7 +994,7 @@ export default function Home() {
         :global(.contacto-inner) { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
         .contacto h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; margin: 14px 0 12px; text-wrap: balance; }
         .contacto-sub { font-size: 14.5px; line-height: 1.7; color: #c3d2de; margin: 0 0 34px; max-width: 52ch; }
-        .quote-form { width: 100%; max-width: 520px; text-align: left; display: flex; flex-direction: column; gap: 16px; }
+        .quote-form { width: 100%; max-width: 520px; text-align: left; display: flex; flex-direction: column; gap: 20px; }
         .qf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .quote-form label { display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #c3d2de; }
         .quote-form input, .quote-form select, .quote-form textarea { background: rgba(255,255,255,0.05); border: 1px solid #123048; border-radius: 8px; padding: 12px 14px; color: #eaf2f8; font-family: inherit; font-size: 14px; }
@@ -1000,7 +1005,7 @@ export default function Home() {
         .consent-row input { margin-top: 2px; flex-shrink: 0; }
         .consent-row :global(a) { color: #04ebff; }
         .form-error { color: #ff9f9f; font-size: 13px; margin: 0; }
-        .qf-submit { background: #04ebff; color: #04141e; border: none; border-radius: 999px; padding: 14px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+        .qf-submit { margin-top: 12px; background: #04ebff; color: #04141e; border: none; border-radius: 999px; padding: 14px; font-weight: 700; font-size: 14px; cursor: pointer; transition: background 0.2s, transform 0.2s; }
         .qf-submit:hover:not(:disabled) { background: #5df0ff; transform: translateY(-1px); }
         .qf-submit:disabled { opacity: 0.6; cursor: wait; }
         .form-ok { padding: 12px 0 0; }
@@ -1066,22 +1071,15 @@ export default function Home() {
           .enfoque-visual, :global(.enfoque-copy) { flex: 0 0 auto; max-width: 100%; order: initial; }
           :global(.enfoque-copy) { padding: 44px 24px 56px; }
           .foot-cols { grid-template-columns: 1fr 1fr; }
-          .nav-pill { display: none; }
-          .nav-cta { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
-          .nav-burger { display: flex; }
-          .nav-mobile { display: flex; }
-          .desafio, .servicios, .nosotros, .mv, .proceso, .contacto { padding: 72px 24px; }
+          .desafio, .servicios, .ing, .nosotros, .mv, .proceso, .contacto, .faq-sec { padding: 72px 24px; }
           :global(.section-title) { margin-bottom: 40px; }
           :global(.mv-card) { padding: 34px 28px; }
           :global(.mv-card) p { font-size: 16.5px; }
         }
 
         @media (max-width: 560px) {
-          .nav { padding: 12px 16px; }
-          .brand-name { font-size: 13px; }
-          .nav-cta { padding: 9px 11px; font-size: 11px; }
           .hero-inner { padding: 32px 18px; }
-          .desafio, .servicios, .nosotros, .mv, .proceso, .contacto, .foot { padding-left: 20px; padding-right: 20px; }
+          .desafio, .servicios, .ing, .nosotros, .mv, .proceso, .contacto, .faq-sec, .foot { padding-left: 20px; padding-right: 20px; }
           .proceso-grid, .valores-grid, .principios { grid-template-columns: 1fr; }
           .foot-cols { grid-template-columns: 1fr; gap: 28px; }
           .foot-top, .foot-bottom { flex-direction: column; align-items: flex-start; }

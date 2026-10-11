@@ -174,3 +174,49 @@ El equipo detrás del proyecto está en [ethosia.tech/equipo](https://www.ethosi
 <div align="center">
 <sub>© 2026 ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador. Todos los derechos reservados.</sub>
 </div>
+
+## Ethos Ingeniería (`/plataforma`) y perfil técnico (`/equipo/marlon-perez`)
+
+Aplicación aparte, enlazada desde la página de equipo, que muestra los laboratorios, el kit DevSecOps y el programa de prácticas de la empresa. Está escrita en TypeScript y consume su propia API REST.
+
+| Pieza | Archivo |
+|---|---|
+| Interfaz React (pestañas, estados de carga y error, registro de riesgos) | `pages/plataforma/index.tsx` |
+| Datos tipados y cálculo de riesgo (probabilidad × impacto) | `lib/plataforma/datos.ts` |
+| JWT HS256 con `crypto` (firma, vencimiento, rol, rechazo de `alg: none`) | `lib/plataforma/jwt.ts` |
+| Autorización por rol en rutas | `lib/plataforma/api.ts` |
+| `GET /api/plataforma/resumen` (público, con límite de solicitudes) | `pages/api/plataforma/resumen.ts` |
+| `GET /api/plataforma/programa` (JWT, rol `gerencia` o `tutoria`) | `pages/api/plataforma/programa.ts` |
+| Pruebas | `lib/plataforma/jwt.test.ts`, `pages/api/plataforma/plataforma.test.js` |
+| Perfil profesional con tabla «requisito ↔ evidencia» | `pages/equipo/marlon-perez.tsx` |
+
+Respuestas de la API protegida: `401` token ausente, inválido o vencido; `403` rol sin permiso; `503` si `PLATAFORMA_JWT_SECRET` no está configurado.
+
+```bash
+PLATAFORMA_JWT_SECRET=<secreto> node scripts/emitir-token.js tutora tutoria 60
+curl -H "Authorization: Bearer <token>" http://localhost:3000/api/plataforma/programa
+```
+
+### Servicios y compuerta del pipeline
+
+La pestaña «Servicios» de `/plataforma` publica cinco servicios reutilizables (`SERVICIOS` en `lib/plataforma/datos.ts`) con su estado real: «Catálogo» o «Demo en el navegador». Ninguno se marca «En línea» mientras no exista un servidor que lo ejecute.
+
+La **compuerta de dependencias** (`lib/plataforma/compuerta.ts`, componente `components/plataforma/Compuerta.tsx`) aplica los umbrales de `politicas/umbrales.yml` del Ethos DevOps Kit a la salida de `npm audit --json`: bloquea críticas y altas, asigna plazos de remediación (7, 30, 90 y 180 días) y respeta excepciones vigentes. Se ejecuta en el navegador; el JSON pegado no se envía a ningún servidor. Pruebas: `lib/plataforma/compuerta.test.ts`.
+
+### Paneles de los laboratorios
+
+La pestaña «Paneles» de `/plataforma` muestra 30 capturas reales de las interfaces de los laboratorios Docker (GLPI, seguridad del sitio y red segmentada) en un visor accesible (Esc y flechas), y una tabla filtrable con las 16 pruebas reales de la red segmentada (`lib/plataforma/matriz.ts`).
+
+- Las imágenes se generan con `python scripts/preparar-paneles.py` (WebP en `public/paneles/`); los PNG originales no se tocan.
+- `Lab_C06` y `Lab_C09` se excluyen a propósito: muestran vulnerabilidades abiertas del sitio en producción. Una prueba (`matriz.test.ts`) impide que se agreguen.
+
+### Demostración en vivo (opcional)
+
+`GET /api/plataforma/estado` consulta, con límite de tiempo, la URL de `PLATAFORMA_DEMO_URL` (debe ser HTTPS). Si responde, `DemoEnVivo` muestra «Demostración en vivo disponible» con el botón de acceso; si no, muestra el aviso de no disponible y las capturas siguen visibles. `PLATAFORMA_DEMO_USUARIO` y `PLATAFORMA_DEMO_CLAVE` son una credencial **pública** de solo lectura; nunca la del administrador. La guía de puesta en marcha está en `Laboratorios Docker Ethos IA/demo-en-vivo/GUIA_PUESTA_EN_MARCHA.md`.
+
+### Visualizaciones y acceso desde la portada
+
+- La portada tiene la sección «Ethos Ingeniería» (`#ingenieria`), el enlace «Ingeniería» en el menú y un botón en el hero. Las tarjetas abren `/plataforma?pestana=paneles|devops|servicios`.
+- Laboratorios: topología interactiva (`TopologiaRed.tsx`) con las 16 pruebas reales. DevOps Kit: pipeline de diez compuertas (`PipelineInteractivo.tsx`), diagramas y vista previa de los ocho documentos. Programa: etapas y árbol de la carpeta de evidencias (`ArbolEvidencias.tsx`), sin datos de personas. Datos en `lib/plataforma/visual.ts`.
+
+- Servicios: fichas con vista previa real, comando copiable y acceso a los paneles (`FichaServicio.tsx`). Riesgos: mapa de calor de probabilidad × impacto con detalle por riesgo (`MapaRiesgos.tsx`). API: probador interactivo con estado, tiempo y JSON, y colección de Postman descargable (`ApiPlayground.tsx`, `public/plataforma.postman_collection.json`).
