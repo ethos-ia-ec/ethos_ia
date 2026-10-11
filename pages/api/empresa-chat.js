@@ -232,6 +232,8 @@ export default async function handler(req, res) {
     return res.status(200).json({ reply });
   } catch (err) {
     console.error('[empresa-chat] completeChat falló:', err);
-    return res.status(err.status || 502).json({ error: GENERIC_AI_ERROR });
+    // El 429 de cuota diaria lleva un mensaje curado en complete.js; los demás errores siguen genéricos.
+    const message = err.status === 429 && err.message ? err.message : GENERIC_AI_ERROR;
+    return res.status(err.status || 502).json({ error: message });
   }
 }

@@ -208,7 +208,7 @@ export default function EquipoDirectivo() {
       <ChatWidget />
 
       <style jsx>{`
-        :global(html) { scroll-behavior: smooth; }
+        
         :global(body) { background: #eaf2f8; }
         .page { font-family: var(--font-brand), -apple-system, sans-serif; color: #05111e; background: #eaf2f8; min-height: 100vh; }
         :global(a) { color: #0b5f75; text-decoration: none; }

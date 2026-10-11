@@ -778,7 +778,7 @@ export default function Home() {
       <ChatWidget />
 
       <style jsx>{`
-        :global(html) { scroll-behavior: smooth; }
+        
         :global(body) {
           background: #eaf2f8;
           color: #071a2a;
@@ -794,7 +794,7 @@ export default function Home() {
         }
         a { color: #0b5f75; text-decoration: none; }
         a:hover { color: #3ddcf5; }
-        :global(section[id]), :global(header[id]) { scroll-margin-top: 76px; }
+        :global(section[id]), :global(header[id]) { scroll-margin-top: 0; }
 
         :global(.reveal) { opacity: 0; transform: translateY(22px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
         :global(.reveal.in) { opacity: 1; transform: translateY(0); }
@@ -812,7 +812,7 @@ export default function Home() {
         :global(.section-title.light) { color: #eaf2f8; }
 
         /* ── Hero ───────────────────────────────────────────────────── */
-        .hero { position: relative; min-height: 92vh; padding-top: 72px; box-sizing: border-box; display: flex; align-items: center; overflow: hidden; background: #05111e; }
+        .hero { position: relative; min-height: 100vh; min-height: 100svh; padding-top: 72px; box-sizing: border-box; display: flex; align-items: center; overflow: hidden; background: #05111e; }
         :global(.hero-bg-img) {
           object-fit: cover; object-position: 100% 50%; z-index: 0;
         }
