@@ -62,18 +62,6 @@ export default function EquipoDirectivo() {
         </p>
       </header>
 
-      <section className="origen">
-        <Reveal as="span" className="section-label">ORIGEN DEL ECOSISTEMA</Reveal>
-        <Reveal as="p" className="origen-text">
-          El origen de ETHOSLAB S.A.S. es la convergencia de dos disciplinas: la
-          ingeniería de software aplicada, con enfoque en arquitectura, ciberseguridad y algoritmos
-          de inteligencia artificial, y la economía, con enfoque en gobernanza societaria,
-          cumplimiento normativo y estructura financiera. Esa combinación, sostenida durante cinco
-          años de trabajo técnico real antes de existir formalmente como sociedad, es lo que hoy
-          opera bajo el nombre ETHOSLAB S.A.S. y su marca Ethos IA.
-        </Reveal>
-      </section>
-
       <section className="perfiles">
         <Reveal as="span" className="section-label">PERFILES DIRECTIVOS</Reveal>
         <div className="perfiles-grid">
@@ -191,6 +179,18 @@ export default function EquipoDirectivo() {
         </div>
       </section>
 
+      <section className="origen">
+        <Reveal as="span" className="section-label">ORIGEN DEL ECOSISTEMA</Reveal>
+        <Reveal as="p" className="origen-text">
+          El origen de ETHOSLAB S.A.S. es la convergencia de dos disciplinas: la
+          ingeniería de software aplicada, con enfoque en arquitectura, ciberseguridad y algoritmos
+          de inteligencia artificial, y la economía, con enfoque en gobernanza societaria,
+          cumplimiento normativo y estructura financiera. Esa combinación, sostenida durante cinco
+          años de trabajo técnico real antes de existir formalmente como sociedad, es lo que hoy
+          opera bajo el nombre ETHOSLAB S.A.S. y su marca Ethos IA.
+        </Reveal>
+      </section>
+
       <section className="cta">
         <Reveal as="p">
           <Link href="/#contacto">Hablar con el equipo directivo →</Link>
@@ -225,7 +225,7 @@ export default function EquipoDirectivo() {
         :global(.nav-back) { font-size: 13px; color: #c4d3e0; text-decoration: none; }
         :global(.nav-back:hover) { color: #04ebff; }
 
-        .hero { min-height: 100vh; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 128px 48px 72px; background: #05111e; color: #eaf2f8; }
+        .hero { padding: 100px 48px 32px; background: #05111e; color: #eaf2f8; }
         .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #04ebff; }
         .hero h1 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.2; font-weight: 600; margin: 16px 0 0; max-width: 22ch; text-wrap: balance; }
         .hero-sub { font-size: 15px; line-height: 1.7; color: #c4d3e0; margin: 20px 0 0; max-width: 60ch; }
@@ -235,7 +235,7 @@ export default function EquipoDirectivo() {
         .origen { padding: 64px 48px; background: #ffffff; display: flex; flex-direction: column; align-items: center; }
         .origen-text { max-width: 640px; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 17px; line-height: 1.7; color: #14202b; margin: 0; }
 
-        .perfiles { padding: 64px 48px 72px; background: #eaf2f8; }
+        .perfiles { padding: 36px 48px 72px; background: #eaf2f8; }
         .perfiles.areas { border-top: 1px solid rgba(5,17,30,0.08); padding-top: 56px; }
         .perfiles-grid { display: flex; flex-direction: column; gap: 28px; max-width: 860px; margin: 0 auto; }
         :global(.team-card) {
