@@ -225,7 +225,7 @@ export default function EquipoDirectivo() {
         :global(.nav-back) { font-size: 13px; color: #c4d3e0; text-decoration: none; }
         :global(.nav-back:hover) { color: #04ebff; }
 
-        .hero { padding: 128px 48px 56px; background: #05111e; color: #eaf2f8; }
+        .hero { min-height: 100vh; min-height: 100svh; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 128px 48px 72px; background: #05111e; color: #eaf2f8; }
         .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #04ebff; }
         .hero h1 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.2; font-weight: 600; margin: 16px 0 0; max-width: 22ch; text-wrap: balance; }
         .hero-sub { font-size: 15px; line-height: 1.7; color: #c4d3e0; margin: 20px 0 0; max-width: 60ch; }
