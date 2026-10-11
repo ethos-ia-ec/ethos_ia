@@ -11,6 +11,7 @@ import Faq from '../components/home/Faq';
 import Marquee from '../components/home/Marquee';
 import ProcesoInteractivo from '../components/home/ProcesoInteractivo';
 import Header from '../components/home/Header';
+import IntroCubo from '../components/home/IntroCubo';
 import { COMPANY_EMAIL, whatsappLink } from '../lib/contactLinks';
 
 const SITE_URL = 'https://www.ethosia.tech';
@@ -367,6 +368,7 @@ export default function Home() {
 
       <EfectosInteractivos />
 
+      <IntroCubo />
       <Header inicio />
 
       <header className="hero" id="top">

@@ -206,7 +206,8 @@ export default function Header({ inicio = false }) {
         .hd-logo { width: 42px; height: 42px; display: flex; transition: width 0.3s ease, height 0.3s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1); }
         .hd-logo img { width: 100%; height: 100%; object-fit: contain; }
         .hd.compacto .hd-logo { width: 34px; height: 34px; }
-        .hd-marca:hover .hd-logo { transform: rotate(-8deg) scale(1.08); }
+        .hd-marca:hover .hd-logo { animation: hd-salto 0.6s cubic-bezier(0.3, 0, 0.3, 1); }
+        @keyframes hd-salto { 0% { transform: translateY(0) scale(1); } 30% { transform: translateY(-7px) scale(1.12); } 55% { transform: translateY(0) scale(1.04, 0.9); } 75% { transform: translateY(-2px) scale(1); } 100% { transform: none; } }
         .hd-nombre { font-family: var(--font-brand), sans-serif; font-size: 15px; font-weight: 600; }
 
         .hd-pill { position: relative; display: flex; gap: 4px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.03); }
