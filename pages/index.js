@@ -555,7 +555,7 @@ export default function Home() {
             <span className="mv-icon">
               <Icon name="target" size={26} color="#04ebff" />
             </span>
-            <span className="mv-num" aria-hidden="true">01</span>
+            <span className="mv-num" aria-hidden="true" data-n="01" />
             <span className="mv-label">MISIÓN</span>
             <p>
               Impulsar la adopción de inteligencia artificial ética, segura y responsable en las pequeñas y
@@ -567,7 +567,7 @@ export default function Home() {
             <span className="mv-icon">
               <Icon name="globe" size={26} color="#04ebff" />
             </span>
-            <span className="mv-num" aria-hidden="true">02</span>
+            <span className="mv-num" aria-hidden="true" data-n="02" />
             <span className="mv-label">VISIÓN</span>
             <p>
               Ser reconocidos en Latinoamérica y a nivel internacional como la firma de referencia en
@@ -976,7 +976,8 @@ export default function Home() {
         .mv-grid { align-items: stretch; }
         :global(.mv-card) { display: flex; flex-direction: column; overflow: hidden; }
         :global(.mv-card) p { flex: 1; }
-        .mv-num { position: absolute; right: 28px; top: 14px; font-size: 4.2rem; font-weight: 800; line-height: 1; color: rgba(4,235,255,0.09); }
+        .mv-num { position: absolute; right: 28px; top: 14px; pointer-events: none; }
+        .mv-num::after { content: attr(data-n); font-size: 4.2rem; font-weight: 800; line-height: 1; color: rgba(4,235,255,0.09); }
         :global(.mv-cita) { position: relative; z-index: 1; max-width: 820px; margin: 56px auto 0; padding: 0 0 0 24px; border-left: 3px solid var(--c-cian); }
         :global(.mv-cita) p { margin: 0; font-size: clamp(1.1rem, 1rem + 0.6vw, 1.45rem); line-height: 1.6; color: var(--c-claro); font-weight: 500; text-wrap: balance; }
         :global(.gob) { position: relative; z-index: 1; max-width: 1140px; margin: 64px auto 0; text-align: center; }

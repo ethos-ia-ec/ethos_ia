@@ -29,7 +29,7 @@ export default function ProcesoInteractivo({ pasos }) {
         ))}
       </ol>
       <div className="panel" role="tabpanel" aria-live="polite">
-        <span className="num">{actual[0]}</span>
+        <span className="num" aria-hidden="true" data-n={actual[0]} />
         <h3>{actual[1]}</h3>
         <p>{actual[2]}</p>
         <div className="nav">
@@ -51,7 +51,8 @@ export default function ProcesoInteractivo({ pasos }) {
         ol button.on b { color: #04ebff; }
         button:focus-visible { outline: 2px solid #04ebff; outline-offset: 2px; }
         .panel { background: #05111e; color: #c4d3e0; border-radius: 18px; padding: 36px; position: relative; overflow: hidden; }
-        .num { position: absolute; right: 24px; top: 6px; font-size: 6rem; font-weight: 800; color: rgba(4,235,255,0.08); line-height: 1; }
+        .num { position: absolute; right: 24px; top: 6px; pointer-events: none; }
+        .num::after { content: attr(data-n); font-size: 6rem; font-weight: 800; color: rgba(4,235,255,0.08); line-height: 1; }
         h3 { margin: 0 0 10px; color: #eaf2f8; font-size: 1.5rem; }
         p { margin: 0 0 32px; line-height: 1.75; max-width: 62ch; position: relative; }
         .nav { display: flex; gap: 14px; flex-wrap: wrap; }
