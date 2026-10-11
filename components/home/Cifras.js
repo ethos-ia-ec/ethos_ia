@@ -56,12 +56,12 @@ export default function Cifras() {
         {CIFRAS.map((c) => <Cifra key={c.etiqueta} c={c} activo={activo} />)}
       </ul>
       <style jsx>{`
-        .cifras { background: linear-gradient(180deg, #05111e 0%, #0a1b2b 100%); padding: 0 48px 56px; }
+        .cifras { background: linear-gradient(180deg, #05111e 0%, #0a1b2b 100%); padding: 56px 48px; }
         ul { list-style: none; margin: 0 auto; padding: 0; max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .cifras :global(li) { background: rgba(4,235,255,0.05); border: 1px solid #123048; border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 4px; }
         .cifras :global(strong) { font-size: clamp(2rem, 4vw, 2.8rem); color: #04ebff; line-height: 1; font-variant-numeric: tabular-nums; }
         .cifras :global(span) { color: #c4d3e0; font-size: 13.5px; }
-        @media (max-width: 700px) { .cifras { padding: 0 24px 40px; } }
+        @media (max-width: 700px) { .cifras { padding: 40px 24px; } }
       `}</style>
     </section>
   );
