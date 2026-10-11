@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 // las animaciones de aparición ni el estado de React. Se desactiva con «reducir movimiento».
 const TARJETAS = '.desafio-item, .serv-card, .mv-card, .valor, .ing-card, .nos-item';
 const MAGNETICOS = '.nav-cta, .nos-btn, .qf-submit, .ing-more a';
-const PARALLAX = '.enfoque-img, .nos-img, .brand-banner-img';
+const PARALLAX = '.nos-img, .brand-banner-img';
 const ESCALONADOS = '.serv-list li, .principios li, .valor, .nos-item, .ing-card, .faq .item';
 const SECCIONES_OSCURAS = '.ing, .mv, .contacto, .cifras';
 

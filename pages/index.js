@@ -902,10 +902,10 @@ export default function Home() {
         .desafio-grid :global(.desafio-item:hover) { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(5,17,30,0.12); }
         .desafio-tag { display: inline-flex; align-items: center; gap: 8px; }
         .servicios { padding: 96px 48px; background: #eef4f9; }
-        .serv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1180px; margin: 0 auto; align-items: stretch; }
+        .serv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 28px; max-width: 1180px; margin: 0 auto; align-items: stretch; }
         :global(.serv-card) {
-          position: relative; display: flex; flex-direction: column; gap: 16px;
-          padding: 36px 32px; border-radius: 20px; background: #ffffff;
+          position: relative; display: flex; flex-direction: column; gap: 18px; overflow: hidden;
+          padding: 40px 34px 34px; border-radius: 22px; background: #ffffff;
           border: 1px solid rgba(5,17,30,0.08);
           box-shadow: 0 18px 40px rgba(5,17,30,0.06);
           transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease, opacity 0.65s cubic-bezier(0.16,1,0.3,1);
@@ -913,15 +913,16 @@ export default function Home() {
         :global(.serv-card.in:hover) { transform: translateY(-4px); box-shadow: 0 26px 56px rgba(5,17,30,0.12); }
         /* Degradado tomado de las caras del cubo del logotipo (#08283c → #05111e). */
         :global(.serv-card.featured) { background: linear-gradient(160deg, #08283c 0%, #05111e 100%); border-color: rgba(4,235,255,0.28); box-shadow: 0 26px 60px rgba(5,17,30,0.28); }
-        .serv-head { display: flex; align-items: center; justify-content: space-between; }
+        :global(.serv-card)::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, #04ebff, #0b5f75); opacity: 0.85; }
+        .serv-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
         .serv-icon { width: 56px; height: 56px; border-radius: 16px; background: #05111e; display: flex; align-items: center; justify-content: center; }
         :global(.serv-card.featured) .serv-icon { background: #04ebff; }
         .serv-num { font-family: var(--font-brand), sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #93a4b3; }
-        :global(.serv-card) h3 { font-family: var(--font-brand), sans-serif; font-size: 21px; line-height: 1.3; font-weight: 600; margin: 8px 0 0; color: #05111e; text-wrap: balance; }
+        :global(.serv-card) h3 { font-family: var(--font-brand), sans-serif; font-size: 21px; line-height: 1.3; font-weight: 600; margin: 4px 0 0; color: #05111e; text-wrap: balance; min-height: 2.6em; }
         :global(.serv-card) p { font-size: 14.5px; line-height: 1.75; color: #3e4d5a; margin: 0; }
         :global(.serv-card.featured) h3 { color: #eaf2f8; }
         :global(.serv-card.featured) p { color: #c3d2de; }
-        .serv-list { list-style: none; padding: 18px 0 0; margin: auto 0 0; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(5,17,30,0.08); }
+        .serv-list { list-style: none; padding: 22px 0 0; margin: auto 0 0; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(5,17,30,0.08); }
         :global(.serv-card.featured) .serv-list { border-top-color: rgba(255,255,255,0.12); }
         .serv-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; line-height: 1.5; color: #14202b; font-weight: 500; }
         :global(.serv-card.featured) .serv-list li { color: #eaf2f8; }
@@ -929,7 +930,7 @@ export default function Home() {
 
         /* ── Enfoque ético ──────────────────────────────────────────── */
         .enfoque { display: flex; align-items: stretch; background: #05111e; color: #eaf2f8; }
-        .enfoque-visual { position: relative; flex: 0 0 50%; max-width: 50%; aspect-ratio: 1376 / 768; order: 2; }
+        .enfoque-visual { position: relative; flex: 0 0 50%; max-width: 50%; aspect-ratio: 1376 / 768; order: 2; overflow: hidden; }
         :global(.enfoque-img) { object-fit: cover; }
         :global(.enfoque-copy) { order: 1; flex: 0 0 50%; max-width: 50%; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; padding: 64px 64px 64px 72px; }
         .enfoque h2 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.7rem, 3vw, 2.35rem); line-height: 1.25; font-weight: 600; margin: 18px 0 20px; text-wrap: balance; }
@@ -1084,7 +1085,8 @@ export default function Home() {
           .foot-cols { grid-template-columns: 1fr; gap: 28px; }
           .foot-top, .foot-bottom { flex-direction: column; align-items: flex-start; }
           :global(.section-title) { font-size: 1.4rem; }
-          :global(.serv-card) { padding: 30px 24px; }
+          :global(.serv-card) { padding: 34px 24px 28px; }
+          :global(.serv-card) h3 { min-height: 0; }
         }
 
         @media (prefers-reduced-motion: reduce) {
