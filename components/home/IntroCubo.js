@@ -14,7 +14,8 @@ const GUARDA = `try{if(sessionStorage.getItem('${CLAVE}')==='1'||matchMedia('(pr
 export default function IntroCubo() {
   const [fase, setFase] = useState('activa'); // nada | activa | saliendo (se pinta ya en el HTML inicial para evitar el parpadeo)
   const [mudo, setMudo] = useState(false);
-  const audio = useRef({ ctx: null, detener: null });
+  const [bloqueado, setBloqueado] = useState(false); // el navegador no deja sonar hasta que haya un toque
+  const audio = useRef({ ctx: null, detener: null, inicio: 0 });
 
   // Sonido: los navegadores solo lo permiten si el visitante ya interactuó con el sitio (p. ej. al llegar desde un enlace).
   // Si lo bloquean, la intro corre en silencio. Se respeta la preferencia de silenciar.
@@ -26,22 +27,42 @@ export default function IntroCubo() {
     const vista = document.documentElement.classList.contains('ic-vista');
     if (!AC || silenciado || vista) return () => clearTimeout(t);
     let vivo = true;
+    audio.current.inicio = performance.now();
+    let aviso;
     try {
       const ctx = new AC();
       audio.current.ctx = ctx;
       ctx.resume().then(() => {
         if (vivo && ctx.state === 'running') audio.current.detener = programarSonidoIntro(ctx, ctx.currentTime + 0.05);
       }).catch(() => {});
-    } catch { /* sin audio */ }
+      // Si pasado un instante el navegador sigue bloqueándolo, se ofrece activarlo con un toque.
+      aviso = setTimeout(() => { if (vivo && ctx.state !== 'running') setBloqueado(true); }, 300);
+    } catch { aviso = setTimeout(() => setBloqueado(true), 0); }
     return () => {
-      vivo = false; clearTimeout(t);
+      vivo = false; clearTimeout(t); clearTimeout(aviso);
       try { audio.current.detener?.(); audio.current.ctx?.close(); } catch { /* ya cerrado */ }
-      audio.current = { ctx: null, detener: null };
+      audio.current = { ctx: null, detener: null, inicio: 0 };
     };
   }, []);
 
-  const alternarSonido = (e) => {
+  const alternarSonido = async (e) => {
     e.stopPropagation();
+    // Con el audio bloqueado, el toque es el gesto que el navegador exige: se activa y suena lo que falta de la intro.
+    if (bloqueado || (!mudo && audio.current.ctx && audio.current.ctx.state !== 'running')) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      try {
+        let ctx = audio.current.ctx;
+        if (!ctx || ctx.state === 'closed') { ctx = new AC(); audio.current.ctx = ctx; }
+        await ctx.resume();
+        if (ctx.state === 'running') {
+          const transcurrido = (performance.now() - (audio.current.inicio || performance.now())) / 1000;
+          audio.current.detener = programarSonidoIntro(ctx, ctx.currentTime + 0.05 - transcurrido, 0.5, transcurrido);
+          setBloqueado(false); setMudo(false);
+          try { localStorage.setItem(MUDO, '0'); } catch { /* sin almacenamiento */ }
+        }
+      } catch { /* sin audio */ }
+      return;
+    }
     const nuevo = !mudo;
     setMudo(nuevo);
     try { localStorage.setItem(MUDO, nuevo ? '1' : '0'); } catch { /* sin almacenamiento */ }
@@ -56,8 +77,9 @@ export default function IntroCubo() {
     try { sessionStorage.setItem(CLAVE, '1'); } catch { /* sin almacenamiento */ }
 
     document.body.style.overflow = 'hidden';
-    const salir = () => setFase((f) => (f === 'activa' ? 'saliendo' : f));
-    const t1 = setTimeout(salir, T.total);
+    // El toque en el botón de sonido no debe saltar la intro: es el gesto que activa el audio.
+    const salir = (e) => { if (e?.target instanceof Element && e.target.closest('.sonido')) return; setFase((f) => (f === 'activa' ? 'saliendo' : f)); };
+    const t1 = setTimeout(() => salir(), T.total);
     const t2 = setTimeout(() => setFase('nada'), T.tope);
     window.addEventListener('keydown', salir);
     window.addEventListener('wheel', salir, { passive: true });
@@ -100,13 +122,15 @@ export default function IntroCubo() {
             <span className="brillo" aria-hidden="true" />
           </div>
         </div>
-        <button type="button" className="sonido" onClick={alternarSonido} aria-label={mudo ? 'Activar el sonido de la intro' : 'Silenciar el sonido de la intro'}>{mudo ? '🔇' : '🔊'}</button>
+        <button type="button" className={bloqueado ? 'sonido pide' : 'sonido'} onClick={alternarSonido} aria-label={bloqueado || mudo ? 'Activar el sonido de la intro' : 'Silenciar el sonido de la intro'}>{bloqueado || mudo ? '🔈' : '🔊'}{bloqueado && <span> Activar sonido</span>}</button>
 
         <style jsx>{`
           .ic { position: fixed; inset: 0; z-index: 200; background: #05111e; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: opacity 0.6s ease 0.1s, visibility 0.6s ease 0.1s; }
           .ic.saliendo { opacity: 0; visibility: hidden; pointer-events: none; }
           .sonido { position: absolute; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); width: 44px; height: 44px; border-radius: 50%; border: 1px solid #123048; background: rgba(255,255,255,0.04); color: #eaf2f8; font-size: 18px; cursor: pointer; opacity: 0; animation: ic-aparece 0.6s ease 0.8s forwards; }
           .sonido:hover { border-color: #04ebff; }
+          .sonido.pide { width: auto; padding: 0 18px; border-radius: 999px; font-size: 14px; border-color: #04ebff; color: #04ebff; }
+          .sonido span { font-size: 13px; font-weight: 600; }
           @keyframes ic-aparece { to { opacity: 0.8; } }
           .escena { --ancho: min(520px, 84vw); position: relative; width: var(--ancho); display: flex; flex-direction: column; align-items: center; transition: transform 0.7s cubic-bezier(0.7, 0, 0.2, 1), opacity 0.5s ease; }
           .ic.saliendo .escena { transform: scale(1.9); opacity: 0; }
