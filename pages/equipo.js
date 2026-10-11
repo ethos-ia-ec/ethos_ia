@@ -269,6 +269,13 @@ export default function EquipoDirectivo() {
         .social-btn.wa:hover { color: #25D366; }
         .social-btn.mail:hover { color: #2b87ad; }
 
+        @media (min-width: 1100px) {
+          .perfiles:not(.areas) .perfiles-grid { max-width: 1240px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+          .perfiles:not(.areas) :global(.team-card) { grid-template-columns: 112px 1fr; gap: 22px; padding: 24px; }
+          .perfiles:not(.areas) .team-photo { width: 108px; height: 108px; }
+          .perfiles:not(.areas) :global(.team-card) p { font-size: 13.5px; line-height: 1.6; margin-bottom: 12px; }
+        }
+
         @media (max-width: 700px) {
           :global(.team-card) { grid-template-columns: 1fr; text-align: center; }
           .social-row { justify-content: center; }
