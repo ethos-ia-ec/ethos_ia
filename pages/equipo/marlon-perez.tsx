@@ -158,11 +158,11 @@ export default function PerfilMarlon() {
           <Image src="/empresa/marlon-profile.jpg" alt="Marlon David Pérez Almachi" width={200} height={200} priority />
         </div>
         <div className="txt">
-          <span className="eyebrow">COFUNDADOR Y DIRECTOR TÉCNICO</span>
+          <span className="eyebrow">COFUNDADOR, GERENTE GENERAL Y DIRECTOR TÉCNICO</span>
           <h1>Marlon David Pérez Almachi</h1>
           <p className="sub">Software, datos y seguridad de la información</p>
           <p className="lead">
-            Estudiante del décimo y último semestre de Ingeniería en Tecnologías de la Información en la UNEMI (graduación estimada
+            Gerente General de ETHOSLAB S.A.S. (Ethos IA) y fundador de El Club de la Ingeniería. Estudiante del décimo y último semestre de Ingeniería en Tecnologías de la Información en la UNEMI (graduación estimada
             en diciembre de 2026), con tres aplicaciones web en producción, 240 horas de prácticas certificadas y diez años de
             trayectoria previa manejando información confidencial bajo normativa estricta.
           </p>

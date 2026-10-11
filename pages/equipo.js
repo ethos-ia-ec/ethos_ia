@@ -95,21 +95,21 @@ export default function EquipoDirectivo() {
         <div className="perfiles-grid">
           <Reveal className="team-card">
             <div className="team-photo">
-              <Image src="/empresa/marlon-profile.jpg" alt="Marlon David Pérez Almachi — Cofundador y Director Técnico" width={180} height={180} className="team-photo-img" />
+              <Image src="/empresa/marlon-profile.jpg" alt="Marlon David Pérez Almachi — Cofundador, Gerente General y Director Técnico" width={180} height={180} className="team-photo-img" />
             </div>
             <div>
-              <div className="perfil-role teal">COFUNDADOR Y DIRECTOR TÉCNICO</div>
+              <div className="perfil-role teal">COFUNDADOR, GERENTE GENERAL Y DIRECTOR TÉCNICO</div>
               <div className="perfil-name">
                 <NombrePerfil
                   nombre="Marlon David Pérez Almachi"
                   href="/equipo/marlon-perez"
                   foto="/empresa/marlon-profile.jpg"
-                  rol="Cofundador y Director Técnico"
+                  rol="Cofundador, Gerente General y Director Técnico"
                   destacados={['Next.js y React', 'Seguridad de la información', 'Fundador del Club de la Ingeniería']}
                 />
               </div>
               <p>
-                Lidera la dirección técnica y el desarrollo de software del grupo. Formación en
+                Gerente General de ETHOSLAB S.A.S. y fundador del Club de la Ingeniería. Lidera la dirección técnica y el desarrollo de software del grupo. Formación en
                 Tecnologías de la Información en la Universidad Estatal de Milagro, con
                 certificaciones en ciberseguridad otorgada por Cisco Networking Academy, en
                 inteligencia artificial aplicada otorgada por Google for Education, y en cómputo en
