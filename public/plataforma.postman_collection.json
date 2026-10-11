@@ -1,0 +1,33 @@
+{
+  "info": {
+    "name": "Ethos Ingeniería API",
+    "description": "Colección para probar la API de Ethos Ingeniería. Define {{base_url}} (por ejemplo http://localhost:3000) y, para el recurso protegido, {{token}} con un JWT emitido con scripts/emitir-token.js.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Resumen (público)",
+      "request": { "method": "GET", "url": "{{base_url}}/api/plataforma/resumen" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 y secciones', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().secciones).to.have.lengthOf(3); });"] } }]
+    },
+    {
+      "name": "Estado de la demostración (público)",
+      "request": { "method": "GET", "url": "{{base_url}}/api/plataforma/estado" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 y campo enLinea', () => { pm.response.to.have.status(200); pm.expect(pm.response.json()).to.have.property('enLinea'); });"] } }]
+    },
+    {
+      "name": "Programa (protegido con JWT)",
+      "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{base_url}}/api/plataforma/programa" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('200 con token válido', () => pm.response.to.have.status(200));"] } }]
+    },
+    {
+      "name": "Programa sin token (debe responder 401)",
+      "request": { "method": "GET", "url": "{{base_url}}/api/plataforma/programa" },
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test('401 sin token', () => pm.response.to.have.status(401));"] } }]
+    }
+  ]
+}

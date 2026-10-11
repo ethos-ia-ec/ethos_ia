@@ -3,7 +3,7 @@ const { defineConfig } = require('vitest/config');
 module.exports = defineConfig({
   test: {
     environment: 'node',
-    include: ['**/*.test.js'],
+    include: ['**/*.test.{js,ts}'],
     exclude: ['node_modules/**', '.next/**'],
   },
 });

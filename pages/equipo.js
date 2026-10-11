@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
+import Header from '../components/home/Header';
 import EmailChooser from '../components/EmailChooser';
+import NombrePerfil from '../components/NombrePerfil';
 import { whatsappLink } from '../lib/contactLinks';
 
 const SITE_URL = 'https://www.ethosia.tech';
@@ -40,7 +42,7 @@ function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
 
 export default function EquipoDirectivo() {
   return (
-    <div className="page">
+    <div className="page" id="contenido-principal">
       <Head>
         <title>Dirección General y Técnica — Ethos IA</title>
         <meta
@@ -65,15 +67,7 @@ export default function EquipoDirectivo() {
         />
       </Head>
 
-      <nav className="nav">
-        <Link className="brand" href="/">
-          <span className="brand-badge">
-            <Image src="/empresa/ethos-ia-logo-v2.png" alt="Ethos IA" width={34} height={34} priority className="brand-mark-img" />
-          </span>
-          <span className="brand-name">Ethos IA</span>
-        </Link>
-        <Link className="nav-back" href="/">← Volver al sitio</Link>
-      </nav>
+      <Header />
 
       <header className="hero">
         <span className="eyebrow accent">GOBERNANZA Y DIRECCIÓN</span>
@@ -105,7 +99,15 @@ export default function EquipoDirectivo() {
             </div>
             <div>
               <div className="perfil-role teal">COFUNDADOR Y DIRECTOR TÉCNICO</div>
-              <div className="perfil-name">Marlon David Pérez Almachi</div>
+              <div className="perfil-name">
+                <NombrePerfil
+                  nombre="Marlon David Pérez Almachi"
+                  href="/equipo/marlon-perez"
+                  foto="/empresa/marlon-profile.jpg"
+                  rol="Cofundador y Director Técnico"
+                  destacados={['Next.js y React', 'Seguridad de la información', 'Fundador del Club de la Ingeniería']}
+                />
+              </div>
               <p>
                 Lidera la dirección técnica y el desarrollo de software del grupo. Formación en
                 Tecnologías de la Información en la Universidad Estatal de Milagro, con
@@ -145,6 +147,7 @@ export default function EquipoDirectivo() {
                 cumplimiento normativo, la gobernanza societaria y la estructuración financiera
                 del grupo.
               </p>
+              <Link className="perfil-cta" href="/plataforma">Abrir Ethos Ingeniería →</Link>
               <div className="social-row">
                 <EmailChooser>
                   {(props) => (
@@ -238,7 +241,7 @@ export default function EquipoDirectivo() {
         :global(.nav-back) { font-size: 13px; color: #c4d3e0; text-decoration: none; }
         :global(.nav-back:hover) { color: #04ebff; }
 
-        .hero { padding: 72px 48px 56px; background: #05111e; color: #eaf2f8; }
+        .hero { padding: 128px 48px 56px; background: #05111e; color: #eaf2f8; }
         .eyebrow { display: block; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.18em; color: #04ebff; }
         .hero h1 { font-family: var(--font-brand), sans-serif; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.2; font-weight: 600; margin: 16px 0 0; max-width: 22ch; text-wrap: balance; }
         .hero-sub { font-size: 15px; line-height: 1.7; color: #c4d3e0; margin: 20px 0 0; max-width: 60ch; }
@@ -266,6 +269,8 @@ export default function EquipoDirectivo() {
         .perfil-role.gold { color: #0f5876; }
         .perfil-name { font-family: var(--font-brand), sans-serif; font-size: 18px; font-weight: 600; color: #05111e; margin-bottom: 14px; }
         :global(.team-card) p { font-size: 14px; color: #33414d; line-height: 1.7; margin: 0 0 18px; }
+        :global(.perfil-cta) { display: inline-block; margin: 0 0 16px; padding: 9px 16px; border-radius: 999px; background: #05111e; color: #04ebff; font-size: 13px; font-weight: 600; }
+        :global(.perfil-cta:hover) { background: #0b5f75; color: #fff; }
         .social-row { display: flex; gap: 10px; flex-wrap: wrap; }
         .social-btn {
           width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
