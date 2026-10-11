@@ -1,5 +1,6 @@
-import Head from 'next/head';
 import Header from '../../components/home/Header';
+import Seo from '../../components/Seo';
+import { migas } from '../../lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -19,7 +20,6 @@ import MatrizRed from '../../components/plataforma/MatrizRed';
 import Compuerta from '../../components/plataforma/Compuerta';
 import FichaServicio from '../../components/plataforma/FichaServicio';
 
-const SITE_URL = 'https://www.ethosia.tech';
 type Pestana = Seccion['id'] | 'paneles' | 'servicios' | 'riesgos' | 'api';
 
 const PESTANAS: { id: Pestana; etiqueta: string }[] = [
@@ -63,11 +63,12 @@ export default function Plataforma() {
 
   return (
     <div className="app" id="contenido-principal">
-      <Head>
-        <title>Ethos Ingeniería — Ethos IA</title>
-        <meta name="description" content="Laboratorios, kit DevSecOps y programa de prácticas de ETHOSLAB S.A.S.: la plataforma de ingeniería de Ethos IA." />
-        <link rel="canonical" href={`${SITE_URL}/plataforma`} />
-      </Head>
+      <Seo
+        titulo="Ethos Ingeniería — laboratorios, DevOps Kit y programa de prácticas | Ethos IA"
+        descripcion="Laboratorios técnicos en Docker, kit DevSecOps con pipeline de diez compuertas, paneles reales, registro de riesgos y API con JWT de ETHOSLAB S.A.S. (Ethos IA)."
+        ruta="/plataforma"
+        jsonld={[migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Ethos Ingeniería', ruta: '/plataforma' }])]}
+      />
 
       <Header />
 

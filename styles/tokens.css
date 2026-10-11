@@ -1,0 +1,61 @@
+/* Sistema de diseño de Ethos IA: una sola fuente para colores, tipografía, espaciado, radios, sombras y movimiento.
+   Documentado públicamente en /marca. Los valores coinciden con los usados hasta ahora en el sitio. */
+:root {
+  /* Marca */
+  --c-cian: #04ebff;          /* acento sobre fondos oscuros */
+  --c-cian-suave: #8eecff;
+  --c-azul: #05111e;          /* fondo principal */
+  --c-azul-2: #0a1b2b;        /* superficies sobre fondo oscuro */
+  --c-azul-3: #123048;        /* bordes sobre fondo oscuro */
+  --c-azul-profundo: #030a12; /* pie de página */
+  --c-teal: #0b5f75;          /* acento y enlaces sobre fondos claros */
+  --c-violeta: #7aa7ff;       /* acento secundario */
+
+  /* Texto y superficies claras */
+  --c-claro: #eaf2f8;
+  --c-claro-2: #c4d3e0;
+  --c-apagado: #93aabb;
+  --c-texto: #05111e;
+  --c-texto-2: #33414d;
+  --c-texto-3: #526373;
+  --c-fondo: #eaf2f8;
+  --c-tarjeta: #ffffff;
+  --c-borde: rgba(5, 17, 30, 0.08);
+
+  /* Estados */
+  --c-ok: #14653a;  --c-ok-bg: #dff5e6;
+  --c-aviso: #7a4b00; --c-aviso-bg: #fff1d6;
+  --c-error: #8a1c1c; --c-error-bg: #fde3e3;
+
+  /* Tipografía (Sora para todo; mono solo para código) */
+  --f-mono: ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  --t-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --t-sm: clamp(0.82rem, 0.8rem + 0.15vw, 0.9rem);
+  --t-base: clamp(0.95rem, 0.92rem + 0.2vw, 1.05rem);
+  --t-lg: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  --t-xl: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  --t-2xl: clamp(1.8rem, 1.3rem + 2vw, 2.8rem);
+
+  /* Espaciado */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+  --ancho-max: 1180px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  /* Forma y profundidad */
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px; --r-pill: 999px;
+  --sombra-1: 0 10px 28px rgba(5, 17, 30, 0.05);
+  --sombra-2: 0 18px 40px rgba(5, 17, 30, 0.08);
+  --sombra-3: 0 26px 60px rgba(5, 17, 30, 0.28);
+  --brillo-cian: 0 14px 30px rgba(4, 235, 255, 0.18);
+
+  /* Movimiento */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-suave: cubic-bezier(0.3, 0, 0.3, 1);
+  --d-rapida: 0.2s; --d-media: 0.35s; --d-lenta: 0.65s;
+}
+
+:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --d-rapida: 0s; --d-media: 0s; --d-lenta: 0s; }
+}

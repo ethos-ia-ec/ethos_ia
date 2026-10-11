@@ -1,11 +1,10 @@
-import Head from 'next/head';
 import Header from '../../components/home/Header';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '../../components/Reveal';
-
-const SITE_URL = 'https://www.ethosia.tech';
+import Seo from '../../components/Seo';
+import { clubIngenieria, migas, personaMarlon } from '../../lib/seo';
 
 type Area = 'Desarrollo web' | 'Datos' | 'Seguridad' | 'Práctica';
 
@@ -144,11 +143,13 @@ export default function PerfilMarlon() {
 
   return (
     <div className="p" id="contenido-principal">
-      <Head>
-        <title>Marlon David Pérez Almachi — Ethos IA</title>
-        <meta name="description" content="Perfil profesional de Marlon Pérez, cofundador y director técnico de Ethos IA: desarrollo web, datos y seguridad de la información." />
-        <link rel="canonical" href={`${SITE_URL}/equipo/marlon-perez`} />
-      </Head>
+      <Seo
+        titulo="Marlon Pérez — Gerente General de Ethos IA y fundador de El Club de la Ingeniería"
+        descripcion="Perfil de Marlon David Pérez Almachi: Gerente General y Director Técnico de ETHOSLAB S.A.S. (Ethos IA), fundador de El Club de la Ingeniería, estudiante de Ingeniería en TI (UNEMI). Software, datos y seguridad de la información."
+        ruta="/equipo/marlon-perez"
+        tipo="profile"
+        jsonld={[migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Equipo', ruta: '/equipo' }, { nombre: 'Marlon Pérez', ruta: '/equipo/marlon-perez' }]), personaMarlon(), clubIngenieria()]}
+      />
 
       <Header />
 

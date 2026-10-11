@@ -1,14 +1,15 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import ChatWidget from '../components/ChatWidget';
 import Header from '../components/home/Header';
+import Seo from '../components/Seo';
+import { migas, organizacion, personaKaren, personaMarlon } from '../lib/seo';
 import EmailChooser from '../components/EmailChooser';
 import NombrePerfil from '../components/NombrePerfil';
 import { whatsappLink } from '../lib/contactLinks';
 
-const SITE_URL = 'https://www.ethosia.tech';
+const DESCRIPCION = 'Ethos IA acompaña a pequeñas y medianas empresas en la adopción de inteligencia artificial ética y segura: automatización de procesos, auditoría de IA y ciberseguridad.';
 
 function useReveal() {
   const ref = useRef(null);
@@ -43,29 +44,12 @@ function Reveal({ as: Tag = 'div', className = '', children, ...rest }) {
 export default function EquipoDirectivo() {
   return (
     <div className="page" id="contenido-principal">
-      <Head>
-        <title>Dirección General y Técnica — Ethos IA</title>
-        <meta
-          name="description"
-          content="Gobernanza y dirección de ETHOSLAB S.A.S., la empresa detrás de Ethos IA: origen del ecosistema y perfiles directivos."
-        />
-        <link rel="canonical" href={`${SITE_URL}/equipo`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Ethos IA" />
-        <meta property="og:title" content="Dirección General y Técnica — Ethos IA" />
-        <meta
-          property="og:description"
-          content="Gobernanza y dirección de ETHOSLAB S.A.S., la empresa detrás de Ethos IA."
-        />
-        <meta property="og:url" content={`${SITE_URL}/equipo`} />
-        <meta property="og:locale" content="es_EC" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Dirección General y Técnica — Ethos IA" />
-        <meta
-          name="twitter:description"
-          content="Gobernanza y dirección de ETHOSLAB S.A.S., la empresa detrás de Ethos IA."
-        />
-      </Head>
+      <Seo
+        titulo="Equipo directivo de Ethos IA — Marlon Pérez, Gerente General, y Karen Herrera"
+        descripcion="Dirección general y técnica de ETHOSLAB S.A.S. (Ethos IA): Marlon David Pérez Almachi, Gerente General y Director Técnico, y Karen Dayanna Herrera Ruiz, cofundadora."
+        ruta="/equipo"
+        jsonld={[migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Equipo', ruta: '/equipo' }]), personaMarlon(), personaKaren(), organizacion(DESCRIPCION)]}
+      />
 
       <Header />
 

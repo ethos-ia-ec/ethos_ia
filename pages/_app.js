@@ -1,4 +1,5 @@
 import { Sora } from 'next/font/google';
+import '../styles/tokens.css';
 
 const sora = Sora({
   subsets: ['latin'],

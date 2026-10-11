@@ -11,6 +11,7 @@ import Faq from '../components/home/Faq';
 import Marquee from '../components/home/Marquee';
 import ProcesoInteractivo from '../components/home/ProcesoInteractivo';
 import Header from '../components/home/Header';
+import { organizacion, sitioWeb } from '../lib/seo';
 import IntroCubo from '../components/home/IntroCubo';
 import { COMPANY_EMAIL, whatsappLink } from '../lib/contactLinks';
 
@@ -340,30 +341,7 @@ export default function Home() {
             />
           </>
         )}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: 'ETHOSLAB S.A.S.',
-              alternateName: 'Ethos IA',
-              url: SITE_URL,
-              logo: `${SITE_URL}/empresa/ethos-ia-logo-v2.png`,
-              description: META_DESCRIPTION,
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Av. Antonio Muñoz Borrero y calle Señor de Belén',
-                addressLocality: 'Cuenca',
-                addressRegion: 'Azuay',
-                addressCountry: 'EC',
-              },
-              sameAs: Object.keys(SOCIAL_LABELS)
-                .filter((key) => !DIRECT_CHANNELS.includes(key) && CONTACT[key])
-                .map((key) => CONTACT[key]),
-            }),
-          }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify([organizacion(META_DESCRIPTION), sitioWeb()]) }} />
       </Head>
 
       <EfectosInteractivos />
@@ -569,11 +547,15 @@ export default function Home() {
         <div className="mv-glow" aria-hidden="true" />
         <Reveal as="span" className="section-label light">IDENTIDAD CORPORATIVA</Reveal>
         <Reveal as="h2" className="section-title light"><Palabras texto={"Lo que nos impulsa y hacia dónde vamos"} /></Reveal>
+        <Reveal as="p" className="mv-proposito">
+          Una firma que existe para que la inteligencia artificial sea una ventaja verificable para las empresas y no un riesgo para sus datos.
+        </Reveal>
         <div className="mv-grid">
           <Reveal as="article" className="mv-card">
             <span className="mv-icon">
               <Icon name="target" size={26} color="#04ebff" />
             </span>
+            <span className="mv-num" aria-hidden="true">01</span>
             <span className="mv-label">MISIÓN</span>
             <p>
               Impulsar la adopción de inteligencia artificial ética, segura y responsable en las pequeñas y
@@ -585,6 +567,7 @@ export default function Home() {
             <span className="mv-icon">
               <Icon name="globe" size={26} color="#04ebff" />
             </span>
+            <span className="mv-num" aria-hidden="true">02</span>
             <span className="mv-label">VISIÓN</span>
             <p>
               Ser reconocidos en Latinoamérica y a nivel internacional como la firma de referencia en
@@ -593,6 +576,9 @@ export default function Home() {
             </p>
           </Reveal>
         </div>
+        <Reveal as="blockquote" className="mv-cita">
+          <p><em>Ethos</em>, en griego, es el carácter. Es el criterio con el que decidimos qué construir, qué auditar y qué no prometer.</p>
+        </Reveal>
         <Reveal className="valores" style={{ transitionDelay: '140ms' }}>
           <span className="valores-label">NUESTROS VALORES</span>
           <div className="valores-grid">
@@ -606,6 +592,15 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </Reveal>
+        <Reveal className="gob">
+          <span className="valores-label">PRINCIPIOS DE GOBERNANZA DE IA</span>
+          <ul className="gob-lista">
+            {PRINCIPIOS.map((p) => (
+              <li key={p}><Icon name="check" size={16} color="#04ebff" strokeWidth={2.2} />{p}</li>
+            ))}
+          </ul>
+          <Link className="gob-enlace" href="/marca">Conocer la identidad de marca →</Link>
         </Reveal>
       </section>
 
@@ -728,6 +723,7 @@ export default function Home() {
             <a href="#mision">Misión y visión</a>
             <Link href="/equipo">Equipo</Link>
             <Link href="/plataforma">Ethos Ingeniería</Link>
+            <Link href="/marca">Identidad de marca</Link>
             <a href="#contacto">Contacto</a>
           </div>
           <div className="foot-col">
@@ -976,9 +972,21 @@ export default function Home() {
         .mv-icon { width: 54px; height: 54px; border-radius: 16px; background: rgba(4,235,255,0.10); border: 1px solid rgba(4,235,255,0.30); display: flex; align-items: center; justify-content: center; }
         .mv-label { display: block; margin-top: 24px; font-family: var(--font-brand), sans-serif; font-size: 12px; letter-spacing: 0.22em; font-weight: 700; color: #04ebff; }
         :global(.mv-card) p { font-family: var(--font-brand), sans-serif; font-size: 18px; line-height: 1.7; color: #eaf2f8; margin: 14px 0 0; font-weight: 400; }
+        :global(.mv-proposito) { position: relative; z-index: 1; max-width: 760px; margin: -8px auto 48px; text-align: center; font-size: clamp(1.05rem, 1rem + 0.5vw, 1.3rem); line-height: 1.6; color: var(--c-claro-2); text-wrap: balance; }
+        .mv-grid { align-items: stretch; }
+        :global(.mv-card) { display: flex; flex-direction: column; overflow: hidden; }
+        :global(.mv-card) p { flex: 1; }
+        .mv-num { position: absolute; right: 28px; top: 14px; font-size: 4.2rem; font-weight: 800; line-height: 1; color: rgba(4,235,255,0.09); }
+        :global(.mv-cita) { position: relative; z-index: 1; max-width: 820px; margin: 56px auto 0; padding: 0 0 0 24px; border-left: 3px solid var(--c-cian); }
+        :global(.mv-cita) p { margin: 0; font-size: clamp(1.1rem, 1rem + 0.6vw, 1.45rem); line-height: 1.6; color: var(--c-claro); font-weight: 500; text-wrap: balance; }
+        :global(.gob) { position: relative; z-index: 1; max-width: 1140px; margin: 64px auto 0; text-align: center; }
+        .gob-lista { list-style: none; margin: 0 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .gob-lista li { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--c-azul-3); background: rgba(4,28,44,0.55); color: var(--c-claro); font-size: 13.5px; }
+        :global(.gob-enlace) { color: var(--c-cian); font-weight: 700; font-size: 14px; text-decoration: none; }
+        :global(.gob-enlace:hover) { text-decoration: underline; }
         :global(.valores) { position: relative; z-index: 1; max-width: 1140px; margin: 64px auto 0; }
         .valores-label { display: block; text-align: center; font-family: var(--font-brand), sans-serif; font-size: 11px; letter-spacing: 0.2em; font-weight: 700; color: #93aabb; margin-bottom: 28px; }
-        .valores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .valores-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 20px; }
         .valor { padding: 26px 24px; border-radius: 16px; background: rgba(4,28,44,0.55); border: 1px solid rgba(255,255,255,0.08); }
         .valor-icon { width: 42px; height: 42px; border-radius: 12px; background: rgba(4,235,255,0.08); display: flex; align-items: center; justify-content: center; }
         .valor h3 { font-family: var(--font-brand), sans-serif; font-size: 16px; font-weight: 600; margin: 16px 0 6px; color: #eaf2f8; }
