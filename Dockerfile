@@ -4,13 +4,13 @@
 # localmente sin depender de Vercel.
 
 # ---- deps: instala dependencias con cache de capas separado del codigo fuente ----
-FROM node:22-alpine AS deps
+FROM node:26-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 
 # ---- builder: compila el sitio (output standalone, ver next.config.js) ----
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -18,7 +18,7 @@ ENV DOCKER_BUILD=1
 RUN npm run build
 
 # ---- runner: imagen final, solo lo necesario para correr ----
-FROM node:22-alpine AS runner
+FROM node:26-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
