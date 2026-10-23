@@ -1,0 +1,4 @@
+Carpeta PRIVADA (ignorada por Git). Aquí va 04_inventario.sql con los activos, controles y hallazgos
+reales de la empresa. El repositorio es público: ese inventario es de uso interno y no se sube.
+Se carga automáticamente la primera vez que se crea la base de datos (docker compose up).
+Formato: ver ../04_inventario.ejemplo.sql

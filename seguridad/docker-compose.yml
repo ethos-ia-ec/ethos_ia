@@ -1,0 +1,46 @@
+# Ethos SecMon: base de datos local de monitoreo de seguridad + colector.
+# Uso:  cp .env.example .env  (y cambiar las claves)  ·  docker compose up -d --build
+name: ethos-secmon
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: secmon
+      POSTGRES_USER: secmon_admin
+      POSTGRES_PASSWORD: ${SECMON_ADMIN_CLAVE:?Falta SECMON_ADMIN_CLAVE en .env}
+      SECMON_COLECTOR_CLAVE: ${SECMON_COLECTOR_CLAVE:?Falta SECMON_COLECTOR_CLAVE en .env}
+      SECMON_LECTURA_CLAVE: ${SECMON_LECTURA_CLAVE:?Falta SECMON_LECTURA_CLAVE en .env}
+    volumes:
+      - secmon_datos:/var/lib/postgresql/data
+      - ./db/01_esquema.sql:/docker-entrypoint-initdb.d/01_esquema.sql:ro
+      - ./db/02_roles.sh:/docker-entrypoint-initdb.d/02_roles.sh:ro
+      - ./db/03_chequeos.sql:/docker-entrypoint-initdb.d/03_chequeos.sql:ro
+      - ./db/05_privado.sh:/docker-entrypoint-initdb.d/05_privado.sh:ro
+      - ./db/privado:/privado:ro
+    # Solo escucha en la propia máquina: la base de datos nunca queda expuesta a la red.
+    ports:
+      - "127.0.0.1:5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U secmon_admin -d secmon"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+  colector:
+    build: ./colector
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SECMON_DB_URL: postgres://secmon_colector:${SECMON_COLECTOR_CLAVE}@db:5432/secmon
+      SECMON_DOMINIO: ${SECMON_DOMINIO:-ethosia.tech}
+      SECMON_INTERVALO_MIN: ${SECMON_INTERVALO_MIN:-30}
+      SECMON_PANEL_URL: ${SECMON_PANEL_URL:-}
+      SECMON_INGEST_KEY: ${SECMON_INGEST_KEY:-}
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  secmon_datos:

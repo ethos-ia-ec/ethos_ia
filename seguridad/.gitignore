@@ -1,0 +1,4 @@
+.env
+db/privado/*
+!db/privado/LEEME.txt
+!.env.example

@@ -1,0 +1,9 @@
+{
+  "name": "ethos-secmon-colector",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Colector de monitoreo de seguridad del sitio de ETHOSLAB S.A.S.",
+  "main": "src/index.js",
+  "scripts": { "start": "node src/index.js", "una-vez": "node src/index.js --una-vez" },
+  "dependencies": { "pg": "^8.13.1" }
+}
