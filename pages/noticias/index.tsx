@@ -61,23 +61,23 @@ export default function Noticias({ noticias }: { noticias: Noticia[] }) {
         .app { min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; }
         .app { background: #f7f3ec; }
         .hero { background: radial-gradient(120% 140% at 80% 0%, #123a3c 0%, #0a0f1a 60%); color: #eef3f6; padding: 96px 48px 20px; }
-        .hero > * { max-width: 1100px; margin-left: auto; margin-right: auto; }
-        .cab-linea { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 600 11px 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; color: #8fa89c; border-top: 1px solid rgba(232,178,58,0.55); border-bottom: 1px solid rgba(232,178,58,0.55); padding: 10px 0; }
+        .hero > * { max-width: min(92vw, 2400px); margin-left: auto; margin-right: auto; }
+        .cab-linea { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font: 600 clamp(11px, 0.6vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .2em; text-transform: uppercase; color: #8fa89c; border-top: 1px solid rgba(232,178,58,0.55); border-bottom: 1px solid rgba(232,178,58,0.55); padding: 10px 0; }
         .cab-linea.fina { border-top: 0; color: #e8b23a; }
-        .cabecera { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: clamp(2.6rem, min(9vw, 10svh), 7rem); line-height: 0.95; letter-spacing: -0.02em; margin: 12px auto 10px; text-align: center; color: #fff; }
+        .cabecera { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: clamp(2.6rem, min(9vw, calc(var(--alto) * 0.1)), 15rem); line-height: 0.95; letter-spacing: -0.02em; margin: 12px auto 10px; text-align: center; color: #fff; }
         .cabecera em { font-weight: 400; color: #2fd8c9; }
-        .cuerpo { max-width: 1240px; margin: 0 auto; padding: 24px 24px 80px; --tapa: max(340px, calc(90svh - 260px)); }
-        .rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px 28px; }
+        .cuerpo { max-width: min(92vw, 2400px); margin: 0 auto; padding: 24px 24px 80px; --tapa: max(220px, calc(calc(var(--alto) * 0.9) - 260px)); }
+        .rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(280px, 22vw, 620px), 1fr)); gap: 40px 28px; }
         .card { background: transparent; border: 0; border-top: 3px solid #0a0f1a; border-radius: 0; overflow: hidden; }
         .card :global(.enl) { display: flex; flex-direction: column; color: inherit; height: 100%; text-decoration: none; }
         .img { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #0a0f1a; margin-top: 18px; }
         .img :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s ease; }
         .card:hover .img :global(img) { transform: scale(1.04); }
-        .meta { font: 600 11px 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: #186a63; padding: 16px 0 0; }
-        h2 { font-family: Georgia, serif; font-size: 22px; line-height: 1.22; margin: 10px 0 0; color: #0a0f1a; }
+        .meta { font: 600 clamp(11px, 0.6vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: #186a63; padding: 16px 0 0; }
+        h2 { font-family: Georgia, serif; font-size: clamp(20px, 1.15vw, 40px); line-height: 1.22; margin: 10px 0 0; color: #0a0f1a; }
         .card:hover h2 { text-decoration: underline; text-decoration-color: #e8b23a; text-underline-offset: 4px; }
-        .card p { font-size: 15px; color: #3c4954; line-height: 1.7; margin: 10px 0 0; }
-        .mas { margin-top: auto; padding-top: 14px; font: 700 12px 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: #0a0f1a; }
+        .card p { font-size: clamp(15px, 0.8vw, 26px); color: #3c4954; line-height: 1.7; margin: 10px 0 0; }
+        .mas { margin-top: auto; padding-top: 14px; font: 700 clamp(12px, 0.65vw, 22px) 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: #0a0f1a; }
         .card :global(.enl:focus-visible) { outline: 2px solid #2fd8c9; outline-offset: 4px; }
         .portada { grid-column: 1 / -1; background: #0a0f1a; border-top: 0; border-radius: 4px; box-shadow: 0 30px 60px rgba(5,17,30,0.22); }
         .portada :global(.enl) { display: grid; grid-template-columns: min(55%, calc(var(--tapa) * 0.8)) 1fr; grid-template-rows: auto auto auto auto 1fr; column-gap: 40px; padding: 0 40px 0 0; max-height: var(--tapa); overflow: hidden; }
@@ -85,10 +85,10 @@ export default function Noticias({ noticias }: { noticias: Noticia[] }) {
         .portada .img :global(img) { object-fit: contain; }
         .portada .meta, .portada h2, .portada p, .portada .mas { padding-left: 0; }
         .portada .mas { color: #e8b23a; margin-bottom: 32px; }
-        .sello { text-decoration: none; justify-self: start; align-self: flex-start; margin: clamp(16px, 4svh, 36px) 0 0; background: #e8b23a; color: #0a0f1a; font: 700 11px 'IBM Plex Mono', monospace; letter-spacing: .16em; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; }
+        .sello { text-decoration: none; justify-self: start; align-self: flex-start; margin: clamp(16px, calc(var(--alto) * 0.04), 36px) 0 0; background: #e8b23a; color: #0a0f1a; font: 700 clamp(11px, 0.6vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .16em; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; }
         .portada .meta { color: #2fd8c9; }
-        .portada h2 { font-family: Georgia, serif; font-size: clamp(1.3rem, min(2.4vw, 4svh), 2.6rem); line-height: 1.12; color: #fff; }
-        .portada p { color: #cfdce3; font-size: 15px; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        .portada h2 { font-family: Georgia, serif; font-size: clamp(1.3rem, min(2.4vw, calc(var(--alto) * 0.04)), 5.5rem); line-height: 1.12; color: #fff; }
+        .portada p { color: #cfdce3; font-size: clamp(15px, min(0.9vw, calc(var(--alto) * 0.017)), 30px); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
         .portada .mas { align-self: end; }
         .portada .mas { color: #e8b23a; }
         @media (max-width: 900px) { .portada :global(.enl) { display: flex; padding: 0 18px; max-height: none; } .portada p { display: block; } .portada .img { --w: min(calc(100% + 36px), calc(var(--tapa) * 0.8)); width: var(--w); margin: 0 0 0 max(-18px, calc((100% - var(--w)) / 2)); max-width: none; align-self: flex-start; } .portada .mas { margin-bottom: 22px; } }

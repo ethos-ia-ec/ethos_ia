@@ -418,7 +418,7 @@ export default function PerfilMarlon() {
         .rv-firma { font-size: 14px; color: #8fa89c; margin: 0; }
         .rv-firma strong { color: #eef3f6; }
         .rv-foto { order: -1; margin: 0 0 8px; position: relative; min-width: 0; justify-self: center; width: 100%; }
-        .rv-foto :global(img) { width: min(100%, calc((100svh - 120px) * 0.8)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 34px 70px rgba(0,0,0,0.55); }
+        .rv-foto :global(img) { width: min(100%, calc((var(--alto) - 120px) * 0.8)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 34px 70px rgba(0,0,0,0.55); }
         .rv-foto figcaption { font: 500 11px 'IBM Plex Mono', monospace; color: #8fa89c; margin-top: 10px; text-align: center; }
         .rv-cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 14px; overflow: hidden; margin: 34px 0 28px; }
         .rv-cifras div { background: rgba(10,15,26,0.85); padding: 20px 18px; }

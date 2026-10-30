@@ -30,6 +30,17 @@ export default function App({ Component, pageProps }) {
       <style jsx global>{`
         :root {
           --font-brand: ${sora.style.fontFamily};
+          --alto: 100vh;
+        }
+        @supports (height: 100svh) {
+          :root { --alto: 100svh; }
+        }
+        html {
+          -webkit-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+        }
+        img {
+          max-width: 100%;
         }
         html,
         body {

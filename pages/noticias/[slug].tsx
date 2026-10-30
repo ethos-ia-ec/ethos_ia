@@ -90,18 +90,19 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
 
       <style jsx>{`
         .app { min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; }
-        .portada { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; max-width: 1560px; min-height: 100svh; box-sizing: border-box; margin: 0 auto; padding: 96px 32px 24px; color: #eef3f6; }
+        .portada { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; max-width: min(92vw, 2600px); min-height: var(--alto); box-sizing: border-box; margin: 0 auto; padding: 96px 32px 24px; color: #eef3f6; }
         .portada-fondo { background: radial-gradient(110% 90% at 85% 10%, #123a3c 0%, #0a0f1a 60%); }
         .pt-tapa { margin: 0; min-width: 0; }
-        .pt-tapa :global(img) { width: min(100%, calc((100svh - 120px) * 0.8)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 40px 80px rgba(0,0,0,0.55); }
+        .pt-tapa { width: min(46vw, calc((var(--alto) - 120px) * 0.8)); }
+        .pt-tapa :global(img) { width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 40px 80px rgba(0,0,0,0.55); }
         .portada :global(.pt-img) { object-fit: cover; object-position: top; opacity: 0.55; transform: scale(1.04); }
         .pt-velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,15,26,0.35) 0%, rgba(10,15,26,0.75) 45%, #0a0f1a 100%); }
         .pt-txt { position: relative; }
         .pt-txt :global(.volver) { display: block; width: fit-content; color: #8fa89c; font-size: 13px; margin-bottom: 26px; }
-        .pt-sello { display: inline-block; background: #e8b23a; color: #0a0f1a; font: 700 11px 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; }
-        .pt-h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.8rem, min(3vw, 4.6vh), 3.4rem); line-height: 1.1; letter-spacing: -0.015em; margin: 18px 0 18px; color: #fff; text-wrap: balance; max-width: 30ch; }
-        .pt-bajada { font-size: clamp(0.95rem, min(1.4vw, 2.3vh), 1.2rem); line-height: 1.6; color: #cfdce3; max-width: 62ch; margin: 0 0 22px; }
-        .pt-meta { font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #2fd8c9; text-transform: uppercase; }
+        .pt-sello { display: inline-block; background: #e8b23a; color: #0a0f1a; font: 700 clamp(11px, 0.6vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; padding: 0.5em 1em; border-radius: 4px; }
+        .pt-h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.8rem, min(3vw, 4.6vh), 6.5rem); line-height: 1.1; letter-spacing: -0.015em; margin: 18px 0 18px; color: #fff; text-wrap: balance; max-width: 30ch; }
+        .pt-bajada { font-size: clamp(0.95rem, min(1.4vw, 2.3vh), 2.2rem); line-height: 1.6; color: #cfdce3; max-width: 62ch; margin: 0 0 22px; }
+        .pt-meta { font: 500 clamp(12px, 0.65vw, 22px) 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #2fd8c9; text-transform: uppercase; }
         .pt-cifras { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 0 0 16px 16px; overflow: hidden; position: relative; z-index: 1; }
         .pt-cifras div { background: #0f1726; padding: 22px 20px; }
         .pt-cifras b { display: block; font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.3rem); color: #2fd8c9; margin-bottom: 6px; }
@@ -118,7 +119,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         .revista blockquote { border-left-color: #e8b23a; background: transparent; padding: 8px 0 8px 22px; }
         .revista blockquote p { font-family: Georgia, serif; font-style: italic; font-size: 1.45rem; line-height: 1.45; }
         @media (max-width: 600px) { .revista { padding: 24px 18px 28px; } .revista p, .revista li { font-size: 16.5px; } }
-        @media (max-width: 860px) { .portada { grid-template-columns: 1fr; min-height: 0; padding: 88px 16px 40px; gap: 32px; } .pt-tapa { order: -1; } }
+        @media (max-width: 860px) { .pt-tapa { width: min(100%, calc((var(--alto) - 120px) * 0.8)); justify-self: center; } .portada { grid-template-columns: 1fr; min-height: 0; padding: 88px 16px 40px; gap: 32px; } .pt-tapa { order: -1; } }
         @media (max-width: 760px) { .pt-cifras { grid-template-columns: repeat(2, 1fr); border-radius: 0; } }
         @media (max-width: 400px) { .pt-cifras { grid-template-columns: 1fr; } }
         .cuerpo { max-width: 760px; margin: -48px auto 0; padding: 0 24px 72px; }
