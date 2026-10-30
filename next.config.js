@@ -10,7 +10,9 @@ const CSP = [
   "script-src 'self' 'unsafe-inline'",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self'",
-  "img-src 'self' data:",
+  "img-src 'self' data: https://*.supabase.co https://i.ytimg.com",
+  "media-src 'self' https://*.supabase.co",
+  "frame-src https://www.youtube-nocookie.com https://player.vimeo.com",
   "connect-src 'self'",
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -20,6 +22,14 @@ const CSP = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   agentRules: false,
+  // Fotos de Ethos Noticias: Supabase Storage (bucket «noticias») y miniaturas de YouTube.
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      { protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/public/noticias/**' },
+      { protocol: 'https', hostname: 'i.ytimg.com', pathname: '/vi/**' },
+    ],
+  },
   // Build liviano para contenedores (ver Dockerfile). Solo se activa cuando el
   // propio Dockerfile define DOCKER_BUILD=1 -- activarlo siempre rompe el build
   // en Vercel (el tracing de archivos de Vercel no es compatible con "standalone").

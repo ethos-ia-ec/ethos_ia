@@ -2,4 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
+Disallow: /prensa
+
 Sitemap: https://www.ethosia.tech/sitemap.xml
+Sitemap: https://www.ethosia.tech/noticias/sitemap-news.xml

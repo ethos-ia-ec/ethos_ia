@@ -3,9 +3,17 @@ import Seo from '../../components/Seo';
 import { migas } from '../../lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
-import { NOTICIAS, fechaLarga } from '../../lib/noticias';
+import Head from 'next/head';
+import { fechaLarga, type Noticia } from '../../lib/noticias';
+import { noticiasPublicadas } from '../../lib/noticiasDb';
+import type { GetStaticProps } from 'next';
 
-export default function Noticias() {
+export const getStaticProps: GetStaticProps<{ noticias: Noticia[] }> = async () => ({
+  props: { noticias: await noticiasPublicadas() },
+  revalidate: 300,
+});
+
+export default function Noticias({ noticias }: { noticias: Noticia[] }) {
   return (
     <div className="app" id="contenido-principal">
       <Seo
@@ -14,6 +22,9 @@ export default function Noticias() {
         ruta="/noticias"
         jsonld={[migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Ethos Noticias', ruta: '/noticias' }])]}
       />
+      <Head>
+        <link rel="alternate" type="application/rss+xml" title="Ethos Noticias" href="/noticias/rss.xml" />
+      </Head>
       <Header />
 
       <header className="hero">
@@ -24,7 +35,7 @@ export default function Noticias() {
 
       <main className="cuerpo">
         <div className="rejilla">
-          {NOTICIAS.map((n) => (
+          {noticias.map((n) => (
             <article key={n.slug} className="card">
               <Link href={`/noticias/${n.slug}`} className="enl">
                 <span className="img">

@@ -5,15 +5,19 @@ export type Bloque =
   | { tipo: 'p'; texto: string }
   | { tipo: 'h2'; texto: string }
   | { tipo: 'lista'; items: string[] }
-  | { tipo: 'cita'; texto: string; autor: string };
+  | { tipo: 'cita'; texto: string; autor: string }
+  | { tipo: 'imagen'; src: string; alt: string; credito?: string; pie?: string; ancho: number; alto: number }
+  | { tipo: 'video'; proveedor: 'youtube' | 'vimeo' | 'archivo'; id: string; titulo: string; poster?: string };
 
 export type Noticia = {
   slug: string;
   fecha: string; // AAAA-MM-DD
+  actualizada?: string;
+  autor?: string;
   categoria: 'Medios' | 'Comunidad' | 'Producto' | 'Equipo';
   titulo: string;
   resumen: string;
-  imagen: { src: string; alt: string; ancho: number; alto: number };
+  imagen: { src: string; alt: string; credito?: string; ancho: number; alto: number };
   imagenSocial?: string;
   cuerpo: Bloque[];
   fuentes: { texto: string; url: string }[];

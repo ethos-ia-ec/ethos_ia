@@ -4,16 +4,19 @@ import { migas } from '../../lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { GetStaticPaths, GetStaticProps } from 'next';
-import { NOTICIAS, fechaLarga, noticiaPorSlug, type Noticia } from '../../lib/noticias';
+import { fechaLarga, type Noticia } from '../../lib/noticias';
+import { noticiaPublicada, noticiasPublicadas } from '../../lib/noticiasDb';
+import VideoLiviano from '../../components/noticias/VideoLiviano';
 
+// ISR: las notas se generan al pedirse y se renuevan solas; al publicar, /api/prensa/revalidar las refresca al instante.
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: NOTICIAS.map((n) => ({ params: { slug: n.slug } })),
-  fallback: false,
+  paths: (await noticiasPublicadas()).slice(0, 30).map((n) => ({ params: { slug: n.slug } })),
+  fallback: 'blocking',
 });
 
 export const getStaticProps: GetStaticProps<{ n: Noticia }> = async ({ params }) => {
-  const n = noticiaPorSlug(String(params?.slug));
-  return n ? { props: { n } } : { notFound: true };
+  const n = await noticiaPublicada(String(params?.slug));
+  return n ? { props: { n }, revalidate: 300 } : { notFound: true, revalidate: 60 };
 };
 
 export default function NotaNoticia({ n }: { n: Noticia }) {
@@ -23,6 +26,8 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
     '@type': 'NewsArticle',
     headline: n.titulo,
     datePublished: n.fecha,
+    dateModified: n.actualizada ?? n.fecha,
+    ...(n.autor ? { author: { '@type': 'Person', name: n.autor } } : { author: { '@type': 'Organization', name: 'Ethos IA' } }),
     image: [n.imagenSocial ?? n.imagen.src],
     publisher: { '@type': 'Organization', name: 'Ethos IA (ETHOSLAB S.A.S.)' },
   };
@@ -53,6 +58,13 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
           {n.cuerpo.map((b, i) => {
             if (b.tipo === 'h2') return <h2 key={i}>{b.texto}</h2>;
             if (b.tipo === 'lista') return <ul key={i}>{b.items.map((t) => <li key={t}>{t}</li>)}</ul>;
+            if (b.tipo === 'imagen') return (
+              <figure key={i} className="foto">
+                <Image src={b.src} alt={b.alt} width={b.ancho} height={b.alto} sizes="(max-width: 760px) 100vw, 720px" />
+                {(b.pie || b.credito) && <figcaption>{b.pie}{b.credito ? ` Foto: ${b.credito}.` : ''}</figcaption>}
+              </figure>
+            );
+            if (b.tipo === 'video') return <VideoLiviano key={i} proveedor={b.proveedor} id={b.id} titulo={b.titulo} poster={b.poster} />;
             if (b.tipo === 'cita') return <blockquote key={i}><p>«{b.texto}»</p><cite>{b.autor}</cite></blockquote>;
             return <p key={i}>{b.texto}</p>;
           })}
@@ -81,6 +93,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         .cuerpo { max-width: 760px; margin: -48px auto 0; padding: 0 24px 72px; }
         .nota { background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: 16px; padding: 28px 36px 36px; box-shadow: 0 18px 40px rgba(5,17,30,0.08); }
         figure { margin: 0 0 24px; border-radius: 12px; overflow: hidden; }
+        .foto figcaption { font-size: 13px; color: var(--c-texto-3); margin-top: 8px; }
         figure :global(img) { width: 100%; height: auto; display: block; }
         .nota p, .nota li { font-size: 16px; line-height: 1.8; color: var(--c-texto-2); }
         .nota h2 { font-size: 1.25rem; margin: 32px 0 8px; }
