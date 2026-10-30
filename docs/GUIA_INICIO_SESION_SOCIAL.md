@@ -19,7 +19,7 @@ Supabase; nunca en el código, en el chat ni en Vercel.
 ## 2. Google (console.cloud.google.com, con ethos.ia.ec@gmail.com)
 1. Crear el proyecto «Ethos IA».
 2. Google Auth Platform → Branding: nombre «Ethos IA», correo de soporte, logo, dominio autorizado `ethosia.tech`
-   y `supabase.co`, enlace a `https://www.ethosia.tech/privacidad.html`.
+   y `supabase.co`, enlace a `https://www.ethosia.tech/privacidad`.
 3. Audience: External → Publish app (en «Testing» solo entran los correos de prueba).
 4. Clients → Create client → Web application.
    - Authorized JavaScript origins: `https://www.ethosia.tech`
@@ -35,7 +35,7 @@ Supabase; nunca en el código, en el chat ni en Vercel.
 1. Create App → caso de uso «Autenticar y solicitar datos a los usuarios con el inicio de sesión con Facebook».
 2. Permisos: `email` y `public_profile`.
 3. Inicio de sesión con Facebook → Configuración → URI de redireccionamiento de OAuth válidos: la URL de retorno.
-4. Configuración básica: URL de política de privacidad `https://www.ethosia.tech/privacidad.html`, URL de
+4. Configuración básica: URL de política de privacidad `https://www.ethosia.tech/privacidad`, condiciones `https://www.ethosia.tech/terminos`, URL de
    eliminación de datos `https://www.ethosia.tech/cuenta`, categoría, ícono.
 5. Pasar la app a modo **Activo/Publicado** (en desarrollo solo entran los administradores de la app).
    Meta puede pedir verificación de la empresa (RUC 0195187827001).

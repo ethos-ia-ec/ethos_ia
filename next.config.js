@@ -40,6 +40,9 @@ const nextConfig = {
   // en Vercel (el tracing de archivos de Vercel no es compatible con "standalone").
   ...(process.env.DOCKER_BUILD === '1' ? { output: 'standalone' } : {}),
 
+  async redirects() {
+    return [{ source: '/privacidad.html', destination: '/privacidad', permanent: true }];
+  },
   async headers() {
     return [
       {

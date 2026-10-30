@@ -32,7 +32,7 @@ export default function Ingresar() {
         <BotonesSociales destino={destino} />
         <p className="legal">
           Al continuar, Ethos IA recibe de su proveedor solo su nombre, su correo y su foto de perfil, y los trata según la{' '}
-          <Link href="/privacidad.html">Política de Tratamiento de Datos Personales</Link>. Ethos IA nunca conoce su contraseña.
+          <Link href="/privacidad">Política de Tratamiento de Datos Personales</Link>. Ethos IA nunca conoce su contraseña.
         </p>
       </main>
       <style jsx>{`

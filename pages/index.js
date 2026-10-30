@@ -655,7 +655,7 @@ export default function Home() {
                 </label>
                 <label className="consent-row">
                   <input type="checkbox" checked={form.consentimiento} onChange={(e) => setForm({ ...form, consentimiento: e.target.checked })} />
-                  <span>He leído y acepto la <a href="/privacidad.html" target="_blank" rel="noopener noreferrer">Política de Tratamiento de Datos Personales</a></span>
+                  <span>He leído y acepto la <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de Tratamiento de Datos Personales</a></span>
                 </label>
                 {status === 'error' && <p className="form-error">{errorMsg}</p>}
                 <button type="submit" className="qf-submit" disabled={status === 'sending'}>
@@ -769,7 +769,7 @@ export default function Home() {
         <div className="foot-bottom">
           <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
           <div className="foot-legal">
-            <a href="/privacidad.html" target="_blank" rel="noopener noreferrer">Política de privacidad</a>
+            <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de privacidad</a>
             <span>© 2026 ETHOSLAB S.A.S.</span>
           </div>
         </div>
