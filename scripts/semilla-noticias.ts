@@ -12,14 +12,18 @@ if (!url || !clave) {
 }
 const sb = createClient(url, clave, { auth: { persistSession: false } });
 
-for (const n of NOTICIAS) {
-  const { error } = await sb.from('noticias').upsert(
-    {
-      slug: n.slug, titulo: n.titulo, resumen: n.resumen, categoria: n.categoria, cuerpo: n.cuerpo, fuentes: n.fuentes,
-      imagen: n.imagen, imagen_social: n.imagenSocial ?? null, estado: 'publicada',
-      publicada_en: `${n.fecha}T11:00:00-05:00`, autor_nombre: n.autor ?? 'Redacción Ethos IA',
-    },
-    { onConflict: 'slug', ignoreDuplicates: true },
-  );
-  console.log(error ? `✗ ${n.slug}: ${error.message}` : `✓ ${n.slug}`);
+async function main() {
+  for (const n of NOTICIAS) {
+    const { error } = await sb.from('noticias').upsert(
+      {
+        slug: n.slug, titulo: n.titulo, resumen: n.resumen, categoria: n.categoria, cuerpo: n.cuerpo, fuentes: n.fuentes,
+        imagen: n.imagen, imagen_social: n.imagenSocial ?? null, estado: 'publicada',
+        publicada_en: `${n.fecha}T11:00:00-05:00`, autor_nombre: n.autor ?? 'Redacción Ethos IA',
+      },
+      { onConflict: 'slug', ignoreDuplicates: true },
+    );
+    console.log(error ? `✗ ${n.slug}: ${error.message}` : `✓ ${n.slug}`);
+  }
 }
+
+main();

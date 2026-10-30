@@ -220,3 +220,27 @@ La pestaña «Paneles» de `/plataforma` muestra 30 capturas reales de las inter
 - Laboratorios: topología interactiva (`TopologiaRed.tsx`) con las 16 pruebas reales. DevOps Kit: pipeline de diez compuertas (`PipelineInteractivo.tsx`), diagramas y vista previa de los ocho documentos. Programa: etapas y árbol de la carpeta de evidencias (`ArbolEvidencias.tsx`), sin datos de personas. Datos en `lib/plataforma/visual.ts`.
 
 - Servicios: fichas con vista previa real, comando copiable y acceso a los paneles (`FichaServicio.tsx`). Riesgos: mapa de calor de probabilidad × impacto con detalle por riesgo (`MapaRiesgos.tsx`). API: probador interactivo con estado, tiempo y JSON, y colección de Postman descargable (`ApiPlayground.tsx`, `public/plataforma.postman_collection.json`).
+
+## Arranque con un solo comando
+
+Requisitos: Node 20+ y Windows, macOS o Linux. Si falta Docker Desktop, en Windows se instala solo.
+
+```bash
+npm run dev
+```
+
+El comando:
+1. Instala las dependencias.
+2. Crea `.env.local`.
+3. Levanta **Supabase local** con Postgres, Auth, Storage y la bandeja de correo de prueba, y aplica todas las migraciones de `supabase/migrations`.
+4. Carga las noticias y crea un administrador de demostración para `/prensa`. Su clave queda en `supabase/.admin-demo.local.json`.
+5. Busca un puerto libre y abre el navegador.
+
+| Comando | Qué hace |
+|---|---|
+| `npm run dev:nube` | Usa el Supabase de la nube configurado en `.env.local` |
+| `npm run stop` | Detiene Supabase local y conserva los datos |
+| `npm run db:push` | Aplica las migraciones pendientes al proyecto enlazado (`npx supabase link --project-ref <ref>`) |
+| `npm run db:reset` | Recrea la base **local** desde cero |
+| `npm run semilla` | Copia a la base las noticias de `lib/noticias.ts` |
+| `npm run nuevo-sitio -- <carpeta> "Marca" dominio.com` | Crea un sitio nuevo a partir de este código |

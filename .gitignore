@@ -3,3 +3,7 @@ node_modules/
 .env*
 !.env.local.example
 *.log
+supabase/.admin-demo.local.json
+supabase/.temp/
+supabase/.branches/
+tsconfig.tsbuildinfo

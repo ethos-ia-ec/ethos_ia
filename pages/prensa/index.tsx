@@ -23,6 +23,7 @@ export default function Prensa() {
   const [sesion, setSesion] = useState<{ correo: string } | null | undefined>(undefined);
   const [rol, setRol] = useState<Rol | null>(null);
   const [correo, setCorreo] = useState('');
+  const [clave, setClave] = useState('');
   const [aviso, setAviso] = useState('');
   const [lista, setLista] = useState<Fila[]>([]);
   const [filtro, setFiltro] = useState<Estado | 'todas'>('todas');
@@ -51,6 +52,11 @@ export default function Prensa() {
 
   async function entrar(e: React.FormEvent) {
     e.preventDefault();
+    if (clave) {
+      const { error } = await sb().auth.signInWithPassword({ email: correo, password: clave });
+      setAviso(error ? 'Correo o contraseña incorrectos.' : '');
+      return;
+    }
     const { error } = await sb().auth.signInWithOtp({ email: correo, options: { emailRedirectTo: `${location.origin}/prensa`, shouldCreateUser: false } });
     setAviso(error ? error.message : 'Te enviamos un enlace de acceso a tu correo.');
   }
@@ -147,7 +153,8 @@ export default function Prensa() {
         <form className="tarjeta acceso" onSubmit={entrar}>
           <h1>Acceso de la redacción</h1>
           <label>Correo institucional<input type="email" required value={correo} onChange={(e) => setCorreo(e.target.value)} /></label>
-          <button className="prim">Recibir enlace de acceso</button>
+          <label>Contraseña <small>(opcional: sin ella recibes un enlace en tu correo)</small><input type="password" autoComplete="current-password" value={clave} onChange={(e) => setClave(e.target.value)} /></label>
+          <button className="prim">{clave ? 'Entrar' : 'Recibir enlace de acceso'}</button>
         </form>
       )}
 

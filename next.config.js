@@ -28,7 +28,12 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/public/noticias/**' },
       { protocol: 'https', hostname: 'i.ytimg.com', pathname: '/vi/**' },
+      // Supabase local de `npm run dev` (solo en desarrollo).
+      ...(process.env.NODE_ENV !== 'production'
+        ? [{ protocol: 'http', hostname: '127.0.0.1', port: '54321', pathname: '/storage/v1/object/public/noticias/**' }]
+        : []),
     ],
+    ...(process.env.NODE_ENV !== 'production' ? { dangerouslyAllowLocalIP: true } : {}),
   },
   // Build liviano para contenedores (ver Dockerfile). Solo se activa cuando el
   // propio Dockerfile define DOCKER_BUILD=1 -- activarlo siempre rompe el build
