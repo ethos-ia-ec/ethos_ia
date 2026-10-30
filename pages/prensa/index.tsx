@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import type { Bloque, Noticia } from '../../lib/noticias';
 import BotonesSociales from '../../components/cuenta/BotonesSociales';
@@ -144,8 +145,12 @@ export default function Prensa() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
       <header className="barra">
-        <strong>Ethos Prensa</strong>
-        {sesion && <span>{sesion.correo} · {rol ?? 'sin acceso de prensa'} <button onClick={() => sb().auth.signOut()}>Salir</button></span>}
+        <nav className="nav">
+          <Link href="/" className="volver">← Ethos IA</Link>
+          <strong>Ethos Prensa</strong>
+          <Link href="/noticias">Ver Ethos Noticias</Link>
+        </nav>
+        {sesion && <span>{sesion.correo} · {rol ?? 'sin acceso de prensa'} <Link href="/cuenta">Mi perfil</Link> <button onClick={() => sb().auth.signOut()}>Cerrar sesión</button></span>}
       </header>
 
       {aviso && <p className="aviso" role="status">{aviso}</p>}
@@ -299,6 +304,11 @@ export default function Prensa() {
         .prensa { min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; padding-bottom: 48px; }
         .barra { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: var(--c-azul); color: var(--c-claro); padding: 14px 24px; font-size: 14px; }
         .barra strong { color: var(--c-cian); }
+        .nav { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .barra :global(a) { color: var(--c-claro); text-decoration: none; margin-left: 8px; }
+        .barra :global(a:hover) { color: var(--c-cian); }
+        .nav :global(.volver) { margin-left: 0; font-weight: 700; padding: 6px 10px; border: 1px solid rgba(4, 235, 255, 0.35); border-radius: 999px; }
+        .barra { flex-wrap: wrap; }
         .barra button { margin-left: 8px; }
         .aviso { max-width: 1100px; margin: 16px auto 0; background: var(--c-aviso-bg); color: var(--c-aviso); padding: 12px 16px; border-radius: 10px; }
         .tarjeta { background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: 14px; padding: 20px; margin: 16px auto; max-width: 1100px; }
