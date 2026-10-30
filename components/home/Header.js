@@ -60,7 +60,7 @@ export default function Header({ inicio = false }) {
 
   // En otras páginas el enlace activo es el de la ruta actual.
   const claveActiva = inicio ? activa : (router.pathname.startsWith('/equipo') ? null : router.pathname.startsWith('/plataforma') ? 'ingenieria' : null);
-  const hrefActivo = !inicio && router.pathname.startsWith('/equipo') ? '/equipo' : null;
+  const hrefActivo = inicio ? null : router.pathname.startsWith('/equipo') ? '/equipo' : router.pathname.startsWith('/noticias') ? '/noticias' : null;
 
   const colocar = useCallback((el) => {
     const cont = pill.current;
