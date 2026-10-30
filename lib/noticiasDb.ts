@@ -37,7 +37,7 @@ export function aNoticia(f: Fila): Noticia {
 // Une las notas de la base con las estáticas (la base gana si el slug coincide) y ordena por fecha.
 export function combinar(base: Noticia[], estaticas: Noticia[] = NOTICIAS): Noticia[] {
   const vistos = new Set(base.map((n) => n.slug));
-  return [...base, ...estaticas.filter((n) => !vistos.has(n.slug))].sort((a, b) => b.fecha.localeCompare(a.fecha));
+  return [...base, ...estaticas.filter((n) => !vistos.has(n.slug))].sort((a, b) => Number(!!b.destacada) - Number(!!a.destacada) || b.fecha.localeCompare(a.fecha));
 }
 
 export async function noticiasPublicadas(): Promise<Noticia[]> {

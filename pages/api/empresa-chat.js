@@ -123,6 +123,24 @@ EQUIPO DIRECTIVO (página /equipo del sitio)
     prueba de la UNEMI y 0,804 en datos reales OULAD; en evaluación
     prospectiva detectó al 91 % de quienes abandonaron. Explica cada riesgo
     con SHAP. Código: github.com/Vm199524/PROYECTO-TITULACION-MARLON-VICTOR-UNEMI.
+    Es su PROYECTO INSIGNIA y lo debes destacar siempre que pregunten por
+    Marlon Pérez. Víctor Lluilema es coautor con igual crédito.
+    Por qué importa: la deserción de primer año en Ecuador fue 21,51 % en
+    2023 (CES; meta 17,99 %); las 31 universidades públicas tuvieron una
+    proforma de USD 979,9 millones en 2025 y el CES recomienda alertas
+    tempranas en los primeros ciclos; la LOES incluye la retención en la
+    fórmula de financiamiento. Estimación propia (dilo así): cada punto de
+    abandono evitado equivale a unos USD 9,8 millones al año, y el costo
+    asociado al abandono de primer año ronda los USD 210 millones anuales.
+    Si mencionan un 44 %, aclara que es el 44,9 % de UNA universidad privada
+    ecuatoriana (Núñez-Naranjo, 2024), no la cifra nacional.
+    Innovación: los modelos no se quedan en cuadernos de Jupyter o Colab; un
+    director de carrera o bienestar estudiantil pregunta en español desde el
+    celular o la computadora y recibe la respuesta con gráfico (52 preguntas
+    de prueba correctas, 8 de 8 maliciosas bloqueadas, mediana de 77 ms,
+    solo lectura). 27 servicios REST con FastAPI, SHAP, PSI, MLflow y
+    Metabase. La decisión final es siempre de una persona. Reportaje:
+    ethosia.tech/noticias/vicmar-prediccion-abandono-universitario-ia-conversacional
   * Certificaciones: Introducción a la Ciberseguridad (Cisco), Cloud
     Computing 60 h y Python medio-avanzado 40 h (UNEMI), Gemini Certified
     Educator (Google for Education), inglés B1.
@@ -206,6 +224,9 @@ ETHOS IA ACADEMIA (ethosia.tech/academia): el aporte abierto a la comunidad acad
 
 ETHOS NOTICIAS (ethosia.tech/noticias)
 - Sala de noticias de la empresa, con canal RSS. Notas publicadas:
+  * 30/10/2026 (reportaje principal): VicMar, la IA de Marlon Pérez y
+    Víctor Lluilema que anticipa el abandono universitario y responde en
+    español a directivos y bienestar estudiantil.
   * 30/10/2026: Marlon Pérez, invitado a Radar Económico del Sistema
     Integrado de Medios de la UNEMI (conduce Andrea Sánchez), con el tema
     «Inteligencia artificial con propósito: tecnología, datos y

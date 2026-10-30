@@ -19,11 +19,119 @@ export type Noticia = {
   resumen: string;
   imagen: { src: string; alt: string; credito?: string; ancho: number; alto: number };
   imagenSocial?: string;
+  // Reportaje principal: se presenta como portada de revista en /noticias y en la nota.
+  destacada?: { sello: string; cifras: { valor: string; texto: string }[] };
   cuerpo: Bloque[];
   fuentes: { texto: string; url: string }[];
 };
 
 export const NOTICIAS: Noticia[] = [
+  {
+    slug: 'vicmar-prediccion-abandono-universitario-ia-conversacional',
+    fecha: '2026-10-30',
+    autor: 'Marlon Pérez y Víctor Lluilema',
+    categoria: 'Producto',
+    titulo: 'VicMar: inteligencia artificial que anticipa el abandono universitario y responde en español a directivos y bienestar estudiantil',
+    resumen:
+      'Marlon Pérez y Víctor Lluilema, estudiantes de Ingeniería en TI de la UNEMI, desarrollaron un sistema que compara cuatro modelos de aprendizaje automático, explica cada alerta y permite consultar a los estudiantes en riesgo desde el celular o la computadora, sin cuadernos de código.',
+    imagen: {
+      src: '/noticias/vicmar-portada-revista.webp',
+      alt: 'Portada estilo revista de Ethos Noticias con Marlon Pérez: «La IA que anticipa el abandono universitario», VicMar, de Marlon Pérez y Víctor Lluilema.',
+      ancho: 1200,
+      alto: 1500,
+    },
+    imagenSocial: '/noticias/vicmar-og.jpg',
+    destacada: {
+      sello: 'Reportaje principal',
+      cifras: [
+        { valor: '21,51 %', texto: 'deserción de primer año en Ecuador (CES, 2023)' },
+        { valor: 'USD 9,8 M', texto: 'al año por cada punto de abandono evitado (estimación propia)' },
+        { valor: '0,828', texto: 'ROC-AUC del modelo LightGBM elegido' },
+        { valor: '91,3 %', texto: 'de abandonos detectados en validación prospectiva' },
+      ],
+    },
+    cuerpo: [
+      {
+        tipo: 'p',
+        texto:
+          'Marlon Pérez, Gerente General de Ethos IA, y Víctor Lluilema, coautor del proyecto, presentan VicMar, su trabajo de titulación en Ingeniería en Tecnologías de la Información de la Universidad Estatal de Milagro (UNEMI). El sistema estima qué estudiantes tienen mayor probabilidad de abandonar la carrera, explica por qué y pone esa información en manos de quienes pueden actuar a tiempo.',
+      },
+      {
+        tipo: 'imagen',
+        src: '/noticias/vicmar-consulta-conversacional.webp',
+        alt: 'Pantalla de VicMar respondiendo en español la pregunta «¿Qué carreras tienen más estudiantes en riesgo?» con un gráfico de barras. Datos sintéticos.',
+        credito: 'Captura de VicMar con datos sintéticos',
+        pie: 'Un director pregunta en español y VicMar responde con datos y gráfico.',
+        ancho: 1600,
+        alto: 1000,
+      },
+      { tipo: 'h2', texto: 'Un problema que cuesta millones' },
+      {
+        tipo: 'p',
+        texto:
+          'Según el Consejo de Educación Superior (CES), la deserción de primer año en las universidades del Ecuador fue de 21,51 % en 2023, y la meta oficial es bajarla a 17,99 %. El mismo plan registra una proforma de USD 979,9 millones en 2025 para las 31 universidades públicas, y recomienda el monitoreo temprano de alertas en los primeros ciclos. La Ley Orgánica de Educación Superior, además, incluye la tasa de retención en la fórmula con la que se distribuyen los recursos.',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'En la UNEMI, el presupuesto devengado de 2025 fue de USD 42,9 millones para 56 530 estudiantes de grado, lo que da una estimación propia de unos USD 759 por estudiante al año. En algunas instituciones la cifra de abandono es mucho mayor: un estudio publicado en Frontiers in Education encontró que el 44,9 % de los estudiantes de una universidad privada ecuatoriana abandonó sus estudios.',
+      },
+      {
+        tipo: 'lista',
+        items: [
+          'Estimación propia: si alrededor de uno de cada cinco estudiantes deja la universidad en el primer año, el presupuesto público asociado a esos cupos ronda los USD 210 millones al año.',
+          'Estimación propia: cada punto porcentual de abandono que se logre evitar equivale a cerca de USD 9,8 millones anuales del presupuesto universitario público.',
+          'Detrás de cada cifra hay una persona que no termina su carrera y una familia que pierde lo invertido.',
+        ],
+      },
+      { tipo: 'h2', texto: 'Cuatro modelos comparados, uno elegido con evidencia' },
+      {
+        tipo: 'p',
+        texto:
+          'VicMar entrena y compara cuatro modelos: regresión logística, Random Forest con pesos de clase, Random Forest con SMOTE y LightGBM optimizado con Optuna, que fue el elegido. Alcanzó un ROC-AUC de 0,828 en el conjunto UNEMI_PRUEBAS, construido con datos sintéticos, y de 0,804 en OULAD, una base pública con datos reales de la Open University del Reino Unido. En una validación prospectiva sobre un periodo posterior detectó al 91,3 % de los estudiantes que efectivamente abandonaron.',
+      },
+      {
+        tipo: 'imagen',
+        src: '/noticias/vicmar-ficha-riesgo.webp',
+        alt: 'Ficha de un estudiante en VicMar con probabilidad de riesgo de 75,1 % y los factores que explican la alerta. Datos sintéticos.',
+        credito: 'Captura de VicMar con datos sintéticos',
+        pie: 'Cada alerta viene con sus razones: el sistema muestra qué factores pesan más en el riesgo de cada estudiante (SHAP).',
+        ancho: 1600,
+        alto: 1000,
+      },
+      { tipo: 'h2', texto: 'La innovación: preguntar en español, sin cuadernos de código' },
+      {
+        tipo: 'p',
+        texto:
+          'La mayoría de los modelos predictivos se quedan en cuadernos de Jupyter o de Google Colab que solo puede abrir un especialista. VicMar da un paso más: un director de carrera o el equipo de bienestar estudiantil escribe una pregunta en español, como «¿qué carreras tienen más estudiantes en riesgo?», y recibe la respuesta con su gráfico desde el celular o la computadora.',
+      },
+      {
+        tipo: 'lista',
+        items: [
+          'La consulta conversacional respondió correctamente las 52 preguntas de prueba, con una mediana de 77 milisegundos.',
+          'Las 8 preguntas maliciosas de prueba fueron bloqueadas: el sistema solo lee datos y nunca los modifica.',
+          '27 servicios REST con FastAPI, explicaciones con SHAP, vigilancia de la deriva de los datos (PSI), MLflow y tableros en Metabase.',
+          'La decisión final siempre es de una persona: el sistema alerta y explica, no sanciona.',
+        ],
+      },
+      {
+        tipo: 'cita',
+        texto: 'Un modelo que solo entiende un especialista no cambia nada; uno que puede consultar cualquier director a tiempo sí.',
+        autor: 'Marlon Pérez y Víctor Lluilema, autores de VicMar',
+      },
+      {
+        tipo: 'p',
+        texto:
+          'El código es abierto y está publicado en GitHub. Ethos IA trabaja para llevar esta experiencia a instituciones de educación superior que quieran actuar antes de que sus estudiantes se vayan.',
+      },
+    ],
+    fuentes: [
+      { texto: 'CES, Plan de Desarrollo del Sistema de Educación Superior 2025 (deserción de primer año, proforma y recomendación de alertas tempranas)', url: 'https://www.ces.gob.ec/' },
+      { texto: 'UNEMI, Informe de Rendición de Cuentas 2025 (presupuesto devengado y estudiantes de grado)', url: 'https://www.unemi.edu.ec/' },
+      { texto: 'Núñez-Naranjo, A. F. (2024). Frontiers in Education, 9, 1444534', url: 'https://doi.org/10.3389/feduc.2024.1444534' },
+      { texto: 'Repositorio público de VicMar en GitHub', url: 'https://github.com/Vm199524/PROYECTO-TITULACION-MARLON-VICTOR-UNEMI' },
+    ],
+  },
   {
     slug: 'ethos-ia-academia-metodologias-abiertas-cualquier-ia',
     fecha: '2026-10-30',

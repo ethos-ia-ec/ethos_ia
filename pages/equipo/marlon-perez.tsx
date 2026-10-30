@@ -100,6 +100,7 @@ const DIVULGACION = [
 ];
 
 const SECCIONES = [
+  { id: 'insignia', etiqueta: 'Proyecto insignia' },
   { id: 'cargo', etiqueta: 'Perfil del cargo' },
   { id: 'proyectos', etiqueta: 'Proyectos' },
   { id: 'competencias', etiqueta: 'Competencias' },
@@ -212,6 +213,35 @@ export default function PerfilMarlon() {
       </div>
 
       <main className="cuerpo">
+        <section id="insignia" aria-labelledby="h-insignia" className="revista">
+          <Reveal>
+            <div className="rv-top"><span className="rv-sello">Proyecto insignia</span><span className="rv-ed">Edición especial · Educación superior e IA</span></div>
+            <div className="rv-grid">
+              <div className="rv-texto">
+                <span className="rv-kicker">Trabajo de titulación · UNEMI</span>
+                <h2 id="h-insignia">VicMar: la inteligencia artificial que <em>anticipa</em> el abandono universitario</h2>
+                <p className="rv-bajada">Cuatro modelos comparados, cada alerta explicada y una consulta en español para que directivos y bienestar estudiantil actúen a tiempo desde el celular o la computadora.</p>
+                <p className="rv-firma">Por <strong>Marlon Pérez</strong> y <strong>Víctor Lluilema</strong></p>
+              </div>
+              <figure className="rv-foto">
+                <Image src="/noticias/vicmar-portada-revista.webp" alt="Portada estilo revista de Ethos Noticias con Marlon Pérez: «La IA que anticipa el abandono universitario»." width={1200} height={1500} sizes="(max-width: 900px) 100vw, 50vw" />
+                <figcaption>Portada de Ethos Noticias · Octubre de 2026</figcaption>
+              </figure>
+            </div>
+            <div className="rv-cifras">
+              <div><b>21,51 %</b><span>deserción de primer año en Ecuador (CES, 2023)</span></div>
+              <div><b>USD 9,8 M</b><span>al año por cada punto de abandono evitado (estimación propia)</span></div>
+              <div><b>0,828</b><span>ROC-AUC del modelo LightGBM elegido</span></div>
+              <div><b>91,3 %</b><span>de abandonos detectados en validación prospectiva</span></div>
+            </div>
+            <blockquote className="rv-cita">«Un modelo que solo entiende un especialista no cambia nada; uno que puede consultar cualquier director a tiempo sí.»</blockquote>
+            <div className="rv-acciones">
+              <Link href="/noticias/vicmar-prediccion-abandono-universitario-ia-conversacional" className="rv-btn">Leer el reportaje completo →</Link>
+              <a href="https://github.com/Vm199524/PROYECTO-TITULACION-MARLON-VICTOR-UNEMI" target="_blank" rel="noopener noreferrer" className="rv-btn sec">Código abierto en GitHub</a>
+            </div>
+          </Reveal>
+        </section>
+
         <section id="cargo" aria-labelledby="h-cargo">
           <Reveal>
             <h2 id="h-cargo">Perfil del cargo y evidencia</h2>
@@ -376,6 +406,32 @@ export default function PerfilMarlon() {
         section { padding-top: 56px; scroll-margin-top: 56px; }
         h2 { font-size: 1.5rem; margin: 0 0 10px; }
         .sub-h { font-size: 1.05rem; margin: 36px 0 14px; }
+        .revista { background: radial-gradient(120% 90% at 100% 0%, #123a3c 0%, #0a0f1a 55%); color: #eef3f6; border-radius: 22px; padding: 34px clamp(18px, 4vw, 44px) 38px; margin-bottom: 48px; box-shadow: 0 30px 70px rgba(5,17,30,0.35); overflow: hidden; }
+        .rv-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid rgba(232,178,58,0.45); padding-bottom: 12px; margin-bottom: 26px; }
+        .rv-sello { background: #e8b23a; color: #0a0f1a; font: 700 11px 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; }
+        .rv-ed { font: 500 11px 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: #8fa89c; }
+        .rv-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: center; }
+        .rv-kicker { color: #2fd8c9; font: 600 12px 'IBM Plex Mono', monospace; letter-spacing: .16em; text-transform: uppercase; }
+        .revista h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(30px, 4.2vw, 50px); line-height: 1.05; margin: 12px 0 16px; color: #fff; letter-spacing: -0.01em; }
+        .revista h2 em { color: #e8b23a; font-style: italic; }
+        .rv-bajada { font-size: 17px; line-height: 1.6; color: #cfdce3; margin: 0 0 16px; }
+        .rv-firma { font-size: 14px; color: #8fa89c; margin: 0; }
+        .rv-firma strong { color: #eef3f6; }
+        .rv-foto { order: -1; margin: 0 0 8px; position: relative; min-width: 0; justify-self: center; width: 100%; }
+        .rv-foto :global(img) { width: min(100%, calc((100svh - 120px) * 0.8)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 34px 70px rgba(0,0,0,0.55); }
+        .rv-foto figcaption { font: 500 11px 'IBM Plex Mono', monospace; color: #8fa89c; margin-top: 10px; text-align: center; }
+        .rv-cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 14px; overflow: hidden; margin: 34px 0 28px; }
+        .rv-cifras div { background: rgba(10,15,26,0.85); padding: 20px 18px; }
+        .rv-cifras b { display: block; font-family: Georgia, serif; font-size: clamp(26px, 3vw, 36px); color: #2fd8c9; margin-bottom: 6px; }
+        .rv-cifras div:nth-child(2) b { color: #e8b23a; }
+        .rv-cifras span { font-size: 13px; line-height: 1.45; color: #b7c6cd; }
+        .rv-cita { font-family: Georgia, serif; font-style: italic; font-size: clamp(18px, 2.2vw, 24px); line-height: 1.45; color: #fff; border-left: 4px solid #e8b23a; margin: 0 0 28px; padding: 4px 0 4px 20px; max-width: 60ch; }
+        .rv-acciones { display: flex; gap: 12px; flex-wrap: wrap; }
+        .revista :global(.rv-btn) { background: #2fd8c9; color: #0a0f1a; font-weight: 700; padding: 13px 22px; border-radius: 999px; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+        .revista :global(.rv-btn:hover) { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(47,216,201,0.35); }
+        .revista :global(.rv-btn.sec) { background: transparent; color: #eef3f6; border: 1px solid rgba(238,243,246,0.4); }
+        @media (max-width: 900px) { .rv-grid { grid-template-columns: 1fr; } .rv-cifras { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 420px) { .rv-cifras { grid-template-columns: 1fr; } }
         .intro { color: #33414d; line-height: 1.7; margin: 0 0 16px; max-width: 70ch; }
 
         .filtros { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
