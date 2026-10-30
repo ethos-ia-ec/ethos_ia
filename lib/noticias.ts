@@ -25,6 +25,68 @@ export type Noticia = {
 
 export const NOTICIAS: Noticia[] = [
   {
+    slug: 'ethos-ia-academia-metodologias-abiertas-cualquier-ia',
+    fecha: '2026-10-30',
+    categoria: 'Producto',
+    titulo: 'Ethos IA Academia: 75 metodologías académicas abiertas para trabajar con cualquier inteligencia artificial',
+    resumen:
+      'Ethos IA publica en código abierto cinco paquetes para investigación científica, tesis de TI, Economía, prácticas de laboratorio y creación de empresas, compatibles con Claude, GPT, Gemini o modelos locales.',
+    imagen: {
+      src: '/noticias/ethos-ia-academia-2026.webp',
+      alt: 'Portada de Ethos IA Academia: 75 metodologías, cinco áreas, compatible con Claude, GPT, Gemini, Ollama y MCP, licencia MIT.',
+      ancho: 1600,
+      alto: 900,
+    },
+    imagenSocial: '/noticias/ethos-ia-academia-2026-og.jpg',
+    cuerpo: [
+      {
+        tipo: 'p',
+        texto:
+          'Ethos IA, la marca de ETHOSLAB S.A.S., liberó Ethos IA Academia, un kit gratuito y de código abierto con 75 metodologías para que estudiantes, docentes e investigadores trabajen con inteligencia artificial sin perder el rigor académico ni la autoría de su trabajo. La iniciativa es impulsada por el Gerente General de la empresa, Marlon Pérez, y se publica con licencia MIT.',
+      },
+      { tipo: 'h2', texto: 'Funciona con el modelo que cada persona elija' },
+      {
+        tipo: 'p',
+        texto:
+          'El kit no depende de un proveedor. Se apoya en dos estándares abiertos: el Model Context Protocol (MCP), que expone las metodologías y las herramientas de búsqueda de literatura a clientes como Claude Code, Claude Desktop, Goose, Cline o Continue, y las skills, archivos de texto que leen por igual las personas y los agentes. Así se puede usar con Claude, GPT, Gemini o un modelo local con Ollama.',
+      },
+      { tipo: 'h2', texto: 'Cinco paquetes, de la idea a la entrega' },
+      {
+        tipo: 'lista',
+        items: [
+          'Investigación científica: revisión sistemática PRISMA 2020 con Scopus, OpenAlex y Unpaywall, las cuatro matrices de revisión y redacción en APA 7.',
+          'Proyecto de titulación de TI: trabajos previos, requerimientos, decisiones de arquitectura, UML, documento, video técnico y sustentación.',
+          'Economía: consigna y rúbrica, literatura por áreas JEL, matriz de consistencia, ejercicios con ecuaciones de Word y datos de Ecuador.',
+          'Prácticas de laboratorio de TI: mediciones de red, cifrado, Docker, evidencias e informe en Word sobre la plantilla oficial.',
+          'Creación de empresa: constitución de una S.A.S. en Ecuador, marca, balance inicial, gobierno societario, sitio web y equipo.',
+        ],
+      },
+      { tipo: 'h2', texto: 'Tres principios' },
+      {
+        tipo: 'lista',
+        items: [
+          'Solo fuentes académicas: artículos con DOI leídos en texto completo, y cada cifra verificada antes de citarla.',
+          'La IA no es autora: el kit incluye una revisión de rastros de IA y un anexo de declaración de uso; la responsabilidad es de quien firma el trabajo.',
+          'Las claves quedan en el equipo del usuario: las de Scopus y las del modelo nunca salen de su computadora, y no hay telemetría.',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'En Windows, un instalador prepara Python, pide de forma opcional la clave de Scopus y registra el kit en el cliente de IA. En Claude Code se instala con el comando /plugin marketplace add IngMarlonPerez/ethos-ia-academia. Las instrucciones completas están en ethosia.tech/academia.',
+      },
+      {
+        tipo: 'cita',
+        texto: 'La inteligencia artificial debe ayudar a investigar mejor, no a firmar por nosotros.',
+        autor: 'Ethos IA',
+      },
+    ],
+    fuentes: [
+      { texto: 'Repositorio de Ethos IA Academia en GitHub', url: 'https://github.com/IngMarlonPerez/ethos-ia-academia' },
+      { texto: 'Página de Ethos IA Academia', url: 'https://www.ethosia.tech/academia' },
+    ],
+  },
+  {
     slug: 'radar-economico-unemi-inteligencia-artificial-con-proposito',
     fecha: '2026-10-30',
     categoria: 'Medios',

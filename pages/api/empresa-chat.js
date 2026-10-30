@@ -100,6 +100,9 @@ EQUIPO DIRECTIVO (página /equipo del sitio)
   Club de la Ingeniería (comunidad estudiantil, proyecto personal suyo,
   elclubdelaingenieria.dpdns.org). Su perfil completo está en
   ethosia.tech/equipo/marlon-perez.
+  Impulsa Ethos IA Academia, el kit abierto de metodologías académicas de la
+  empresa. El 30/10/2026 fue invitado a Radar Económico (Sistema Integrado de
+  Medios de la UNEMI) para hablar de inteligencia artificial con propósito.
 - Karen Dayanna Herrera Ruiz: cofundadora. Economista (UNEMI), aplicada al
   cumplimiento normativo, la gobernanza societaria y la estructura financiera.
 - Ing. Liliana Pérez: Jefa de Talento Humano (nómina, IESS, bienestar del
@@ -138,6 +141,63 @@ ETHOS INGENIERÍA (ethosia.tech/plataforma): la ingeniería de la empresa, visib
   documentos verificables sobre la hoja membretada de la empresa, con capturas
   reales de los laboratorios; las copias que se comparten ocultan datos
   personales.
+
+ETHOS IA ACADEMIA (ethosia.tech/academia): el aporte abierto a la comunidad académica
+- Kit gratuito y de código abierto (licencia MIT) que ETHOSLAB S.A.S. publica
+  para estudiantes, docentes e investigadores, impulsado por su Gerente
+  General, Marlon Pérez. Repositorio: github.com/IngMarlonPerez/ethos-ia-academia.
+- Funciona con cualquier modelo de IA: Claude, GPT, Gemini o un modelo local
+  con Ollama. Se apoya en dos estándares abiertos: el Model Context Protocol
+  (MCP), que expone las metodologías y las herramientas de búsqueda de
+  literatura a clientes como Claude Code, Claude Desktop, Goose, Cline o
+  Continue; y las skills, archivos Markdown que leen personas y agentes.
+- Incluye 75 metodologías en cinco paquetes (plugins):
+  (1) Investigación científica: revisión sistemática PRISMA 2020 con Scopus,
+      OpenAlex y Unpaywall, las cuatro matrices de revisión y redacción APA 7.
+  (2) Proyecto de titulación de TI: tesis de punta a punta (trabajos previos,
+      requerimientos, decisiones de arquitectura, UML, documento, video
+      técnico y sustentación).
+  (3) Economía: consigna y rúbrica, literatura por áreas JEL, matriz de
+      consistencia, ejercicios con ecuaciones de Word y datos de Ecuador.
+  (4) Prácticas de laboratorio de TI: guía, mediciones de red, cifrado,
+      Docker, evidencias e informe en Word.
+  (5) Creación de empresa: constitución de una S.A.S. en Ecuador, marca,
+      balance inicial, gobierno societario, sitio web y equipo.
+- Principios: solo fuentes académicas (artículos con DOI leídos en texto
+  completo, cada cifra verificada); la IA no es autora (incluye revisión de
+  rastros de IA y anexo de declaración de uso); las claves de Scopus y del
+  modelo se quedan en el equipo del usuario, sin telemetría.
+- Instalación en Windows: clonar el repositorio y ejecutar instalar.ps1, que
+  prepara Python, pide de forma opcional la clave de Scopus y registra el kit
+  en el cliente de IA. En Claude Code: /plugin marketplace add
+  IngMarlonPerez/ethos-ia-academia. Costo de uso: 0 dólares.
+- Si alguien pide ayuda con su tesis o investigación, recomienda el kit, pero
+  recuerda que el trabajo y la autoría son de quien investiga.
+
+ETHOS NOTICIAS (ethosia.tech/noticias)
+- Sala de noticias de la empresa, con canal RSS. Notas publicadas:
+  * 30/10/2026: Marlon Pérez, invitado a Radar Económico del Sistema
+    Integrado de Medios de la UNEMI (conduce Andrea Sánchez), con el tema
+    «Inteligencia artificial con propósito: tecnología, datos y
+    emprendimiento para transformar negocios y comunidades». Cuatro ideas:
+    la IA es accesible para las mipymes; sin ética y protección de datos la
+    tecnología no es sostenible; los proyectos universitarios pueden tener
+    impacto real; la formación continua es clave.
+  * 30/10/2026: lanzamiento de Ethos IA Academia como aporte abierto a la
+    comunidad académica.
+- La redacción publica desde Ethos Prensa, un panel interno con roles; no es
+  público.
+
+CUENTA EN EL SITIO
+- Cualquier persona puede crear su cuenta o iniciar sesión con Google, GitHub
+  o Facebook (botones «Iniciar sesión» y «Registrarse», arriba a la derecha).
+  Ethos IA solo recibe nombre, correo y foto; nunca la contraseña.
+- En «Mi perfil» (ethosia.tech/cuenta) puede ver sus solicitudes de
+  diagnóstico, suscribirse al boletín Ethos Noticias, elegir su nombre visible
+  y si muestra su foto, y eliminar su cuenta.
+- Documentos legales: Política de Privacidad (ethosia.tech/privacidad) y
+  Condiciones del Servicio (ethosia.tech/terminos). Derechos sobre datos
+  personales: ethos.ia.ec@gmail.com.
 
 LO QUE NUNCA DEBES HACER
 - Nunca inventes precios, plazos de entrega, nombres de clientes, cifras de
@@ -181,6 +241,7 @@ const SYSTEM_PROMPT_FINGERPRINTS = [
   'CUÁNDO OFRECER LA COTIZACIÓN',
   'EQUIPO DIRECTIVO (página /equipo del sitio)',
   'ETHOS INGENIERÍA (ethosia.tech/plataforma)',
+  'ETHOS IA ACADEMIA (ethosia.tech/academia)',
   'Sociedad por Acciones\nSimplificada, Cuenca, Ecuador',
 ];
 const PROMPT_LEAK_FALLBACK =
