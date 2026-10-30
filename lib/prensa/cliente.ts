@@ -1,19 +1,9 @@
 // Cliente de Supabase para el panel /prensa: corre en el navegador con la sesión del periodista.
 // Todo permiso lo decide la base (RLS de la migración 0005); aquí no hay claves privadas.
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { sb } from '../sesion';
 import { aSlug } from './validar';
 
-let instancia: SupabaseClient | null = null;
-
-export function sb(): SupabaseClient {
-  if (!instancia) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const clave = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (!url || !clave) throw new Error('Falta configurar NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY.');
-    instancia = createClient(url, clave, { auth: { persistSession: true, storageKey: 'ethos-prensa' } });
-  }
-  return instancia;
-}
+export { sb };
 
 export type Rol = 'redactor' | 'editor' | 'admin';
 

@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
 import type { Bloque, Noticia } from '../../lib/noticias';
+import BotonesSociales from '../../components/cuenta/BotonesSociales';
 import { miRol, revalidar, sb, subirMedio, type Rol } from '../../lib/prensa/cliente';
 import { aSlug, idDeVideo, LIMITE_RESUMEN_SEO, LIMITE_TITULO_SEO, problemasParaPublicar } from '../../lib/prensa/validar';
 
@@ -152,6 +153,8 @@ export default function Prensa() {
       {sesion === null && (
         <form className="tarjeta acceso" onSubmit={entrar}>
           <h1>Acceso de la redacción</h1>
+          <BotonesSociales destino="/prensa" />
+          <p className="o"><span>o con su correo</span></p>
           <label>Correo institucional<input type="email" required value={correo} onChange={(e) => setCorreo(e.target.value)} /></label>
           <label>Contraseña <small>(opcional: sin ella recibes un enlace en tu correo)</small><input type="password" autoComplete="current-password" value={clave} onChange={(e) => setClave(e.target.value)} /></label>
           <button className="prim">{clave ? 'Entrar' : 'Recibir enlace de acceso'}</button>
@@ -300,6 +303,7 @@ export default function Prensa() {
         .aviso { max-width: 1100px; margin: 16px auto 0; background: var(--c-aviso-bg); color: var(--c-aviso); padding: 12px 16px; border-radius: 10px; }
         .tarjeta { background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: 14px; padding: 20px; margin: 16px auto; max-width: 1100px; }
         .acceso { max-width: 420px; }
+        .o { text-align: center; color: var(--c-texto-3); font-size: 12px; margin: 16px 0 12px; }
         h1 { font-size: 1.4rem; margin: 8px 0 16px; }
         h2 { font-size: 1rem; margin: 22px 0 8px; }
         label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; margin-bottom: 12px; }

@@ -1,10 +1,10 @@
 // Copia las notas de lib/noticias.ts a la tabla `noticias` para poder editarlas desde /prensa.
-// Uso (una sola vez, después de aplicar la migración 0005):  npx tsx scripts/semilla-noticias.ts
+// Uso (una sola vez, después de aplicar las migraciones):  npm run semilla  (lee .env.local)
 // Requiere SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY en el entorno. Si el slug ya existe, no lo toca.
 import { createClient } from '@supabase/supabase-js';
 import { NOTICIAS } from '../lib/noticias';
 
-const url = process.env.SUPABASE_URL;
+const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
 const clave = process.env.SUPABASE_SERVICE_ROLE_KEY;
 if (!url || !clave) {
   console.error('Faltan SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY.');

@@ -161,7 +161,7 @@ site_url = "http://localhost:3000"
 # The public URL that Auth serves on. Defaults to the API external URL with `/auth/v1` appended.
 # external_url = ""
 # A list of *exact* URLs that auth providers are permitted to redirect to post authentication.
-additional_redirect_urls = ["http://localhost:3000/prensa", "http://localhost:3001/prensa", "http://localhost:3002/prensa", "http://localhost:3003/prensa"]
+additional_redirect_urls = ["http://localhost:*/prensa", "http://localhost:*/cuenta"]
 # How long tokens are valid for, in seconds. Defaults to 3600 (1 hour), maximum 604,800 (1 week).
 jwt_expiry = 3600
 # JWT issuer URL. If not set, defaults to auth.external_url.
@@ -335,6 +335,24 @@ url = ""
 skip_nonce_check = false
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
+
+# Inicio de sesión con Google, GitHub y Facebook en local. Los secretos van en variables de entorno, nunca en git.
+# Para la nube se configuran en el panel de Supabase (Authentication → Sign In / Providers): ver docs/GUIA_INICIO_SESION_SOCIAL.md
+[auth.external.google]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GOOGLE_SECRET)"
+skip_nonce_check = true
+
+[auth.external.github]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_GITHUB_SECRET)"
+
+[auth.external.facebook]
+enabled = false
+client_id = "env(SUPABASE_AUTH_EXTERNAL_FACEBOOK_CLIENT_ID)"
+secret = "env(SUPABASE_AUTH_EXTERNAL_FACEBOOK_SECRET)"
 
 # Allow Solana wallet holders to sign in to your project via the Sign in with Solana (SIWS, EIP-4361) standard.
 # You can configure "web3" rate limit in the [auth.rate_limit] section and set up [auth.captcha] if self-hosting.
