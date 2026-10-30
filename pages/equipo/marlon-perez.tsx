@@ -27,6 +27,8 @@ const AREAS: ('Todas' | Area)[] = ['Todas', 'Desarrollo web', 'Datos', 'Segurida
 const PROYECTOS: Proyecto[] = [
   { nombre: 'Plataforma web comunitaria', stack: ['Next.js', 'React', 'Supabase', 'Vercel'], punto: 'Autenticación social + RLS', detalle: 'Diseño y desarrollo completo: autenticación social, políticas de seguridad por fila, SEO técnico y despliegue continuo.' },
   { nombre: 'Entrenador educativo de ciberseguridad', stack: ['JavaScript', 'LLM'], punto: '31 niveles + asistente de IA', detalle: 'Terminal Linux interactiva de 31 niveles con un asistente de IA (cascada de tres proveedores con conmutación automática) que guía al usuario con conceptos reales de auditoría.' },
+  { nombre: 'Predicción de abandono estudiantil con IA', stack: ['Python', 'Random Forest', 'SHAP', 'API REST'], punto: '156 706 registros · trabajo de titulación', detalle: 'Modelo explicable entrenado con registros reales anonimizados; en evaluación prospectiva detectó al 91 % de quienes abandonaron (ROC-AUC 0,76). Resultados expuestos por API REST.' },
+  { nombre: 'Ethos IA Academia', stack: ['MCP', 'Python', 'Markdown'], punto: '75 metodologías · licencia MIT', detalle: 'Kit abierto de metodologías académicas que funciona con cualquier modelo de IA: investigación científica, tesis de TI, Economía, prácticas de laboratorio y creación de empresas.' },
   { nombre: 'Buscador de empleo con análisis de CV', stack: ['Next.js', 'Zod', 'pdf.js'], punto: 'Privacidad: el PDF no sale del navegador', detalle: 'Extrae el texto del PDF en el navegador y estructura el perfil con IA para cruzarlo con ofertas reales.' },
 ];
 
@@ -53,9 +55,10 @@ const COMPETENCIAS = [
 const TECNOLOGIAS = ['React', 'Next.js', 'JavaScript', 'Python', 'SQL', 'PostgreSQL', 'Supabase', 'Git y GitHub', 'Google Cloud', 'Integración de LLM', 'Auditoría de TI', 'Zod'];
 
 const EXPERIENCIA = [
+  { cargo: 'Gerente General y Director Técnico', lugar: 'ETHOSLAB S.A.S. (Ethos IA)', dato: '2026 – actualidad · dirección técnica, automatización, integraciones y auditoría de IA', marca: '2026' },
   { cargo: 'Prácticas Preprofesionales II', lugar: 'Tecnograp S.A.', dato: '144 horas certificadas por la UNEMI', marca: '144 h' },
   { cargo: 'Prácticas Preprofesionales I', lugar: 'CNEL EP — Milagro', dato: '96 horas certificadas por la UNEMI', marca: '96 h' },
-  { cargo: 'Agente Investigador', lugar: 'Policía Nacional del Ecuador', dato: '2011–2021 · gestión de activos de información, cadena de custodia y auditoría de campo', marca: '10 años' },
+  { cargo: 'Experiencia en el sector público', lugar: 'Gestión de información sensible', dato: '2011–2022 · manejo de información confidencial, cadena de custodia y cumplimiento normativo y corporativo', marca: '10 años' },
 ];
 
 const CERTIFICACIONES = [
@@ -65,6 +68,7 @@ const CERTIFICACIONES = [
   { t: 'Gemini Certified Educator', e: 'Google for Education' },
   { t: 'Concurso Internacional #HilandoCiencia2025', e: 'OEI · participante' },
   { t: 'Inglés B1 (MCER)', e: 'UNEMI · módulos I–V' },
+  { t: 'Calidad del e-learning en universidades públicas', e: 'Facultad de Investigación UNEMI · webinar, 2026' },
 ];
 
 const CLUB = {
@@ -85,11 +89,22 @@ const CLUB = {
   ],
 };
 
+// Divulgación y aporte académico confirmados por la gerencia (octubre de 2026).
+const DIVULGACION = [
+  { t: 'Radar Económico · SIM UNEMI', d: 'Invitado al programa del Sistema Integrado de Medios de la UNEMI para hablar de inteligencia artificial con propósito: tecnología, datos y emprendimiento (30 de octubre de 2026).', href: '/noticias/radar-economico-unemi-inteligencia-artificial-con-proposito', etiqueta: 'Medios' },
+  { t: 'Ponente en CEO UNEMI', d: 'Taller «Herramientas y Habilidades Digitales», tema «Uso ético y responsable de la IA», para la Comunidad Estudiantil Online de la UNEMI (marzo de 2026, 20 horas).', etiqueta: 'Formación' },
+  { t: '«Sin GUION» y ETIA', d: 'Transmisiones en vivo y la Escuela de Tecnología, IA y Sociedad (ETIA), espacios de debate abierto sobre liderazgo técnico estudiantil, código abierto y ética digital.', etiqueta: 'Divulgación' },
+  { t: 'Investigación aplicada', d: 'Colabora con académicos de Cuenca en el uso de IA generativa en educación como copiloto del docente, no como sustituto. Participó en el concurso internacional #HilandoCiencia2025 de la OEI.', etiqueta: 'Investigación' },
+  { t: 'Ethos IA Academia', d: 'Impulsa el kit abierto de 75 metodologías académicas de Ethos IA para estudiantes, docentes e investigadores.', href: '/academia', etiqueta: 'Código abierto' },
+  { t: 'Comunidad CEO UNEMI', d: 'Invitado a la posesión de la nueva directiva estudiantil de la Comunidad Estudiantil Online de la UNEMI.', etiqueta: 'Comunidad' },
+];
+
 const SECCIONES = [
   { id: 'cargo', etiqueta: 'Perfil del cargo' },
   { id: 'proyectos', etiqueta: 'Proyectos' },
   { id: 'competencias', etiqueta: 'Competencias' },
   { id: 'comunidad', etiqueta: 'Comunidad' },
+  { id: 'divulgacion', etiqueta: 'Divulgación' },
   { id: 'experiencia', etiqueta: 'Experiencia' },
   { id: 'formacion', etiqueta: 'Formación' },
 ];
@@ -274,6 +289,22 @@ export default function PerfilMarlon() {
           </Reveal>
         </section>
 
+        <section id="divulgacion" aria-labelledby="h-div">
+          <Reveal>
+            <h2 id="h-div">Divulgación y comunidad académica</h2>
+            <p className="intro">Lleva la inteligencia artificial responsable a las aulas, a los medios y a la comunidad, con el mismo rigor con que la aplica en la empresa.</p>
+            <div className="rejilla">
+              {DIVULGACION.map((d) => (
+                <article key={d.t} className="card">
+                  <span className="punto">{d.etiqueta}</span>
+                  <h3>{d.href ? <Link href={d.href} style={{ color: "#0b5f75", textDecoration: "none" }}>{d.t} →</Link> : d.t}</h3>
+                  <p>{d.d}</p>
+                </article>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
         <section id="experiencia" aria-labelledby="h-exp">
           <Reveal>
             <h2 id="h-exp">Experiencia</h2>
@@ -291,7 +322,7 @@ export default function PerfilMarlon() {
         <section id="formacion" aria-labelledby="h-for">
           <Reveal>
             <h2 id="h-for">Formación y certificaciones</h2>
-            <p className="intro">Ingeniería en Tecnologías de la Información · UNEMI, modalidad en línea · 2019 – actualidad · 156,4 créditos.</p>
+            <p className="intro">Ingeniería en Tecnologías de la Información · UNEMI, modalidad en línea · 2019 – actualidad · 10.º semestre · promedio 87,6/100.</p>
             <div className="rejilla cert">
               {CERTIFICACIONES.map((c) => (
                 <article key={c.t} className="card mini"><h3>{c.t}</h3><p>{c.e}</p></article>

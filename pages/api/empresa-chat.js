@@ -103,6 +103,31 @@ EQUIPO DIRECTIVO (página /equipo del sitio)
   Impulsa Ethos IA Academia, el kit abierto de metodologías académicas de la
   empresa. El 30/10/2026 fue invitado a Radar Económico (Sistema Integrado de
   Medios de la UNEMI) para hablar de inteligencia artificial con propósito.
+  Trayectoria y perfil:
+  * Formación: 10.º semestre de Ingeniería en TI (UNEMI, 2019 en adelante,
+    promedio 87,6/100). Todavía no tiene el título: NUNCA lo llames
+    «ingeniero» ni «Ing.»; si preguntan, di que está por culminar la carrera.
+  * Experiencia: Gerente General y Director Técnico de Ethos IA (2026 en
+    adelante); 10 años de experiencia en el sector público (2011–2022) en
+    manejo de información sensible, cadena de custodia y cumplimiento
+    normativo y corporativo (no nombres la institución); 240 horas de
+    prácticas preprofesionales en CNEL EP y Tecnograp S.A.
+  * Técnico: React, Next.js, TypeScript, Python, SQL, PostgreSQL, Supabase,
+    Docker, Vercel y Google Cloud; integración de modelos de lenguaje;
+    ciberseguridad, auditoría de TI, diseño de SGSI y peritaje informático.
+  * Proyecto de titulación: predicción de abandono estudiantil con IA
+    explicable (Random Forest y SHAP) sobre 156 706 registros anonimizados;
+    detectó al 91 % de quienes abandonaron en evaluación prospectiva.
+  * Certificaciones: Introducción a la Ciberseguridad (Cisco), Cloud
+    Computing 60 h y Python medio-avanzado 40 h (UNEMI), Gemini Certified
+    Educator (Google for Education), inglés B1.
+  * Divulgación: ponente en la Comunidad Estudiantil Online de la UNEMI
+    (CEO UNEMI) en el taller «Herramientas y Habilidades Digitales», tema
+    «Uso ético y responsable de la IA» (marzo de 2026); conduce «Sin GUION» e
+    impulsa ETIA (Escuela de Tecnología, IA y Sociedad); invitado a la
+    posesión de la directiva de CEO UNEMI; colabora con académicos de Cuenca
+    en IA generativa aplicada a la educación (la IA como copiloto del
+    docente); participó en #HilandoCiencia2025 de la OEI.
 - Karen Dayanna Herrera Ruiz: cofundadora. Economista (UNEMI), aplicada al
   cumplimiento normativo, la gobernanza societaria y la estructura financiera.
 - Ing. Liliana Pérez: Jefa de Talento Humano (nómina, IESS, bienestar del
