@@ -14,7 +14,7 @@ const ICONOS: Record<string, ReactElement> = {
   ),
 };
 
-export default function BotonesSociales({ destino = '/cuenta' }: { destino?: string }) {
+export default function BotonesSociales({ destino }: { destino?: string }) {
   const [ocupado, setOcupado] = useState<string | null>(null);
   const [error, setError] = useState('');
 

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import type { User } from '@supabase/supabase-js';
+import Avatar from '../components/cuenta/Avatar';
+import { useSesion } from '../components/cuenta/SesionProvider';
 import Header from '../components/home/Header';
 import { sb } from '../lib/sesion';
 
@@ -22,6 +24,23 @@ export default function Cuenta() {
   const [boletin, setBoletin] = useState<Boletin>(null);
   const [aviso, setAviso] = useState('');
   const [ocupado, setOcupado] = useState(false);
+  const { perfil, refrescar } = useSesion();
+  const [nombreVisible, setNombreVisible] = useState('');
+  const [mostrarFoto, setMostrarFoto] = useState(true);
+
+  useEffect(() => {
+    if (perfil) { setNombreVisible(perfil.nombre); setMostrarFoto(perfil.mostrarFoto); }
+  }, [perfil]);
+
+  async function guardarPerfil(e: React.FormEvent) {
+    e.preventDefault();
+    if (!usuario) return;
+    setOcupado(true);
+    const { error } = await sb().from('miembros').update({ nombre: nombreVisible.trim().slice(0, 80) || null, mostrar_foto: mostrarFoto }).eq('user_id', usuario.id);
+    setAviso(error ? 'No se pudo guardar su perfil. Intente de nuevo.' : 'Perfil actualizado.');
+    await refrescar();
+    setOcupado(false);
+  }
 
   const cargar = useCallback(async (u: User) => {
     const [m, s, b] = await Promise.all([
@@ -77,15 +96,15 @@ export default function Cuenta() {
   }
 
   const meta = usuario?.user_metadata ?? {};
-  const nombre: string = meta.full_name || meta.name || usuario?.email || '';
-  const foto: string | undefined = meta.avatar_url || meta.picture;
+  const nombre: string = perfil?.nombre || meta.full_name || meta.name || usuario?.email || '';
+  const foto: string | undefined = perfil && !perfil.mostrarFoto ? undefined : meta.avatar_url || meta.picture;
   const proveedores: string[] = (usuario?.app_metadata?.providers as string[]) ?? [];
   const staff = rol !== null && ['redactor', 'editor', 'admin'].includes(rol);
 
   return (
     <div className="pagina" id="contenido-principal">
       <Head>
-        <title>Mi cuenta | Ethos IA</title>
+        <title>Mi perfil | Ethos IA</title>
         <meta name="robots" content="noindex" />
       </Head>
       <Header />
@@ -107,6 +126,25 @@ export default function Cuenta() {
             </section>
 
             {aviso && <p className="aviso" role="status">{aviso}</p>}
+
+            {perfil && (
+              <form className="tarjeta" onSubmit={guardarPerfil}>
+                <h2>Cómo te ves en Ethos IA</h2>
+                <p className="dim">Así apareces en el encabezado del sitio. Tu perfil es privado: solo tú lo ves.</p>
+                <div className="vista">
+                  <Avatar perfil={{ ...perfil, nombre: nombreVisible || perfil.nombre, mostrarFoto }} tam={48} />
+                  <strong>{nombreVisible || perfil.nombre}</strong>
+                </div>
+                <label className="campo">Nombre visible
+                  <input value={nombreVisible} maxLength={80} onChange={(e) => setNombreVisible(e.target.value)} />
+                </label>
+                <label className="interruptor">
+                  <input type="checkbox" checked={mostrarFoto} disabled={!perfil.foto} onChange={(e) => setMostrarFoto(e.target.checked)} />
+                  Mostrar la foto de mi cuenta {perfil.foto ? '' : '(su proveedor no entregó foto)'}
+                </label>
+                <button className="btn prim" disabled={ocupado}>Guardar cambios</button>
+              </form>
+            )}
 
             <section className="tarjeta">
               <h2>Mis solicitudes de diagnóstico</h2>
@@ -164,6 +202,11 @@ export default function Cuenta() {
         .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
         .lista li { border-left: 3px solid var(--c-cian); padding: 4px 0 4px 12px; display: grid; gap: 2px; }
         .lista p { margin: 4px 0 0; font-size: 14px; }
+        .vista { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+        .campo { display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+        .campo input { font: inherit; font-weight: 400; padding: 10px 12px; border: 1px solid var(--c-borde); border-radius: 10px; max-width: 360px; }
+        .interruptor { display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 16px; }
+        .interruptor input { width: 18px; height: 18px; }
         .peligro { border-color: var(--c-error-bg); }
       `}</style>
     </div>

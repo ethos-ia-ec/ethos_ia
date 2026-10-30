@@ -20,13 +20,16 @@ export const PROVEEDORES: { id: Extract<Provider, 'google' | 'github' | 'faceboo
   { id: 'facebook', nombre: 'Facebook' },
 ];
 
-// Solo se aceptan destinos internos del sitio, para que nadie use /ingresar como redirección abierta.
+// Solo se aceptan destinos internos del sitio (ruta, consulta y ancla), para que nadie use el acceso como redirección abierta.
 export function destinoSeguro(valor: unknown): string {
-  return typeof valor === 'string' && /^\/(?!\/)[\w\-/]*$/.test(valor) ? valor : '/cuenta';
+  return typeof valor === 'string' && valor.length < 300 && /^\/(?![/\\])[^\s\\]*$/.test(valor) ? valor : '/';
 }
 
+// Página donde está la persona: al volver del proveedor regresa ahí, no a otra página.
+export const aquiMismo = () => `${location.pathname}${location.search}${location.hash}`;
+
 // Registro e inicio de sesión son el mismo paso: si la cuenta no existe, Supabase la crea.
-export async function entrarCon(proveedor: (typeof PROVEEDORES)[number]['id'], destino = '/cuenta') {
+export async function entrarCon(proveedor: (typeof PROVEEDORES)[number]['id'], destino = aquiMismo()) {
   const { error } = await sb().auth.signInWithOAuth({
     provider: proveedor,
     options: { redirectTo: `${location.origin}${destinoSeguro(destino)}`, scopes: proveedor === 'github' ? 'read:user user:email' : undefined },

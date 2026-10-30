@@ -27,7 +27,7 @@ export default function Ingresar() {
       <Header />
       <main className="caja">
         <p className="eyebrow">Cuenta Ethos IA</p>
-        <h1>Ingrese o cree su cuenta</h1>
+        <h1>Inicia sesión o regístrate</h1>
         <p className="lead">Con su cuenta revisa el estado de sus solicitudes de diagnóstico y recibe Ethos Noticias en su correo.</p>
         <BotonesSociales destino={destino} />
         <p className="legal">

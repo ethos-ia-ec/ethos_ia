@@ -1,5 +1,6 @@
 import { Sora } from 'next/font/google';
 import { useEffect } from 'react';
+import SesionProvider from '../components/cuenta/SesionProvider';
 import '../styles/tokens.css';
 
 const sora = Sora({
@@ -35,7 +36,9 @@ export default function App({ Component, pageProps }) {
           font-family: ${sora.style.fontFamily};
         }
       `}</style>
-      <Component {...pageProps} />
+      <SesionProvider>
+        <Component {...pageProps} />
+      </SesionProvider>
     </>
   );
 }

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ENLACES, MEGA, MEGA_EXTRA } from '../../lib/navegacion';
+import AccesoHeader from '../cuenta/AccesoHeader';
 
 // Header del sitio: se compacta y se oculta al desplazarse, resalta la sección activa con un indicador
 // deslizante, ofrece un megamenú de Ingeniería y un menú móvil a pantalla completa.
@@ -165,7 +166,7 @@ export default function Header({ inicio = false }) {
           </nav>
 
           <div className="hd-der">
-            <Link className="hd-ingresar" href="/cuenta">Mi cuenta</Link>
+            <span className="hd-cuenta"><AccesoHeader /></span>
             <Link className="hd-cta" href="/#contacto"><span>Agendar diagnóstico</span></Link>
             <button type="button" className={menu ? 'hd-burger open' : 'hd-burger'} aria-label={menu ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menu} aria-controls="hd-menu-movil" onClick={() => setMenu((v) => !v)}>
               <span /><span /><span />
@@ -190,7 +191,7 @@ export default function Header({ inicio = false }) {
             </li>
           ))}
         </ul>
-        <Link className="hd-movil-ingresar" href="/cuenta" tabIndex={menu ? 0 : -1} onClick={() => setMenu(false)}>Mi cuenta</Link>
+        {menu && <AccesoHeader movil alNavegar={() => setMenu(false)} />}
         <Link className="hd-movil-cta" href="/#contacto" tabIndex={menu ? 0 : -1} onClick={() => setMenu(false)}>Agendar diagnóstico</Link>
       </div>
 
@@ -234,9 +235,7 @@ export default function Header({ inicio = false }) {
 
         .hd-der { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .hd-cta { position: relative; overflow: hidden; padding: 12px 24px; background: linear-gradient(135deg, #dcfaff 0%, #8eecff 100%); color: #05111e; border-radius: 999px; font-weight: 700; font-size: 13px; box-shadow: 0 14px 26px rgba(4,235,255,0.18); white-space: nowrap; transition: transform 0.2s ease, box-shadow 0.2s ease; }
-        .hd-ingresar { color: #dcfaff; font-size: 13px; font-weight: 600; padding: 10px 12px; white-space: nowrap; }
-        .hd-ingresar:hover { color: #04ebff; }
-        .hd-movil-ingresar { display: block; text-align: center; margin-top: 24px; padding: 14px; border-radius: 999px; border: 1px solid rgba(4,235,255,0.4); color: #dcfaff; font-weight: 700; }
+        .hd-cuenta { display: flex; align-items: center; }
         .hd-cta span { position: relative; z-index: 1; }
         .hd-cta::before { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.75), transparent); transform: skewX(-20deg); animation: hd-brillo 4.5s ease-in-out infinite; }
         .hd-cta:hover { color: #05111e; transform: translateY(-1px); box-shadow: 0 18px 32px rgba(4,235,255,0.28); }
@@ -268,13 +267,15 @@ export default function Header({ inicio = false }) {
           .hd-movil { display: flex; }
           .hd-movil.abierto { opacity: 1; transform: none; visibility: visible; }
           .hd-cta { padding: 10px 14px; font-size: 12px; }
-          .hd-ingresar { display: none; }
+          .hd-cuenta .ac .acceso, .hd-cuenta .ac .nombre, .hd-cuenta .ac .chip svg { display: none; }
+          .hd-cuenta .ac .chip { padding: 2px; }
         }
         @media (max-width: 480px) {
           .hd-nombre { display: none; }
           .hd-marca { padding-right: 6px; }
           .hd-cta { padding: 10px 12px; }
         }
+        @media (max-width: 560px) { .hd-cuenta { display: none; } }
         @media (max-width: 340px) { .hd-cta { display: none; } }
         @media (hover: none) { .hd-mega { display: none; } }
         @media (prefers-reduced-motion: reduce) {
