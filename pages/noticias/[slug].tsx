@@ -90,7 +90,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
 
       <style jsx>{`
         .app { min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; }
-        .portada { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; max-width: 1280px; min-height: 100svh; box-sizing: border-box; margin: 0 auto; padding: 96px 32px 24px; color: #eef3f6; }
+        .portada { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; max-width: 1560px; min-height: 100svh; box-sizing: border-box; margin: 0 auto; padding: 96px 32px 24px; color: #eef3f6; }
         .portada-fondo { background: radial-gradient(110% 90% at 85% 10%, #123a3c 0%, #0a0f1a 60%); }
         .pt-tapa { margin: 0; min-width: 0; }
         .pt-tapa :global(img) { width: min(100%, calc((100svh - 120px) * 0.8)); height: auto; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 40px 80px rgba(0,0,0,0.55); }
@@ -99,7 +99,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         .pt-txt { position: relative; }
         .pt-txt :global(.volver) { display: block; width: fit-content; color: #8fa89c; font-size: 13px; margin-bottom: 26px; }
         .pt-sello { display: inline-block; background: #e8b23a; color: #0a0f1a; font: 700 11px 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; }
-        .pt-h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.8rem, min(3.6vw, 6vh), 3.6rem); line-height: 1.08; letter-spacing: -0.015em; margin: 18px 0 18px; color: #fff; text-wrap: balance; max-width: 26ch; }
+        .pt-h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.8rem, min(3vw, 4.6vh), 3.4rem); line-height: 1.1; letter-spacing: -0.015em; margin: 18px 0 18px; color: #fff; text-wrap: balance; max-width: 30ch; }
         .pt-bajada { font-size: clamp(0.95rem, min(1.4vw, 2.3vh), 1.2rem); line-height: 1.6; color: #cfdce3; max-width: 62ch; margin: 0 0 22px; }
         .pt-meta { font: 500 12px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #2fd8c9; text-transform: uppercase; }
         .pt-cifras { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 0 0 16px 16px; overflow: hidden; position: relative; z-index: 1; }
