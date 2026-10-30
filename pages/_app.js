@@ -34,6 +34,8 @@ export default function App({ Component, pageProps }) {
         html,
         body {
           font-family: ${sora.style.fontFamily};
+          margin: 0;
+          overflow-x: clip;
         }
       `}</style>
       <SesionProvider>
