@@ -115,9 +115,14 @@ EQUIPO DIRECTIVO (página /equipo del sitio)
   * Técnico: React, Next.js, TypeScript, Python, SQL, PostgreSQL, Supabase,
     Docker, Vercel y Google Cloud; integración de modelos de lenguaje;
     ciberseguridad, auditoría de TI, diseño de SGSI y peritaje informático.
-  * Proyecto de titulación: predicción de abandono estudiantil con IA
-    explicable (Random Forest y SHAP) sobre 156 706 registros anonimizados;
-    detectó al 91 % de quienes abandonaron en evaluación prospectiva.
+  * Proyecto de titulación (con Víctor Lluilema, UNEMI 2026): VicMar,
+    prototipo web de alerta temprana del abandono universitario con
+    aprendizaje automático y consulta conversacional. Compara cuatro modelos
+    (regresión logística, Random Forest con pesos, Random Forest con SMOTE y
+    LightGBM ajustado con Optuna, el elegido): ROC-AUC 0,828 en datos de
+    prueba de la UNEMI y 0,804 en datos reales OULAD; en evaluación
+    prospectiva detectó al 91 % de quienes abandonaron. Explica cada riesgo
+    con SHAP. Código: github.com/Vm199524/PROYECTO-TITULACION-MARLON-VICTOR-UNEMI.
   * Certificaciones: Introducción a la Ciberseguridad (Cisco), Cloud
     Computing 60 h y Python medio-avanzado 40 h (UNEMI), Gemini Certified
     Educator (Google for Education), inglés B1.
