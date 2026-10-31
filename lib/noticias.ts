@@ -40,7 +40,7 @@ export const NOTICIAS: Noticia[] = [
       ancho: 1200,
       alto: 1500,
     },
-    imagenSocial: '/noticias/vicmar-og.jpg',
+    imagenSocial: '/noticias/vicmar-og-v2.jpg',
     destacada: {
       sello: 'Reportaje principal',
       cifras: [
