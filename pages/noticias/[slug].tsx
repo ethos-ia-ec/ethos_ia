@@ -25,8 +25,8 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
     headline: n.titulo,
-    datePublished: n.fecha,
-    dateModified: n.actualizada ?? n.fecha,
+    datePublished: `${n.fecha}T11:00:00-05:00`,
+    dateModified: `${n.actualizada ?? n.fecha}T11:00:00-05:00`,
     ...(n.autor ? { author: { '@type': 'Person', name: n.autor } } : { author: { '@type': 'Organization', name: 'Ethos IA' } }),
     image: [n.imagenSocial ?? n.imagen.src],
     publisher: { '@type': 'Organization', name: 'Ethos IA (ETHOSLAB S.A.S.)' },
@@ -39,6 +39,10 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         ruta={ruta}
         imagen={n.imagenSocial ?? n.imagen.src}
         tipo="article"
+        imagenAlt={n.imagen.alt}
+        imagenAncho={n.imagenSocial ? 1200 : n.imagen.ancho}
+        imagenAlto={n.imagenSocial ? 630 : n.imagen.alto}
+        articulo={{ autor: n.autor ?? 'Ethos IA', publicado: `${n.fecha}T11:00:00-05:00`, modificado: `${n.actualizada ?? n.fecha}T11:00:00-05:00`, seccion: n.categoria }}
         jsonld={[articulo, migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Ethos Noticias', ruta: '/noticias' }, { nombre: n.titulo, ruta }])]}
       />
       <Header />

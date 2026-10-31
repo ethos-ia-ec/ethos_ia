@@ -5,7 +5,9 @@ const IMAGEN_BASE = '/empresa/ethos-og-card.png';
 
 // Metadatos por página: título, descripción, canónica, Open Graph, Twitter y datos estructurados (JSON-LD).
 // `jsonld` acepta un objeto o una lista de objetos de lib/seo.js.
-export default function Seo({ titulo, descripcion, ruta = '/', imagen = IMAGEN_BASE, jsonld, tipo = 'website' }) {
+// `articulo` ({ autor, publicado, modificado, seccion }) añade la autoría y la fecha que leen LinkedIn, Facebook y Google.
+/** @param {{ titulo: string, descripcion: string, ruta?: string, imagen?: string, imagenAlt?: string, imagenAncho?: number, imagenAlto?: number, jsonld?: any, tipo?: string, articulo?: { autor?: string, publicado?: string, modificado?: string, seccion?: string } }} props */
+export default function Seo({ titulo, descripcion, ruta = '/', imagen = IMAGEN_BASE, imagenAlt, imagenAncho, imagenAlto, jsonld, tipo = 'website', articulo }) {
   const url = `${SITE_URL}${ruta === '/' ? '' : ruta}`;
   const img = imagen.startsWith('http') ? imagen : `${SITE_URL}${imagen}`;
   const datos = !jsonld ? [] : Array.isArray(jsonld) ? jsonld : [jsonld];
@@ -22,13 +24,20 @@ export default function Seo({ titulo, descripcion, ruta = '/', imagen = IMAGEN_B
       <meta property="og:description" content={descripcion} />
       <meta property="og:url" content={url} />
       <meta property="og:image" content={img} />
-      {imagen === IMAGEN_BASE && <meta property="og:image:width" content="1200" />}
-      {imagen === IMAGEN_BASE && <meta property="og:image:height" content="630" />}
+      <meta property="og:image:width" content={String(imagen === IMAGEN_BASE ? 1200 : imagenAncho ?? 1200)} />
+      <meta property="og:image:height" content={String(imagen === IMAGEN_BASE ? 630 : imagenAlto ?? 630)} />
+      <meta property="og:image:alt" content={imagenAlt ?? titulo} />
+      {articulo?.autor && <meta name="author" content={articulo.autor} />}
+      {articulo?.autor && <meta property="article:author" content={articulo.autor} />}
+      {articulo?.publicado && <meta property="article:published_time" content={articulo.publicado} />}
+      {articulo?.modificado && <meta property="article:modified_time" content={articulo.modificado} />}
+      {articulo?.seccion && <meta property="article:section" content={articulo.seccion} />}
       <meta property="og:locale" content="es_EC" />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={titulo} />
       <meta name="twitter:description" content={descripcion} />
       <meta name="twitter:image" content={img} />
+      <meta name="twitter:image:alt" content={imagenAlt ?? titulo} />
       {datos.map((d, i) => (
         <script key={`ld-${i}`} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(d) }} />
       ))}
