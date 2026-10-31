@@ -1,6 +1,6 @@
 import Header from '../../components/home/Header';
 import Seo from '../../components/Seo';
-import { migas } from '../../lib/seo';
+import { migas, SITE_URL } from '../../lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { GetStaticPaths, GetStaticProps } from 'next';
@@ -60,22 +60,36 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
       )}
 
       <main className="cuerpo">
-        <article className="nota revista">
+        <aside className="ficha" aria-label="Datos del reportaje">
+          <span className="fi-tit">{n.destacada ? 'Reportaje' : 'Nota'}</span>
+          {n.autor && <p><b>Autores</b>{n.autor}</p>}
+          <p><b>Publicado</b><time dateTime={n.fecha}>{fechaLarga(n.fecha)}</time></p>
+          <p><b>Sección</b>{n.categoria}</p>
+          {n.fuentes.length > 0 && <p><b>Fuentes</b><a href="#fuentes">{n.fuentes.length} referencias verificables</a></p>}
+          <div className="fi-compartir">
+            <b>Compartir</b>
+            <a href={`https://wa.me/?text=${encodeURIComponent(`${n.titulo} ${SITE_URL}${ruta}`)}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL + ruta)}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href={`https://x.com/intent/post?url=${encodeURIComponent(SITE_URL + ruta)}&text=${encodeURIComponent(n.titulo)}`} target="_blank" rel="noopener noreferrer">X</a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL + ruta)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
+          </div>
+        </aside>
+        <article className="revista">
           {n.cuerpo.map((b, i) => {
             if (b.tipo === 'h2') return <h2 key={i}>{b.texto}</h2>;
             if (b.tipo === 'lista') return <ul key={i}>{b.items.map((t) => <li key={t}>{t}</li>)}</ul>;
             if (b.tipo === 'imagen') return (
               <figure key={i} className="foto">
-                <Image src={b.src} alt={b.alt} width={b.ancho} height={b.alto} sizes="(max-width: 760px) 100vw, 720px" />
+                <Image src={b.src} alt={b.alt} width={b.ancho} height={b.alto} sizes="(max-width: 860px) 100vw, 70vw" />
                 {(b.pie || b.credito) && <figcaption>{b.pie}{b.credito ? ` Foto: ${b.credito}.` : ''}</figcaption>}
               </figure>
             );
-            if (b.tipo === 'video') return <VideoLiviano key={i} proveedor={b.proveedor} id={b.id} titulo={b.titulo} poster={b.poster} />;
+            if (b.tipo === 'video') return <div key={i} className="ancho"><VideoLiviano proveedor={b.proveedor} id={b.id} titulo={b.titulo} poster={b.poster} /></div>;
             if (b.tipo === 'cita') return <blockquote key={i}><p>«{b.texto}»</p><cite>{b.autor}</cite></blockquote>;
             return <p key={i}>{b.texto}</p>;
           })}
           {n.fuentes.length > 0 && (
-            <aside className="fuentes">
+            <aside className="fuentes" id="fuentes">
               <h2>Fuentes</h2>
               <ul>{n.fuentes.map((f) => <li key={f.url}><a href={f.url} target="_blank" rel="noopener noreferrer">{f.texto}</a></li>)}</ul>
             </aside>
@@ -89,7 +103,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
       </footer>
 
       <style jsx>{`
-        .app { min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; }
+        .app { --ancho: min(calc(100vw - 32px), calc(min(92vw, 2600px) - 64px)); min-height: 100vh; background: var(--c-fondo); color: var(--c-texto); font-family: var(--font-brand), -apple-system, sans-serif; }
         .portada { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; max-width: min(92vw, 2600px); min-height: var(--alto); box-sizing: border-box; margin: 0 auto; padding: 96px 32px 24px; color: #eef3f6; }
         .portada-fondo { background: radial-gradient(110% 90% at 85% 10%, #123a3c 0%, #0a0f1a 60%); }
         .pt-tapa { margin: 0; min-width: 0; }
@@ -103,45 +117,48 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         .pt-h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.8rem, min(3vw, 4.6vh), 6.5rem); line-height: 1.1; letter-spacing: -0.015em; margin: 18px 0 18px; color: #fff; text-wrap: balance; max-width: 30ch; }
         .pt-bajada { font-size: clamp(0.95rem, min(1.4vw, 2.3vh), 2.2rem); line-height: 1.6; color: #cfdce3; max-width: 62ch; margin: 0 0 22px; }
         .pt-meta { font: 500 clamp(12px, 0.65vw, 22px) 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #2fd8c9; text-transform: uppercase; }
-        .pt-cifras { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 0 0 16px 16px; overflow: hidden; position: relative; z-index: 1; }
-        .pt-cifras div { background: #0f1726; padding: 22px 20px; }
-        .pt-cifras b { display: block; font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.3rem); color: #2fd8c9; margin-bottom: 6px; }
+        .pt-cifras { width: var(--ancho); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(238,243,246,0.12); border-radius: 0 0 16px 16px; overflow: hidden; position: relative; z-index: 1; }
+        .pt-cifras div { background: #0f1726; padding: clamp(18px, 1.6vw, 48px); }
+        .pt-cifras b { display: block; font-family: Georgia, serif; font-size: clamp(1.6rem, 2.6vw, 4.5rem); color: #2fd8c9; margin-bottom: 6px; }
         .pt-cifras div:nth-child(2) b { color: #e8b23a; }
-        .pt-cifras span { font-size: 13px; line-height: 1.45; color: #b7c6cd; }
-        .revista { margin-top: 56px; background: #fffdf8; border-color: rgba(232,178,58,0.25); border-radius: 4px; padding: 44px 52px 48px; }
-        .revista p, .revista li { font-size: 17.5px; line-height: 1.85; color: #2a3540; }
-        .revista h2::before { content: ''; display: block; width: 44px; height: 3px; background: #e8b23a; margin-bottom: 14px; }
-        .revista .fuentes h2::before { display: none; }
-        .revista .foto figcaption { font-family: Georgia, serif; font-style: italic; }
-        .revista > p:first-child::first-letter { float: left; font-family: Georgia, serif; font-size: 4.2rem; line-height: 0.85; padding: 6px 10px 0 0; color: #186a63; font-weight: 700; }
-        .revista h2 { font-family: Georgia, serif; font-size: 1.7rem; line-height: 1.25; margin: 40px 0 12px; color: #0a0f1a; }
-        .revista .fuentes h2 { font-family: inherit; font-size: 13px; }
-        .revista blockquote { border-left-color: #e8b23a; background: transparent; padding: 8px 0 8px 22px; }
-        .revista blockquote p { font-family: Georgia, serif; font-style: italic; font-size: 1.45rem; line-height: 1.45; }
-        @media (max-width: 600px) { .revista { padding: 24px 18px 28px; } .revista p, .revista li { font-size: 16.5px; } }
-        @media (max-width: 860px) { .pt-tapa { width: min(100%, calc((var(--alto) - 120px) * 0.8)); justify-self: center; } .portada { grid-template-columns: 1fr; min-height: 0; padding: 88px 16px 40px; gap: 32px; } .pt-tapa { order: -1; } }
+        .pt-cifras span { font-size: clamp(13px, 0.75vw, 24px); line-height: 1.45; color: #b7c6cd; }
+        @media (max-width: 860px) { .app { --ancho: calc(100% - 32px); } .pt-tapa { width: min(100%, calc((var(--alto) - 120px) * 0.8)); justify-self: center; } .portada { grid-template-columns: 1fr; min-height: 0; padding: 88px 16px 40px; gap: 32px; } .pt-tapa { order: -1; } }
         @media (max-width: 760px) { .pt-cifras { grid-template-columns: repeat(2, 1fr); border-radius: 0; } }
         @media (max-width: 400px) { .pt-cifras { grid-template-columns: 1fr; } }
-        .cuerpo { max-width: 760px; margin: -48px auto 0; padding: 0 24px 72px; }
-        .nota { background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: 16px; padding: 28px 36px 36px; box-shadow: 0 18px 40px rgba(5,17,30,0.08); }
-        figure { margin: 0 0 24px; border-radius: 12px; overflow: hidden; }
-        .foto figcaption { font-size: 13px; color: var(--c-texto-3); margin-top: 8px; }
+        .app { background: #f7f3ec; }
+        .cuerpo { width: var(--ancho); margin: 0 auto; padding: clamp(40px, 5vw, 120px) 0 clamp(56px, 6vw, 140px); display: grid; grid-template-columns: clamp(200px, 15vw, 420px) minmax(0, 1fr); gap: clamp(32px, 4vw, 120px); align-items: start; }
+        .ficha { position: sticky; top: 104px; border-top: 3px solid #0a0f1a; padding-top: 16px; font-size: clamp(13px, 0.72vw, 22px); color: #3c4954; }
+        .fi-tit { display: block; font: 700 clamp(11px, 0.6vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .18em; text-transform: uppercase; color: #186a63; margin-bottom: 14px; }
+        .ficha p { margin: 0 0 14px; line-height: 1.5; }
+        .ficha b, .fi-compartir b { display: block; font: 600 clamp(10px, 0.55vw, 18px) 'IBM Plex Mono', monospace; letter-spacing: .14em; text-transform: uppercase; color: #8a6a1f; margin-bottom: 3px; }
+        .ficha a { color: #0a0f1a; text-decoration: underline; text-decoration-color: #e8b23a; text-underline-offset: 3px; }
+        .fi-compartir { border-top: 1px solid rgba(10,15,26,0.12); padding-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+        .fi-compartir b { flex-basis: 100%; }
+        .revista { display: grid; grid-template-columns: minmax(0, 1fr) min(100%, 68ch) minmax(0, 1fr); font-size: clamp(17px, 0.95vw, 30px); }
+        .revista > :global(*) { grid-column: 2; }
+        .revista > .foto, .revista > blockquote, .revista > .ancho { grid-column: 1 / -1; }
+        .revista p, .revista li { font-size: 1em; line-height: 1.85; color: #2a3540; margin: 0 0 1.1em; }
+        .revista ul { padding-left: 1.2em; margin: 0 0 1.2em; }
+        .revista > p:first-child::first-letter { float: left; font-family: Georgia, serif; font-size: 4.4em; line-height: 0.85; padding: 0.08em 0.12em 0 0; color: #186a63; font-weight: 700; }
+        .revista h2 { font-family: Georgia, serif; font-size: 1.75em; line-height: 1.22; margin: 1.6em 0 0.5em; color: #0a0f1a; }
+        .revista h2::before { content: ''; display: block; width: 44px; height: 3px; background: #e8b23a; margin-bottom: 14px; }
+        .revista .foto { margin: 2em 0; }
+        .revista .foto :global(img) { border-radius: 4px; box-shadow: 0 24px 60px rgba(5,17,30,0.16); }
+        .revista .foto figcaption { font-family: Georgia, serif; font-style: italic; font-size: 0.85em; color: #5b6872; margin-top: 10px; max-width: 68ch; }
+        .revista blockquote { margin: 1.6em 0; padding: 0.6em 0 0.6em 0.9em; border-left: 5px solid #e8b23a; }
+        .revista blockquote p { font-family: Georgia, serif; font-style: italic; font-size: clamp(1.5em, 2.4vw, 2.4em); line-height: 1.3; color: #0a0f1a; max-width: 30ch; margin: 0; }
+        .revista cite { display: block; margin-top: 12px; font: 600 0.7em 'IBM Plex Mono', monospace; letter-spacing: .1em; text-transform: uppercase; font-style: normal; color: #186a63; }
+        .fuentes { margin-top: 2em; padding-top: 1em; border-top: 1px solid rgba(10,15,26,0.15); }
+        .fuentes h2 { font-family: 'IBM Plex Mono', monospace; font-size: 0.75em; letter-spacing: .14em; text-transform: uppercase; color: #5b6872; margin: 0 0 0.6em; }
+        .fuentes h2::before { display: none; }
+        .fuentes li { font-size: 0.9em; }
+        .fuentes a { color: #186a63; font-weight: 600; }
+        @media (max-width: 1100px) { .cuerpo { grid-template-columns: 1fr; } .ficha { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0 20px; } .fi-tit, .fi-compartir { grid-column: 1 / -1; } }
+        figure { margin: 0; }
         figure :global(img) { width: 100%; height: auto; display: block; }
-        .nota p, .nota li { font-size: 16px; line-height: 1.8; color: var(--c-texto-2); }
-        .nota h2 { font-size: 1.25rem; margin: 32px 0 8px; }
-        .nota ul { padding-left: 20px; }
-        .nota li { margin-bottom: 8px; }
-        blockquote { margin: 28px 0; padding: 18px 22px; border-left: 4px solid var(--c-cian); background: var(--c-claro); border-radius: 0 12px 12px 0; }
-        blockquote p { font-size: 1.1rem; color: var(--c-texto); margin: 0; }
-        cite { display: block; margin-top: 8px; font-size: 13px; font-style: normal; color: var(--c-texto-3); }
-        .fuentes { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--c-borde); }
-        .fuentes h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-texto-3); margin: 0 0 8px; }
-        .fuentes a { color: var(--c-teal); font-weight: 600; }
         .foot { background: var(--c-azul-profundo); color: var(--c-apagado); padding: 28px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; }
         @media (max-width: 600px) {
 
-          .cuerpo { padding: 0 16px 56px; }
-          .nota { padding: 18px 18px 24px; }
           .foot { padding-left: 16px; padding-right: 16px; }
         }
       `}</style>
