@@ -123,16 +123,22 @@ export default function Prensa() {
     } catch (e) { setAviso((e as Error).message); } finally { setOcupado(false); }
   }
 
-  async function agregarMedio(archivo?: File) {
-    if (!archivo || !nota) return;
+  // Acepta varios archivos a la vez; se suben en el orden elegido y cada uno queda como un bloque.
+  async function agregarMedio(archivos?: FileList | null) {
+    if (!archivos?.length || !nota) return;
+    const nuevos: Bloque[] = [];
     try {
       setOcupado(true);
-      const m = await subirMedio(archivo);
-      const b: Bloque = m.tipo === 'video'
-        ? { tipo: 'video', proveedor: 'archivo', id: m.src, titulo: '' }
-        : { tipo: 'imagen', src: m.src, alt: '', credito: '', pie: '', ancho: m.ancho, alto: m.alto };
-      editar({ cuerpo: [...nota.cuerpo, b] });
-    } catch (e) { setAviso((e as Error).message); } finally { setOcupado(false); }
+      for (const archivo of Array.from(archivos)) {
+        const m = await subirMedio(archivo);
+        nuevos.push(m.tipo === 'video'
+          ? { tipo: 'video', proveedor: 'archivo', id: m.src, titulo: '' }
+          : { tipo: 'imagen', src: m.src, alt: '', credito: '', pie: '', ancho: m.ancho, alto: m.alto });
+      }
+    } catch (e) { setAviso((e as Error).message); } finally {
+      if (nuevos.length) editar({ cuerpo: [...nota.cuerpo, ...nuevos] });
+      setOcupado(false);
+    }
   }
 
   const puedePublicar = rol === 'editor' || rol === 'admin';
@@ -248,7 +254,7 @@ export default function Prensa() {
               <button onClick={() => editar({ cuerpo: [...nota.cuerpo, { tipo: 'lista', items: [''] }] })}>+ Lista</button>
               <button onClick={() => editar({ cuerpo: [...nota.cuerpo, { tipo: 'cita', texto: '', autor: '' }] })}>+ Cita</button>
               <button onClick={() => editar({ cuerpo: [...nota.cuerpo, { tipo: 'video', proveedor: 'youtube', id: '', titulo: '' }] })}>+ Video de YouTube/Vimeo</button>
-              <label className="subir">+ Foto o video corto<input type="file" accept="image/jpeg,image/png,image/webp,image/avif,video/mp4,video/webm" onChange={(e) => agregarMedio(e.target.files?.[0])} /></label>
+              <label className="subir">+ Fotos o video corto (puede elegir varias)<input type="file" multiple accept="image/jpeg,image/png,image/webp,image/avif,video/mp4,video/webm" onChange={(e) => { agregarMedio(e.target.files); e.target.value = ''; }} /></label>
             </div>
 
             <h2>Fuentes</h2>

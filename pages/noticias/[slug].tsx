@@ -45,7 +45,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         articulo={{ autor: n.autor ?? 'Ethos IA', publicado: `${n.fecha}T11:00:00-05:00`, modificado: `${n.actualizada ?? n.fecha}T11:00:00-05:00`, seccion: n.categoria }}
         jsonld={[articulo, migas([{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Ethos Noticias', ruta: '/noticias' }, { nombre: n.titulo, ruta }])]}
       />
-      <Header />
+      <div className="no-imprimir"><Header /></div>
 
       <div className="portada-fondo"><header className="portada">
         <div className="pt-txt">
@@ -169,29 +169,38 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         }
         .fi-pdf { margin-top: 14px; width: 100%; background: #0a0f1a; color: #eef3f6; border: 0; border-radius: 999px; padding: 10px 16px; font: 600 clamp(12px, 0.65vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .06em; cursor: pointer; }
         .fi-pdf:hover { background: #186a63; }
+        /* PDF estilo revista: portada a página completa (fondo oscuro, foto y titular) y luego texto a dos columnas. */
         @media print {
-          @page { size: A4; margin: 14mm 12mm; }
-          :global(header), :global(nav), .foot, .fi-compartir, .fi-pdf, .pt-txt :global(.volver) { display: none !important; }
+          @page { size: A4; margin: 0; }
+          :global(html), :global(body) { background: #fff !important; }
+          .app, .app * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .no-imprimir, .foot, .fi-compartir, .fi-pdf, .pt-txt :global(.volver) { display: none !important; }
           .app { background: #fff; }
-          .portada-fondo { background: #fff; }
-          .portada { display: block; min-height: 0; padding: 0; color: #000; max-width: none; }
-          .pt-txt { border-bottom: 4px double #000; padding-bottom: 8pt; margin-bottom: 8pt; }
-          .pt-txt::before { content: 'ETHOS NOTICIAS'; display: block; font: 700 22pt Georgia, serif; letter-spacing: .2em; border-bottom: 1px solid #000; padding-bottom: 4pt; margin-bottom: 8pt; }
-          .pt-sello { background: none; color: #000; border: 1px solid #000; }
-          .pt-h1 { color: #000; font-size: 24pt; max-width: none; }
-          .pt-bajada { color: #222; font-size: 12pt; max-width: none; }
-          .pt-meta { color: #000; }
-          .pt-tapa { width: 100%; margin-bottom: 8pt; }
-          .pt-tapa :global(img) { box-shadow: none; }
-          .pt-cifras { display: none; }
-          .cuerpo { display: block; width: auto; padding: 0; }
-          .ficha { position: static; display: flex; gap: 16pt; border-top: 1px solid #000; font-size: 9pt; margin-bottom: 8pt; }
-          .revista { display: block; column-count: 2; column-gap: 8mm; font-size: 10pt; text-align: justify; }
-          .revista p, .revista li { line-height: 1.45; color: #000; }
-          .revista h2 { font-size: 13pt; break-after: avoid; }
-          .revista .foto, .revista blockquote { break-inside: avoid; }
-          .revista .foto :global(img) { box-shadow: none; }
-          .revista blockquote p { font-size: 12pt; }
+          .portada-fondo { background: #0a0f1a; height: 297mm; box-sizing: border-box; padding: 16mm 14mm; break-after: page; display: flex; }
+          .portada { display: flex; flex-direction: column; gap: 10mm; min-height: 0; width: 100%; padding: 0; margin: 0; max-width: none; color: #eef3f6; }
+          .pt-txt { order: 2; }
+          .pt-txt::before { content: 'ETHOS NOTICIAS'; display: block; order: 0; font: 700 34pt Georgia, serif; letter-spacing: .22em; color: #2fd8c9; border-bottom: 2px solid #e8b23a; padding-bottom: 4mm; margin-bottom: 6mm; }
+          .pt-h1 { font-size: 30pt; color: #fff; max-width: none; margin: 4mm 0; }
+          .pt-bajada { font-size: 13pt; color: #cfdce3; max-width: none; }
+          .pt-meta { color: #2fd8c9; font-size: 9pt; }
+          .pt-tapa { order: 1; width: 100%; flex: 1; display: flex; align-items: center; overflow: hidden; }
+          .pt-tapa :global(img) { width: 100%; max-height: 140mm; object-fit: cover; box-shadow: none; border-radius: 0; }
+          .pt-cifras { width: auto; margin: 0 14mm 6mm; border-radius: 0; }
+          .cuerpo { display: block; width: auto; padding: 14mm 14mm 16mm; background: #f7f3ec; }
+          .ficha { position: static; display: flex; flex-wrap: wrap; gap: 4mm 10mm; border-top: 3px solid #0a0f1a; border-bottom: 1px solid rgba(10,15,26,0.2); padding: 3mm 0; margin-bottom: 6mm; font-size: 8.5pt; }
+          .fi-tit { margin: 0; }
+          .ficha p { margin: 0; }
+          .revista { display: block; column-count: 2; column-gap: 9mm; column-rule: 1px solid rgba(10,15,26,0.15); font-size: 10pt; text-align: justify; hyphens: auto; }
+          .revista p, .revista li { line-height: 1.5; color: #1d262e; margin-bottom: 0.7em; }
+          .revista > p:first-child::first-letter { font-size: 3.6em; }
+          .revista h2 { font-size: 14pt; break-after: avoid; margin: 1em 0 0.4em; }
+          .revista .foto { break-inside: avoid; margin: 0.8em 0; }
+          .revista .foto :global(img) { box-shadow: none; border-radius: 0; }
+          .revista .foto figcaption { font-size: 8pt; }
+          .revista blockquote { break-inside: avoid; margin: 0.9em 0; border-left-width: 4px; }
+          .revista blockquote p { font-size: 12.5pt; max-width: none; }
+          .revista cite { font-size: 7.5pt; }
+          .fuentes { column-span: all; font-size: 8.5pt; }
         }
       `}</style>
     </div>
