@@ -43,12 +43,13 @@ describe('Ethos Prensa · validación', () => {
   });
 
   it('las notas de la base reemplazan a las estáticas con el mismo slug y se ordenan por fecha', () => {
-    const nueva = { ...NOTICIAS[0], slug: 'otra', fecha: '2027-01-01' };
-    const editada = { ...NOTICIAS[0], titulo: 'Editada en el panel' };
+    const base = NOTICIAS.find((n) => n.destacada) ?? NOTICIAS[0];
+    const nueva = { ...base, slug: 'otra', fecha: '2027-01-01' };
+    const editada = { ...base, titulo: 'Editada en el panel' };
     const r = combinar([editada, nueva]);
     expect(r[0].slug).toBe('otra');
-    expect(r.filter((n) => n.slug === NOTICIAS[0].slug)).toHaveLength(1);
-    expect(r.find((n) => n.slug === NOTICIAS[0].slug)?.titulo).toBe('Editada en el panel');
+    expect(r.filter((n) => n.slug === base.slug)).toHaveLength(1);
+    expect(r.find((n) => n.slug === base.slug)?.titulo).toBe('Editada en el panel');
   });
 });
 

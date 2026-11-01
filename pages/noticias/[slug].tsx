@@ -77,6 +77,8 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
             <a href={`https://x.com/intent/post?url=${encodeURIComponent(SITE_URL + ruta)}&text=${encodeURIComponent(n.titulo)}`} target="_blank" rel="noopener noreferrer">X</a>
             <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL + ruta)}`} target="_blank" rel="noopener noreferrer">Facebook</a>
           </div>
+          {/* El PDF sale de la impresión del navegador; la hoja @media print maqueta la nota como periódico. */}
+          <button type="button" className="fi-pdf" onClick={() => window.print()}>Descargar en PDF</button>
         </aside>
         <article className="revista">
           {n.cuerpo.map((b, i) => {
@@ -164,6 +166,32 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
         @media (max-width: 600px) {
 
           .foot { padding-left: 16px; padding-right: 16px; }
+        }
+        .fi-pdf { margin-top: 14px; width: 100%; background: #0a0f1a; color: #eef3f6; border: 0; border-radius: 999px; padding: 10px 16px; font: 600 clamp(12px, 0.65vw, 20px) 'IBM Plex Mono', monospace; letter-spacing: .06em; cursor: pointer; }
+        .fi-pdf:hover { background: #186a63; }
+        @media print {
+          @page { size: A4; margin: 14mm 12mm; }
+          :global(header), :global(nav), .foot, .fi-compartir, .fi-pdf, .pt-txt :global(.volver) { display: none !important; }
+          .app { background: #fff; }
+          .portada-fondo { background: #fff; }
+          .portada { display: block; min-height: 0; padding: 0; color: #000; max-width: none; }
+          .pt-txt { border-bottom: 4px double #000; padding-bottom: 8pt; margin-bottom: 8pt; }
+          .pt-txt::before { content: 'ETHOS NOTICIAS'; display: block; font: 700 22pt Georgia, serif; letter-spacing: .2em; border-bottom: 1px solid #000; padding-bottom: 4pt; margin-bottom: 8pt; }
+          .pt-sello { background: none; color: #000; border: 1px solid #000; }
+          .pt-h1 { color: #000; font-size: 24pt; max-width: none; }
+          .pt-bajada { color: #222; font-size: 12pt; max-width: none; }
+          .pt-meta { color: #000; }
+          .pt-tapa { width: 100%; margin-bottom: 8pt; }
+          .pt-tapa :global(img) { box-shadow: none; }
+          .pt-cifras { display: none; }
+          .cuerpo { display: block; width: auto; padding: 0; }
+          .ficha { position: static; display: flex; gap: 16pt; border-top: 1px solid #000; font-size: 9pt; margin-bottom: 8pt; }
+          .revista { display: block; column-count: 2; column-gap: 8mm; font-size: 10pt; text-align: justify; }
+          .revista p, .revista li { line-height: 1.45; color: #000; }
+          .revista h2 { font-size: 13pt; break-after: avoid; }
+          .revista .foto, .revista blockquote { break-inside: avoid; }
+          .revista .foto :global(img) { box-shadow: none; }
+          .revista blockquote p { font-size: 12pt; }
         }
       `}</style>
     </div>

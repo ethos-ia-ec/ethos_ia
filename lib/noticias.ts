@@ -27,6 +27,142 @@ export type Noticia = {
 
 export const NOTICIAS: Noticia[] = [
   {
+    slug: 'alerta-tienda-redes-cobra-y-no-entrega',
+    fecha: '2026-11-01',
+    categoria: 'Comunidad',
+    titulo: '«Me mandó hasta su cédula para que confiara»: denuncian a tienda en redes que cobra y no entrega',
+    resumen:
+      'Víctimas relatan que pagaron por adelantado a la tienda «Valero & Co» y nunca recibieron nada. Para convencerlas, la vendedora enviaba su cédula, RUC y redes.',
+    imagen: {
+      src: '/noticias/alerta-valero-sitio-web.webp',
+      alt: 'Página web de la tienda Valero & Co con ofertas de relojes de marca.',
+      credito: 'Captura de pantalla de una persona afectada',
+      ancho: 1600,
+      alto: 873,
+    },
+    cuerpo: [
+      {
+        tipo: 'p',
+        texto:
+          'Ethos IA recibió testimonios de personas que aseguran haber sido estafadas por una tienda que se promociona en TikTok, Instagram, WhatsApp y una página web con el nombre «Valero & Co». Todas coinciden en el mismo patrón: transmisiones en vivo con mercadería, precios atractivos, pago completo por adelantado a una cuenta bancaria de persona natural y, al final, ningún producto entregado.',
+      },
+      { tipo: 'h2', texto: 'Cuentas reportadas por las personas afectadas' },
+      {
+        tipo: 'lista',
+        items: [
+          'Página web: sites.google.com/view/valerocompany',
+          'Instagram: @valero.ecu',
+          'TikTok: @valero.ecu',
+          'WhatsApp: +593 98 188 4593',
+          'Nombre comercial: Valero & Co / Valero Company',
+        ],
+      },
+      { tipo: 'p', texto: 'No realice pagos a estas cuentas. Si le contactan desde ellas, repórtelas.' },
+      { tipo: 'h2', texto: 'Lo que cuentan las víctimas' },
+      {
+        tipo: 'cita',
+        texto:
+          'Me contactaron por TikTok y me ofrecieron zapatos Nike, Adidas y Under Armour al por mayor. Me enviaron sus redes sociales y su sitio web, por eso confié. Además, ella misma me mandó su RUC para que confiara. Deposité 3 598 dólares y me estafó.',
+        autor: 'Compradora afectada (identidad reservada)',
+      },
+      {
+        tipo: 'cita',
+        texto:
+          'Vi un en vivo en TikTok, vi la mercadería y me dieron un número de empresa. Escribí y me mandó sus redes sociales; hasta su cédula me mandó por WhatsApp. Por eso confié y deposité 5 673 dólares por dos pacas de ropa original y varias decenas de pares de zapatos deportivos.',
+        autor: 'Comprador afectado (identidad reservada)',
+      },
+      {
+        tipo: 'cita',
+        texto:
+          'Compré un disfraz para Halloween por 50 dólares. Apenas mandé el comprobante me escribieron «muchísimas gracias». Horas después me mandaron la foto de una guía de envío que resultó adulterada. El disfraz nunca llegó.',
+        autor: 'Compradora afectada (identidad reservada)',
+      },
+      { tipo: 'p', texto: 'Según las personas afectadas, decenas de víctimas más se están comunicando para relatar casos similares.' },
+      { tipo: 'h2', texto: 'Las «pruebas» que ella misma enviaba para convencer' },
+      { tipo: 'p', texto: 'El elemento común en los testimonios es que la vendedora tomaba la iniciativa de enviar documentos para ganar confianza antes del pago:' },
+      {
+        tipo: 'lista',
+        items: [
+          'Fotografía de su cédula de identidad, enviada por WhatsApp.',
+          'Su número de RUC, para aparentar ser un negocio formal y registrado.',
+          'Enlaces a sus perfiles de Instagram y TikTok, con cientos de seguidores y videos de productos.',
+          'Una página web con catálogo, precios, tallas y botón de WhatsApp.',
+          'Transmisiones en vivo mostrando la mercadería.',
+          'En el caso del disfraz, la foto de una guía de envío de una cooperativa de transporte.',
+        ],
+      },
+      {
+        tipo: 'p',
+        texto:
+          'Tener RUC activo, redes con seguidores o una página web no garantiza que una tienda entregue lo que vende. Precisamente por eso se usan como carnada.',
+      },
+      {
+        tipo: 'imagen',
+        src: '/noticias/alerta-valero-catalogo.webp',
+        alt: 'Catálogo de zapatos de marca en la página web de Valero & Co.',
+        credito: 'Captura de pantalla de una persona afectada',
+        pie: 'Catálogo de calzado de marca a 80 dólares, con enlaces a Instagram, TikTok y WhatsApp.',
+        ancho: 1600,
+        alto: 904,
+      },
+      {
+        tipo: 'imagen',
+        src: '/noticias/alerta-valero-instagram.webp',
+        alt: 'Perfil de Instagram valero.ecu.',
+        credito: 'Captura de pantalla de una persona afectada',
+        pie: 'Perfil de Instagram @valero.ecu.',
+        ancho: 1600,
+        alto: 856,
+      },
+      {
+        tipo: 'imagen',
+        src: '/noticias/alerta-valero-tiktok.webp',
+        alt: 'Perfil de TikTok valero.ecu.',
+        credito: 'Captura de pantalla de una persona afectada',
+        pie: 'Perfil de TikTok @valero.ecu, donde se hacían transmisiones en vivo.',
+        ancho: 1600,
+        alto: 898,
+      },
+      { tipo: 'h2', texto: 'La guía de envío que se delató sola' },
+      {
+        tipo: 'lista',
+        items: [
+          'El encabezado nombra a una cooperativa, pero la cláusula del pie libera de responsabilidad a otra cooperativa distinta.',
+          'El RUC impreso empieza con 18, código de Tungurahua, que no corresponde a la cooperativa del encabezado.',
+          'La clave de acceso termina en la secuencia «12345678», algo que el sistema de facturación electrónica no genera.',
+          'El valor declarado del contenido es de 0,00 dólares.',
+        ],
+      },
+      { tipo: 'h2', texto: '¡No se deje engañar!' },
+      {
+        tipo: 'lista',
+        items: [
+          'Que le envíen una cédula, un RUC o una transmisión en vivo no prueba que la tienda sea legítima.',
+          'No transfiera por adelantado a cuentas de personas naturales. Prefiera el pago contra entrega o plataformas con protección al comprador.',
+          'Busque el nombre de la tienda y su número de WhatsApp en redes antes de comprar: muchas víctimas publican sus experiencias.',
+          'Verifique la guía llamando directamente a la cooperativa, con un número obtenido por su cuenta.',
+          'Desconfíe de precios muy por debajo del mercado en productos de marca.',
+        ],
+      },
+      { tipo: 'h2', texto: 'Si ya cayó, actúe de inmediato' },
+      {
+        tipo: 'lista',
+        items: [
+          'Guarde todo: chats, comprobante de transferencia, guía y enlaces de los perfiles. No borre nada.',
+          'Reporte la transferencia a su banco el mismo día.',
+          'Presente la denuncia en el Servicio de Atención Integral (SAI) de la Fiscalía con su cédula. Es gratuito y no necesita abogado.',
+          'Reporte los perfiles en WhatsApp, TikTok e Instagram para que otras personas no caigan.',
+        ],
+      },
+      { tipo: 'p', texto: 'Comparta esta alerta con su familia y sus amistades. La mejor protección es la información.' },
+    ],
+    fuentes: [
+      { texto: 'Página web reportada: Valero & Co (Google Sites)', url: 'https://sites.google.com/view/valerocompany/p%C3%A1gina-principal' },
+      { texto: 'Perfil de Instagram reportado: @valero.ecu', url: 'https://www.instagram.com/valero.ecu' },
+      { texto: 'Perfil de TikTok reportado: @valero.ecu', url: 'https://www.tiktok.com/@valero.ecu' },
+    ],
+  },
+  {
     slug: 'vicmar-prediccion-abandono-universitario-ia-conversacional',
     fecha: '2026-10-30',
     autor: 'Marlon Pérez y Víctor Lluilema',
