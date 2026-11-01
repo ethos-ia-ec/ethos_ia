@@ -194,6 +194,7 @@ export default function NotaNoticia({ n }: { n: Noticia }) {
           .revista p, .revista li { line-height: 1.5; color: #1d262e; margin-bottom: 0.7em; }
           .revista > p:first-child::first-letter { font-size: 3.6em; }
           .revista h2 { font-size: 14pt; break-after: avoid; margin: 1em 0 0.4em; }
+          .revista h2, .revista li, .revista blockquote p { text-align: left; }
           .revista .foto { break-inside: avoid; margin: 0.8em 0; }
           .revista .foto :global(img) { box-shadow: none; border-radius: 0; }
           .revista .foto figcaption { font-size: 8pt; }
