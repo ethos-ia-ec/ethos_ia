@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Header from '../components/home/Header';
 import Seo from '../components/Seo';
 import { migas } from '../lib/seo';
@@ -6,6 +8,11 @@ import { migas } from '../lib/seo';
 const PORTAL = 'https://tei.unemi.edu.ec/voting-absence';
 const WORD = '/descargas/Formato_Justificacion_Estudiante_En_Linea.docx';
 const PDF = '/descargas/Formato_Justificacion_Estudiante_En_Linea.pdf';
+
+const PAGINAS = [
+  { src: '/descargas/formato-pagina-1.webp', alt: 'Formato de justificación, página 1: encabezado, antecedentes, motivo, fundamento y petición' },
+  { src: '/descargas/formato-pagina-2.webp', alt: 'Formato de justificación, página 2: anexos y firma' },
+];
 
 const PASOS = [
   { titulo: 'Descarga el formato', detalle: 'Bájalo en Word para editarlo a tu gusto. También puedes subirlo a Google Docs desde tu cuenta. Reemplaza solo los campos resaltados en amarillo.' },
@@ -23,6 +30,17 @@ const REGLAS = [
 ];
 
 export default function JustificacionSufragio() {
+  const [abierto, setAbierto] = useState(false);
+
+  useEffect(() => {
+    if (!abierto) return undefined;
+    const alTeclear = (e: KeyboardEvent) => { if (e.key === 'Escape') setAbierto(false); };
+    document.addEventListener('keydown', alTeclear);
+    const previo = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', alTeclear); document.body.style.overflow = previo; };
+  }, [abierto]);
+
   return (
     <div className="app" id="contenido-principal">
       <Seo
@@ -43,6 +61,7 @@ export default function JustificacionSufragio() {
         </p>
         <div className="acciones">
           <a className="btn primario" href={WORD} download>Descargar en Word (.docx)</a>
+          <a className="btn" href="#t-vista">Ver el formato</a>
           <a className="btn" href={PDF} download>Descargar PDF</a>
           <a className="btn" href={PORTAL} target="_blank" rel="noopener noreferrer">Ir al portal del Tribunal →</a>
         </div>
@@ -57,6 +76,30 @@ export default function JustificacionSufragio() {
               <strong> domicilio está fuera de la ciudad de Milagro</strong>, como establece el numeral 5 del artículo 80.
             </p>
             <p>Si vives en Milagro, ese numeral no te aplica y no debes afirmar lo contrario en tu oficio. Consulta tu caso directamente con el Tribunal.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="t-vista">
+          <h2 id="t-vista">Así se ve el formato</h2>
+          <p className="resumen">Esto es exactamente lo que vas a descargar: un oficio listo para completar. Los campos en amarillo son los únicos que debes cambiar con tus datos.</p>
+          <div className="visor">
+            <button type="button" className="miniaturas" onClick={() => setAbierto(true)} aria-label="Abrir el formato en pantalla grande">
+              {PAGINAS.map((pg, i) => (
+                <span key={pg.src} className="hoja">
+                  <Image src={pg.src} alt={pg.alt} width={910} height={1287} sizes="(max-width: 600px) 45vw, 320px" priority={i === 0} />
+                </span>
+              ))}
+              <span className="lupa">Ver en grande</span>
+            </button>
+            <div className="barra">
+              <span className="icono" aria-hidden="true">PDF</span>
+              <span className="nombre">Formato_Justificacion_Estudiante_En_Linea</span>
+              <span className="acciones-mini">
+                <button type="button" className="btn-mini" onClick={() => setAbierto(true)}>Ver</button>
+                <a className="btn-mini" href={PDF} download>PDF</a>
+                <a className="btn-mini fuerte" href={WORD} download>Word</a>
+              </span>
+            </div>
           </div>
         </section>
 
@@ -107,6 +150,26 @@ export default function JustificacionSufragio() {
         </section>
       </main>
 
+      {abierto && (
+        <div className="velo" role="dialog" aria-modal="true" aria-label="Formato de justificación" onClick={() => setAbierto(false)}>
+          <div className="ventana" onClick={(e) => e.stopPropagation()}>
+            <div className="ventana-barra">
+              <strong>Formato de justificación · estudiantes en línea</strong>
+              <span className="acciones-mini">
+                <a className="btn-mini" href={PDF} download>Descargar PDF</a>
+                <a className="btn-mini fuerte" href={WORD} download>Descargar Word</a>
+                <button type="button" className="btn-mini" onClick={() => setAbierto(false)} autoFocus>Cerrar</button>
+              </span>
+            </div>
+            <div className="marco">
+              {PAGINAS.map((pg, i) => (
+                <Image key={pg.src} src={pg.src.replace('formato-pagina-', 'formato-grande-')} alt={pg.alt} width={1241} height={1754} sizes="(max-width: 980px) 100vw, 900px" className="pagina-grande" />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <footer className="foot">
         <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
         <span>© 2026 ETHOSLAB S.A.S.</span>
@@ -137,6 +200,24 @@ export default function JustificacionSufragio() {
         .pasos { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
         .pasos .card { display: flex; gap: 18px; align-items: flex-start; }
         .num { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--c-azul); color: var(--c-cian); display: grid; place-items: center; font-weight: 700; }
+        .visor { background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: 16px; box-shadow: 0 18px 40px rgba(5,17,30,0.08); overflow: hidden; }
+        .miniaturas { position: relative; display: flex; gap: 18px; justify-content: center; width: 100%; padding: 28px 20px; background: var(--c-azul); border: 0; cursor: zoom-in; }
+        .hoja { display: block; width: min(320px, 44%); background: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 14px 34px rgba(0,0,0,0.45); }
+        .hoja :global(img) { display: block; width: 100%; height: auto; }
+        .lupa { position: absolute; right: 18px; bottom: 16px; background: var(--c-cian); color: var(--c-azul); font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 999px; }
+        .miniaturas:focus-visible { outline: 2px solid var(--c-cian); outline-offset: -4px; }
+        .barra { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 18px; }
+        .icono { background: #d93a3a; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 7px; border-radius: 4px; }
+        .nombre { font-size: 14px; font-weight: 600; flex: 1; min-width: 180px; word-break: break-all; }
+        .acciones-mini { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-mini { font: inherit; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-borde); background: var(--c-claro); color: var(--c-texto); cursor: pointer; }
+        .btn-mini.fuerte { background: var(--c-azul); color: var(--c-cian); border-color: var(--c-azul); }
+        .btn-mini:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 2px; }
+        .velo { position: fixed; inset: 0; z-index: 1000; background: rgba(3,10,18,0.78); display: grid; place-items: center; padding: 20px; }
+        .ventana { width: min(980px, 100%); height: min(90vh, 900px); background: var(--c-tarjeta); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--sombra-3); }
+        .ventana-barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 16px; background: var(--c-azul); color: var(--c-claro); font-size: 14px; }
+        .marco { flex: 1; overflow-y: auto; background: #525659; padding: 18px; display: grid; gap: 16px; justify-items: center; align-content: start; }
+        .marco :global(.pagina-grande) { width: min(100%, 860px); height: auto; background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
         .fuente { font-size: 12.5px; color: var(--c-texto-3); margin: 14px 0 0; }
         .foot { background: var(--c-azul-profundo); color: var(--c-apagado); padding: 28px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; }
         @media (max-width: 600px) {
@@ -144,6 +225,10 @@ export default function JustificacionSufragio() {
           .cuerpo { padding: 0 16px 56px; }
           .foot { padding-left: 16px; padding-right: 16px; }
           .pasos .card { gap: 12px; padding: 18px; }
+          .miniaturas { padding: 18px 12px; gap: 10px; }
+          .lupa { right: 10px; bottom: 8px; }
+          .velo { padding: 0; }
+          .ventana { height: 100%; border-radius: 0; }
         }
       `}</style>
     </div>
