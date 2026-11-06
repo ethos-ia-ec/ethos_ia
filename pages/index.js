@@ -769,6 +769,7 @@ export default function Home() {
         <div className="foot-bottom">
           <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
           <div className="foot-legal">
+            <Link href="/justificacion-sufragio">Justificación de sufragio UNEMI</Link>
             <a href="/privacidad">Política de privacidad</a>
             <a href="/terminos">Condiciones del Servicio</a>
             <span>© 2026 ETHOSLAB S.A.S.</span>
