@@ -9,16 +9,21 @@ const PORTAL = 'https://tei.unemi.edu.ec/voting-absence';
 const WORD = '/descargas/Formato_Justificacion_Estudiante_En_Linea.docx';
 const PDF = '/descargas/Formato_Justificacion_Estudiante_En_Linea.pdf';
 
+const PORTAL_IMG = '/descargas/portal-tribunal.webp';
+const PORTAL_DOMINIO = 'tei.unemi.edu.ec/voting-absence';
+
 const PAGINAS = [
   { src: '/descargas/formato-grande-1.webp', alt: 'Formato de justificación, página 1: encabezado, antecedentes, motivo, fundamento y petición' },
   { src: '/descargas/formato-grande-2.webp', alt: 'Formato de justificación, página 2: anexos y firma' },
 ];
 
-const PASOS = [
+type Paso = { titulo: string; detalle: string; portal?: boolean };
+
+const PASOS: Paso[] = [
   { titulo: 'Descarga el formato', detalle: 'Bájalo en Word para editarlo a tu gusto. También puedes subirlo a Google Docs desde tu cuenta. Reemplaza solo los campos resaltados en amarillo.' },
   { titulo: 'Reúne tus anexos', detalle: 'Certificado de matrícula de tu carrera en línea, comprobante de tu domicilio fuera de Milagro (planilla de servicio básico, certificado de residencia o contrato de arriendo) y copia de tu cédula.' },
   { titulo: 'Firma el oficio', detalle: 'Sirve la firma autógrafa o la firma electrónica. Guarda el oficio y los anexos en PDF, JPG o PNG, de hasta 10 MB cada archivo.' },
-  { titulo: 'Súbelo al portal del Tribunal', detalle: 'En «Su justificación» elige el motivo «Estudiante en línea», explica brevemente tu caso y adjunta el documento.' },
+  { titulo: 'Súbelo al portal del Tribunal', detalle: 'En «Su justificación» elige el motivo «Estudiante en línea», explica brevemente tu caso y adjunta el documento.', portal: true },
   { titulo: 'Guarda la constancia', detalle: 'Conserva la captura o el correo de confirmación. El Tribunal responde por correo.' },
 ];
 
@@ -30,7 +35,9 @@ const REGLAS = [
 ];
 
 export default function JustificacionSufragio() {
-  const [abierto, setAbierto] = useState(false);
+  const [visor, setVisor] = useState<'formato' | 'tribunal' | null>(null);
+  const abierto = visor !== null;
+  const setAbierto = (v: boolean) => setVisor(v ? 'formato' : null);
 
   useEffect(() => {
     if (!abierto) return undefined;
@@ -99,9 +106,22 @@ export default function JustificacionSufragio() {
             {PASOS.map((p, i) => (
               <li key={p.titulo} className="card">
                 <span className="num" aria-hidden="true">{i + 1}</span>
-                <div>
+                <div className="paso-cuerpo">
                   <h3>{p.titulo}</h3>
                   <p>{p.detalle}</p>
+                  {p.portal && (
+                    <div className="portal-wrap">
+                      <button type="button" className="portal" onClick={() => setVisor('tribunal')} aria-label="Ver el portal del Tribunal Electoral en pantalla grande">
+                        <span className="url-barra"><span className="punto" aria-hidden="true" /><span className="url-texto">{PORTAL_DOMINIO}</span><span className="sello">Portal oficial UNEMI</span></span>
+                        <Image src={PORTAL_IMG} alt="Portal del Tribunal Electoral Institucional de la UNEMI: formulario «Su justificación» con el motivo «Estudiante en línea»" width={1600} height={775} sizes="(max-width: 600px) 90vw, 520px" />
+                      </button>
+                      <div className="portal-acciones">
+                        <a className="btn-mini fuerte" href={PORTAL} target="_blank" rel="noopener noreferrer">Ir al portal oficial del Tribunal →</a>
+                        <button type="button" className="btn-mini" onClick={() => setVisor('tribunal')}>Ver en grande</button>
+                      </div>
+                      <p className="verifica">Verifica que la dirección sea <strong>tei.unemi.edu.ec</strong>, el dominio oficial de la universidad.</p>
+                    </div>
+                  )}
                 </div>
               </li>
             ))}
@@ -141,21 +161,40 @@ export default function JustificacionSufragio() {
       </main>
 
       {abierto && (
-        <div className="velo" role="dialog" aria-modal="true" aria-label="Formato de justificación" onClick={() => setAbierto(false)}>
+        <div className="velo" role="dialog" aria-modal="true" aria-label={visor === 'tribunal' ? 'Portal del Tribunal Electoral' : 'Formato de justificación'} onClick={() => setVisor(null)}>
           <div className="ventana" onClick={(e) => e.stopPropagation()}>
-            <div className="ventana-barra">
-              <strong>Formato de justificación · estudiantes en línea</strong>
-              <span className="acciones-mini">
-                <a className="btn-mini" href={PDF} download>Descargar PDF</a>
-                <a className="btn-mini fuerte" href={WORD} download>Descargar Word</a>
-                <button type="button" className="btn-mini" onClick={() => setAbierto(false)} autoFocus>Cerrar</button>
-              </span>
-            </div>
-            <div className="marco">
-              {PAGINAS.map((pg) => (
-                <Image key={pg.src} src={pg.src} alt={pg.alt} width={1241} height={1754} sizes="(max-width: 980px) 100vw, 900px" className="pagina-grande" />
-              ))}
-            </div>
+            {visor === 'tribunal' ? (
+              <>
+                <div className="ventana-barra">
+                  <strong>Portal oficial del Tribunal Electoral Institucional · UNEMI</strong>
+                  <span className="acciones-mini">
+                    <a className="btn-mini fuerte" href={PORTAL} target="_blank" rel="noopener noreferrer">Ir al portal oficial →</a>
+                    <button type="button" className="btn-mini" onClick={() => setVisor(null)} autoFocus>Cerrar</button>
+                  </span>
+                </div>
+                <div className="marco">
+                  <span className="url-barra grande"><span className="punto" aria-hidden="true" /><span className="url-texto">https://{PORTAL_DOMINIO}</span><span className="sello">Portal oficial UNEMI</span></span>
+                  <Image src={PORTAL_IMG} alt="Formulario «Su justificación» del portal del Tribunal Electoral de la UNEMI" width={1600} height={775} sizes="(max-width: 980px) 100vw, 900px" className="pagina-grande" />
+                  <p className="leyenda">Así se ve el formulario «Su justificación». Elige el motivo «Estudiante en línea», explica tu caso y adjunta tu oficio y anexos (PDF, JPG o PNG, hasta 10 MB).</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="ventana-barra">
+                  <strong>Formato de justificación · estudiantes en línea</strong>
+                  <span className="acciones-mini">
+                    <a className="btn-mini" href={PDF} download>Descargar PDF</a>
+                    <a className="btn-mini fuerte" href={WORD} download>Descargar Word</a>
+                    <button type="button" className="btn-mini" onClick={() => setVisor(null)} autoFocus>Cerrar</button>
+                  </span>
+                </div>
+                <div className="marco">
+                  {PAGINAS.map((pg) => (
+                    <Image key={pg.src} src={pg.src} alt={pg.alt} width={1241} height={1754} sizes="(max-width: 980px) 100vw, 900px" className="pagina-grande" />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -238,6 +277,19 @@ export default function JustificacionSufragio() {
         .pasos { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
         .pasos .card { display: flex; gap: 18px; align-items: flex-start; }
         .num { flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--c-azul); color: var(--c-cian); display: grid; place-items: center; font-weight: 700; }
+        .paso-cuerpo { min-width: 0; flex: 1; }
+        .portal-wrap { margin-top: 14px; max-width: 540px; }
+        .portal { display: block; width: 100%; padding: 0; border: 1px solid var(--c-borde); border-radius: 10px; overflow: hidden; background: #fff; cursor: zoom-in; box-shadow: 0 10px 28px rgba(5,17,30,0.12); text-align: left; }
+        .portal :global(img) { display: block; width: 100%; height: auto; }
+        .portal:focus-visible { outline: 2px solid var(--c-teal); outline-offset: 3px; }
+        .url-barra { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #e9eef3; border-bottom: 1px solid var(--c-borde); font-size: 12.5px; color: var(--c-texto-2); }
+        .url-barra.grande { width: min(100%, 860px); box-sizing: border-box; border-radius: 10px 10px 0 0; margin-bottom: -16px; position: relative; z-index: 1; font-size: 14px; }
+        .punto { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--c-ok); }
+        .url-texto { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
+        .sello { flex: none; font-size: 11px; font-weight: 700; color: var(--c-ok); background: var(--c-ok-bg); padding: 3px 8px; border-radius: 999px; }
+        .portal-acciones { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+        .verifica { font-size: 13px !important; color: var(--c-texto-3) !important; margin: 10px 0 0 !important; }
+        .leyenda { width: min(100%, 860px); color: #dfe6ec; font-size: 13.5px; line-height: 1.6; margin: 0; }
         .acciones-mini { display: flex; gap: 8px; flex-wrap: wrap; }
         .btn-mini { font: inherit; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--c-borde); background: var(--c-claro); color: var(--c-texto); cursor: pointer; }
         .btn-mini.fuerte { background: var(--c-azul); color: var(--c-cian); border-color: var(--c-cian); }
