@@ -108,6 +108,33 @@ const INGENIERIA = [
   },
 ];
 
+const ACADEMICO = [
+  {
+    titulo: 'Ocho áreas de conocimiento',
+    texto: 'Investigación científica, tesis, posgrado, estadística, Power BI, TI, Economía, Educación y Trabajo Social.',
+    imagen: '/academico/demo_consulta.gif',
+    alt: 'Demostración de una consulta en lenguaje natural del proyecto de abandono estudiantil',
+    href: '/academico#areas',
+    cta: 'Explorar las áreas',
+  },
+  {
+    titulo: 'Método con evidencia',
+    texto: 'Scopus, cribado PRISMA 2020, análisis con Bibliometrix y matrices de revisión con el pasaje que respalda cada dato.',
+    imagen: '/academico/OULAD_UK_importancia.png',
+    alt: 'Gráfico de importancia de variables del modelo predictivo',
+    href: '/academico#metodo',
+    cta: 'Ver el método',
+  },
+  {
+    titulo: 'Portafolio de investigación',
+    texto: 'Gráficos, demostraciones y grabaciones de pantalla de nuestros propios proyectos de ciencia de datos e IA.',
+    imagen: '/academico/OULAD_UK_roc_pr.png',
+    alt: 'Curvas ROC y precisión-recall del modelo predictivo de abandono estudiantil',
+    href: '/academico/portafolio',
+    cta: 'Ver el portafolio',
+  },
+];
+
 const SERVICIOS = [
   {
     n: '01',
@@ -479,6 +506,30 @@ export default function Home() {
         </Reveal>
       </section>
 
+      <section className="ing aca" id="academico">
+        <Reveal as="span" className="section-label">ETHOS ACADÉMICO</Reveal>
+        <Reveal as="h2" className="section-title">
+          <Palabras texto={"La división de investigación científica de Ethos IA: formación, asesoría y método con evidencia"} />
+        </Reveal>
+        <div className="ing-grid">
+          {ACADEMICO.map((c, i) => (
+            <Reveal as="div" key={c.titulo} style={{ transitionDelay: `${i * 80}ms` }}>
+              <Link className="ing-card" href={c.href}>
+                <span className="ing-img aca-img">
+                  <Image src={c.imagen} alt={c.alt} width={640} height={360} unoptimized={c.imagen.endsWith('.gif')} />
+                </span>
+                <h3>{c.titulo}</h3>
+                <p>{c.texto}</p>
+                <span className="ing-link">{c.cta} →</span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal as="p" className="ing-more">
+          <Link href="/academico">Abrir Ethos Académico →</Link>
+        </Reveal>
+      </section>
+
       <section className="enfoque" id="enfoque">
         <div className="enfoque-visual">
           <Image
@@ -770,8 +821,8 @@ export default function Home() {
           <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
           <div className="foot-legal">
             <Link href="/justificacion-sufragio">Justificación de sufragio UNEMI</Link>
-            <a href="/privacidad">Política de privacidad</a>
-            <a href="/terminos">Condiciones del Servicio</a>
+            <Link href="/privacidad">Política de privacidad</Link>
+            <Link href="/terminos">Condiciones del Servicio</Link>
             <span>© 2026 ETHOSLAB S.A.S.</span>
           </div>
         </div>
@@ -899,6 +950,9 @@ export default function Home() {
         .ing :global(.ing-card:hover) .ing-link { background: rgba(4,235,255,0.1); border-color: #04ebff; }
         .ing :global(.ing-more) { text-align: center; margin: 64px 0 0; font-weight: 700; }
         .ing :global(.ing-more a) { color: #04ebff; }
+        .aca { background: linear-gradient(180deg, #05111e, #0a1b2b); border-top: 1px solid #123048; }
+        .aca-img { background: #fff; }
+        .aca-img :global(img) { object-fit: contain; object-position: center; }
         .faq-sec { padding: 96px 48px; background: #eef4f9; }
         .desafio-grid :global(.desafio-item) { position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
         .desafio-grid :global(.desafio-item:hover) { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(5,17,30,0.12); }

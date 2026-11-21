@@ -7,3 +7,5 @@ supabase/.admin-demo.local.json
 supabase/.temp/
 supabase/.branches/
 tsconfig.tsbuildinfo
+# Credenciales OAuth descargadas de Google Cloud: nunca al repositorio
+client_secret*.json

@@ -200,8 +200,8 @@ export default function EquipoDirectivo() {
       <footer className="foot">
         <span>Ethos IA es una marca de ETHOSLAB S.A.S. — Cuenca, Azuay, Ecuador</span>
         <div className="foot-legal">
-          <a href="/privacidad">Política de privacidad</a>
-          <a href="/terminos">Condiciones del Servicio</a>
+          <Link href="/privacidad">Política de privacidad</Link>
+          <Link href="/terminos">Condiciones del Servicio</Link>
           <span>© 2026 ETHOSLAB S.A.S.</span>
         </div>
       </footer>

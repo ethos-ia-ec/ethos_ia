@@ -60,7 +60,7 @@ export default function Header({ inicio = false }) {
   }, [inicio]);
 
   // En otras páginas el enlace activo es el de la ruta actual.
-  const claveActiva = inicio ? activa : (router.pathname.startsWith('/equipo') ? null : router.pathname.startsWith('/plataforma') ? 'ingenieria' : null);
+  const claveActiva = inicio ? activa : (router.pathname.startsWith('/equipo') ? null : router.pathname.startsWith('/plataforma') ? 'ingenieria' : router.pathname.startsWith('/academico') ? 'academico' : null);
   const hrefActivo = inicio ? null : router.pathname.startsWith('/equipo') ? '/equipo' : router.pathname.startsWith('/noticias') ? '/noticias' : null;
 
   const colocar = useCallback((el) => {
@@ -215,7 +215,7 @@ export default function Header({ inicio = false }) {
 
         .hd-pill { position: relative; display: flex; gap: 4px; padding: 6px; border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; background: rgba(255,255,255,0.03); }
         .hd-ind { position: absolute; top: 6px; bottom: 6px; left: 0; border-radius: 999px; background: rgba(4,235,255,0.16); box-shadow: inset 0 0 0 1px rgba(4,235,255,0.35); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), width 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease; pointer-events: none; }
-        .hd-link { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 9px 18px; font-size: 13px; line-height: 1; color: #c4d3e0; border-radius: 999px; white-space: nowrap; transition: color 0.2s ease; }
+        .hd-link { text-decoration: none; position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 9px 18px; font-size: 13px; line-height: 1; color: #c4d3e0; border-radius: 999px; white-space: nowrap; transition: color 0.2s ease; }
         .hd-link:hover, .hd-link.on { color: #04ebff; }
         .hd-link:focus-visible, .hd-burger:focus-visible, .hd-cta:focus-visible, .hd-marca:focus-visible { outline: 2px solid #04ebff; outline-offset: 2px; }
         .hd-chev { font-size: 9px; transition: transform 0.25s ease; }
