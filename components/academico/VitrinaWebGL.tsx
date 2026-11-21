@@ -105,7 +105,7 @@ async function tarjeta(a: Area, i: number, total: number, icono: string, fuente:
       const s = Math.min((W - 24) / img.width, (IH - 50) / img.height);
       ctx.drawImage(img, (W - img.width * s) / 2, 12 + (IH - 50 - img.height * s) / 2, img.width * s, img.height * s);
       ctx.fillStyle = '#0b5f75'; ctx.font = `600 18px ui-monospace, monospace`;
-      ctx.fillText('Fig. — proyecto propio', 16, IH - 14);
+      ctx.fillText('Gráfica — proyecto propio', 16, IH - 14);
     }
   }
   // Ícono y número

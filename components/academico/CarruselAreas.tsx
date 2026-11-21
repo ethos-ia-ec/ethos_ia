@@ -203,7 +203,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
                 <figure className={img.ilustrativa ? 'foto' : 'foto real'}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={img.src} alt={img.ilustrativa ? `${img.alt} (imagen ilustrativa)` : img.alt} loading={Math.abs(d) <= 1 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
-                  {!img.ilustrativa && <figcaption>Fig. — proyecto propio</figcaption>}
+                  {!img.ilustrativa && <figcaption>Gráfica — proyecto propio</figcaption>}
                 </figure>
               )}
               <div className="cuerpo">

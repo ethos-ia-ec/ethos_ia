@@ -104,7 +104,7 @@ export default function Portafolio() {
                         <figure className={PORTADAS[p.id].real ? 'portada real' : 'portada'}>
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={PORTADAS[p.id].src} alt="" loading="lazy" decoding="async" />
-                          {PORTADAS[p.id].real && <figcaption>Fig. — proyecto propio</figcaption>}
+                          {PORTADAS[p.id].real && <figcaption>Gráfica — proyecto propio</figcaption>}
                         </figure>
                       )}
                       <div className="meta">
@@ -147,7 +147,7 @@ export default function Portafolio() {
             <img src="/academico/libres/banda-axones.webp" alt="Microscopía de fibras nerviosas en tonos azul y cian (imagen ilustrativa)" loading="lazy" decoding="async" />
             <figcaption>
               <strong>Ciencia abierta, datos verificables</strong>
-              <span>Cada figura del portafolio se genera con código reproducible y datos públicos o sintéticos.</span>
+              <span>Cada gráfica del portafolio se genera con código reproducible y datos públicos o sintéticos.</span>
               <small>Imagen ilustrativa: «Axons Al Dente», MikeRoscopy, CC BY 4.0 (Wikimedia Commons)</small>
             </figcaption>
           </figure>
