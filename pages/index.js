@@ -1137,7 +1137,7 @@ export default function Home() {
         .foot-desc { font-size: 13px; color: #93aabb; line-height: 1.6; max-width: 26ch; }
         /* El padding inferior reserva el espacio del botón flotante de chat, que si no tapa el aviso legal. */
         .foot-bottom { max-width: 1200px; margin: 48px auto 0; padding: 24px 0 96px; border-top: 1px solid #123048; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; color: #93aabb; }
-        .foot-legal { display: flex; gap: 24px; }
+        .foot-legal { display: flex; flex-wrap: wrap; gap: 12px 24px; }
         .foot-legal :global(a) { color: #93aabb; }
 
         /* ── Responsivo ─────────────────────────────────────────────── */

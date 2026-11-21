@@ -319,7 +319,7 @@ function Hero() {
         h1 span { color: var(--c-cian); }
         .sub { color: var(--c-claro-2); font-size: 0.92rem; line-height: 1.55; margin: 10px 0 0; }
         .hero .acciones { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
-        .hero .acciones :global(.btn) { width: 100%; justify-content: center; padding: 11px 18px; }
+        .hero .acciones :global(.btn) { box-sizing: border-box; width: 100%; justify-content: center; padding: 11px 18px; }
         .globo { position: relative; flex: 1 1 auto; min-height: 220px; margin: 4px -16px 0; }
 
         @media (min-width: 600px) {
@@ -460,7 +460,7 @@ export default function Academico() {
               <div>
                 <Reveal><Badge icono="capas">Nuestras líneas</Badge></Reveal>
                 <Reveal><h2>Líneas de <em>investigación</em></h2></Reveal>
-                <Reveal><p className="resumen">Ocho áreas de conocimiento, cada una con sus herramientas, normas y temas de trabajo, organizadas como un campo científico se organiza en un mapa temático.</p></Reveal>
+                <Reveal><p className="resumen">Diez áreas de conocimiento, cada una con sus herramientas, normas y temas de trabajo, organizadas como un campo científico se organiza en un mapa temático.</p></Reveal>
               </div>
               <Reveal className="fig-ilus" delay={120}>
                 <MapaTematico />
@@ -670,7 +670,7 @@ $ powershell -File instalar.ps1
         section { position: relative; padding: 56px 0; scroll-margin-top: 72px; overflow-x: clip; }
         .claro { background: var(--c-fondo); }
         #nosotros { min-height: var(--alto); display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
-        #nosotros > :global(.ancho) { width: 100%; }
+        #nosotros > :global(.ancho) { box-sizing: border-box; width: 100%; }
         /* Video protagonista a todo el ancho y texto debajo, en todas las pantallas. */
         #nosotros .dos { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); justify-items: center; }
         #nosotros .dos > :global(*) { width: 100%; max-width: 1100px; }
@@ -751,7 +751,7 @@ $ powershell -File instalar.ps1
         .tiempo :global(.hito) { display: flex; flex-direction: row; align-items: flex-start; gap: 14px; height: 100%; }
         .nodo { position: relative; z-index: 1; flex: none; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: var(--c-azul); color: var(--c-cian); font: 700 14px/1 var(--f-mono); box-shadow: 0 0 0 6px var(--c-fondo), 0 0 0 7px rgba(4, 235, 255, 0.35); transition: transform var(--d-media) var(--ease), box-shadow var(--d-media); }
         .tiempo :global(.hito:hover) .nodo { transform: scale(1.08); box-shadow: 0 0 0 6px var(--c-fondo), 0 0 0 7px var(--c-cian), 0 0 28px rgba(4, 235, 255, 0.45); }
-        .hito-t { flex: 1; min-width: 0; background: var(--c-tarjeta); border-radius: var(--r-lg); padding: 18px; box-shadow: var(--sombra-1); transition: transform var(--d-media) var(--ease), box-shadow var(--d-media); }
+        .hito-t { box-sizing: border-box; flex: 1; min-width: 0; overflow-wrap: break-word; hyphens: auto; background: var(--c-tarjeta); border-radius: var(--r-lg); padding: 18px; box-shadow: var(--sombra-1); transition: transform var(--d-media) var(--ease), box-shadow var(--d-media); }
         .tiempo :global(.hito:hover) .hito-t { transform: translateY(-4px); box-shadow: var(--sombra-2); }
         .hito-t h3 { margin: 0 0 6px; font-size: 16px; }
         .hito-t p { margin: 0; font-size: 14px; }

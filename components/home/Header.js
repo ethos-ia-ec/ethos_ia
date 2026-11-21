@@ -105,7 +105,7 @@ export default function Header({ inicio = false }) {
   useEffect(() => {
     const cerrar = () => { setMenu(false); setMega(false); };
     router.events.on('routeChangeStart', cerrar);
-    const ancho = () => { if (window.innerWidth > 900) setMenu(false); };
+    const ancho = () => { if (window.innerWidth > 1339) setMenu(false); };
     window.addEventListener('resize', ancho);
     return () => { router.events.off('routeChangeStart', cerrar); window.removeEventListener('resize', ancho); };
   }, [router.events]);
@@ -261,7 +261,9 @@ export default function Header({ inicio = false }) {
         .hd-movil-cta { display: block; text-align: center; margin-top: 24px; padding: 16px; border-radius: 999px; background: linear-gradient(135deg, #dcfaff, #8eecff); color: #05111e; font-weight: 800; }
         .hd-movil a:focus-visible { outline: 2px solid #04ebff; outline-offset: 2px; border-radius: 6px; }
 
-        @media (max-width: 900px) {
+        /* El menú completo necesita unos 1330 px; por debajo se usa el menú de hamburguesa. */
+        @media (max-width: 1439px) { .hd-link { padding: 9px 12px; } }
+        @media (max-width: 1339px) {
           .hd-pill { display: none; }
           .hd-burger { display: flex; }
           .hd-movil { display: flex; }

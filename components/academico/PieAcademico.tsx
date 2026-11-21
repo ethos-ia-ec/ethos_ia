@@ -128,7 +128,7 @@ export default function PieAcademico() {
         @media (prefers-reduced-motion: reduce) { .comunidad a { transition: none; } .comunidad a:hover { transform: none; } }
         .redes a { justify-content: center; width: 44px; height: 44px; border: 1px solid var(--c-azul-3); border-radius: 50%; color: var(--c-claro); }
         .redes a:hover { border-color: var(--c-cian); color: var(--c-azul); background: var(--c-cian); transform: translateY(-2px); }
-        .legal { max-width: var(--ancho-max); margin: 44px auto 0; padding-top: 20px; border-top: 1px solid var(--c-azul-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
+        .legal { max-width: var(--ancho-max); margin: 44px auto 0; padding: 20px 0 88px; border-top: 1px solid var(--c-azul-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
         @media (max-width: 760px) { .rej { grid-template-columns: 1fr; gap: 28px; } }
         @media (min-width: 1920px) { .pie { font-size: 16px; } .rej, .legal { max-width: 1560px; } .marca { font-size: 26px; } }
         @media (min-width: 2560px) { .pie { font-size: 19px; } .rej, .legal { max-width: 2080px; } .marca { font-size: 32px; } h2 { font-size: 15px; } .legal { font-size: 15px; } }

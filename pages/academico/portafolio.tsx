@@ -170,7 +170,7 @@ export default function Portafolio() {
         svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
         .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-        .hero { position: relative; overflow: hidden; background: radial-gradient(60% 80% at 85% 10%, rgba(4,235,255,0.14), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(122,167,255,0.12), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 64px; border-bottom: 1px solid var(--c-azul-3); }
+        .hero { position: relative; overflow: hidden; background: radial-gradient(60% 80% at 85% 10%, rgba(4,235,255,0.14), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(122,167,255,0.12), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 96px; border-bottom: 1px solid var(--c-azul-3); }
 
         .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; opacity: 0.55; pointer-events: none; animation: deriva 24s ease-in-out infinite alternate; }
         .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(5,17,30,0.55), rgba(5,17,30,0.75) 70%, var(--c-azul)); }
