@@ -24,7 +24,7 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
       onClick={(e) => { if (e.target === e.currentTarget) ref.current?.close(); }}
     >
       <div className="caja">
-        <div className="medio">
+        <div className={img && !img.ilustrativa && !area.video ? "medio real" : "medio"}>
           {area.video ? (
             <video key={area.id} autoPlay muted loop playsInline poster={`${area.video}.jpg`} aria-label={`Animación: ${area.titulo}`}>
               <source src={`${area.video}.mp4`} type="video/mp4" />
@@ -53,10 +53,13 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
       <style jsx>{`
         .amp { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #02070d; color: var(--c-claro-2); overflow: auto; }
         .amp::backdrop { background: rgba(2, 7, 13, 0.85); }
-        .caja { min-height: 100%; display: flex; flex-direction: column; }
-        .medio { flex: none; width: 100%; aspect-ratio: 16 / 10; max-height: 62dvh; background: #02070d; display: grid; place-items: center; overflow: hidden; }
-        .medio video, .medio img { width: 100%; height: 100%; object-fit: contain; display: block; }
-        .texto { box-sizing: border-box; width: 100%; max-width: 860px; margin: 0 auto; padding: 20px 20px 96px; }
+        .caja { height: 100%; display: flex; flex-direction: column; }
+        /* Teléfono: vertical, el medio ocupa todo el alto libre y las flechas van en una barra inferior sin tapar nada. */
+        .medio { flex: 1; min-height: 0; width: 100%; box-sizing: border-box; background: #02070d; display: grid; place-items: center; overflow: hidden; }
+        /* Ilustraciones y animaciones llenan la pantalla; las gráficas reales se ven completas. */
+        .medio video, .medio img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .medio.real { background: #fff; padding-top: 72px; } .medio.real img { object-fit: contain; }
+        .texto { flex: none; box-sizing: border-box; width: 100%; max-width: 860px; margin: 0 auto; padding: 16px 20px 92px; }
         .num { font: 600 12px/1 var(--f-mono); letter-spacing: 0.16em; color: var(--c-cian); }
         h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.2; color: var(--c-claro); margin: 12px 0 10px; text-wrap: balance; }
         p { font-size: clamp(15px, 1.3vw, 19px); line-height: 1.65; margin: 0; text-wrap: pretty; }
@@ -68,15 +71,15 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
         button:hover, button:focus-visible { opacity: 1; background: rgba(5, 17, 30, 0.75); border-color: var(--c-cian); }
         button:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 3px; }
         svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-        .nav { width: 52px; height: 52px; top: calc(min(62dvh, 62.5vw) / 2); transform: translateY(-50%); }
-        .izq { left: 12px; } .der { right: 12px; }
+        .nav { width: 56px; height: 56px; bottom: calc(16px + env(safe-area-inset-bottom)); }
+        .izq { left: calc(50% - 68px); } .der { right: calc(50% - 68px); }
         .cerrar { width: 48px; height: 48px; top: 12px; right: 12px; }
         /* Pantallas anchas: medio y texto lado a lado, flechas centradas en la pantalla. */
         @media (min-width: 1024px) and (min-aspect-ratio: 4/3) {
           .caja { flex-direction: row; align-items: center; height: 100%; }
-          .medio { flex: 1.6; height: 100%; max-height: none; aspect-ratio: auto; }
+          .medio { flex: 1.6; height: 100%; padding-top: 0; }
           .texto { flex: 1; padding: 40px 96px 40px 40px; }
-          .nav { top: 50%; width: 64px; height: 64px; }
+          .nav { top: 50%; bottom: auto; transform: translateY(-50%); width: 64px; height: 64px; }
           .izq { left: 24px; } .der { right: 24px; } .cerrar { top: 24px; right: 24px; }
         }
         @media (prefers-reduced-motion: reduce) { button { transition: none; } }
