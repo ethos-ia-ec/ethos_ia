@@ -25,6 +25,9 @@ const COLORES = ['4, 235, 255', '122, 167, 255', '47, 216, 201'];
 // giro con el puntero (con inercia), inclinación y brillo de la tarjeta activa, rayos y chispas al cambiar.
 export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area[]; intervalo?: number }) {
   const [activo, setActivo] = useState(0);
+  // Pedido explícito del usuario (flechas, puntos, teclado, gesto). Se separa de `activo`, que la vitrina 3D
+  // también actualiza al girar: así un aviso atrasado del giro no se confunde con una orden de volver atrás.
+  const [pedido, setPedido] = useState({ i: 0, n: 0 });
   const [encima, setEncima] = useState(false);
   const [foco, setFoco] = useState(false);
   const [detenido, setDetenido] = useState(false);
@@ -48,7 +51,8 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   // Gira siempre solo; solo se detiene con el botón de pausa (WCAG 2.2.2), no al pasar el mouse ni al tocar.
   const girando = !detenido;
 
-  const ir = useCallback((d: number) => setActivo((a) => (a + d + total) % total), [total]);
+  const ir = useCallback((d: number) => setActivo((a) => { const i = (a + d + total) % total; setPedido((p) => ({ i, n: p.n + 1 })); return i; }), [total]);
+  const pedir = (i: number) => { setActivo(i); setPedido((p) => ({ i, n: p.n + 1 })); };
 
   useEffect(() => {
     if (modo === 'gl' || !girando || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
@@ -167,7 +171,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
     >
       {modo === 'gl' ? (
         <div className="gl-caja">
-          <VitrinaWebGL areas={areas} iconos={ICONOS} activo={activo} pausado={detenido} onFrente={setActivo} onFallo={alFallar} />
+          <VitrinaWebGL areas={areas} iconos={ICONOS} activo={activo} pedido={pedido} pausado={detenido} onFrente={setActivo} onFallo={alFallar} />
           <div className="leyenda">
             <h3>{areas[activo].titulo}</h3>
             <p>{areas[activo].texto}</p>
@@ -232,7 +236,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         <button type="button" className="flecha" onClick={() => ir(-1)} aria-label="Área anterior"><Svg d="M15 18l-6-6 6-6" /></button>
         <div className="puntos">
           {areas.map((a, i) => (
-            <button key={a.id} type="button" aria-label={`Ir a ${a.titulo}`} aria-current={i === activo} onClick={() => setActivo(i)} />
+            <button key={a.id} type="button" aria-label={`Ir a ${a.titulo}`} aria-current={i === activo} onClick={() => pedir(i)} />
           ))}
         </div>
         <button type="button" className="flecha" onClick={() => ir(1)} aria-label="Área siguiente"><Svg d="M9 18l6-6-6-6" /></button>
@@ -322,6 +326,8 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         .gl-caja :global(.gl canvas) { display: block; width: 100%; height: 100%; }
         .leyenda { flex: none; max-width: 720px; min-height: 0; margin: 4px auto 0; text-align: center; }
         .leyenda h3 { margin: 0 0 6px; }
+        /* En pantallas anchas la tarjeta 3D ya muestra título y texto: la leyenda repetida se oculta y el 3D gana alto. */
+        @media (min-width: 1024px) and (min-aspect-ratio: 4/3) { .leyenda { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
         .leyenda p { -webkit-line-clamp: 2; color: var(--c-claro-2); }
                 .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 

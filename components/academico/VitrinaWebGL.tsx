@@ -6,6 +6,7 @@ type Props = {
   areas: Area[];
   iconos: Record<Area['icono'], string>;
   activo: number;
+  pedido: { i: number; n: number };
   pausado: boolean;
   onFrente: (i: number) => void;
   onFallo: () => void;
@@ -141,10 +142,10 @@ async function tarjeta(a: Area, i: number, total: number, icono: string, fuente:
 }
 
 // Vitrina WebGL: anillo de tarjetas en un laboratorio con niebla, haces de luz, partículas y piso reflectante.
-export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente, onFallo }: Props) {
+export default function VitrinaWebGL({ areas, iconos, activo, pedido, pausado, onFrente, onFallo }: Props) {
   const caja = useRef<HTMLDivElement>(null);
-  const estado = useRef({ activo, pausado, reportado: activo, onFrente, onFallo });
-  useEffect(() => { Object.assign(estado.current, { activo, pausado, onFrente, onFallo }); }, [activo, pausado, onFrente, onFallo]);
+  const estado = useRef({ activo, pedido, atendido: pedido, pausado, reportado: activo, onFrente, onFallo });
+  useEffect(() => { Object.assign(estado.current, { pedido, pausado, onFrente, onFallo }); }, [pedido, pausado, onFrente, onFallo]);
 
   useEffect(() => {
     const el = caja.current;
@@ -252,14 +253,14 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
       rejilla.position.y = -0.81;
       escena.add(rejilla);
 
-      // Medidas: la tarjeta frontal ocupa ~70 % del alto y como máximo ~66 % del ancho.
+      // Medidas: la tarjeta frontal ocupa ~70 % del alto en teléfono y ~88 % en pantallas anchas, y como máximo ~66 % del ancho.
       const medir = () => {
         const w = el.clientWidth, h = el.clientHeight;
         if (!w || !h) return;
         renderer.setSize(w, h, false);
         camara.aspect = w / h;
         const t = Math.tan(T.MathUtils.degToRad(camara.fov / 2));
-        const d = Math.max(1.4 / (0.7 * 2 * t), 1 / (0.66 * 2 * t * camara.aspect));
+        const d = Math.max(1.4 / ((camara.aspect > 1.3 ? 0.88 : 0.7) * 2 * t), 1 / (0.66 * 2 * t * camara.aspect));
         camara.position.set(0, 0.32, R + d);
         camara.lookAt(0, 0, R - 0.6);
         camara.updateProjectionMatrix();
@@ -331,13 +332,14 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
         reloj.t += dt;
         const s = estado.current;
         // Flechas, puntos o teclado: ir por el camino más corto hasta la tarjeta pedida.
-        if (s.activo !== s.reportado) {
-          const objetivo = -s.activo * paso;
+        if (s.pedido !== s.atendido) {
+          s.atendido = s.pedido;
+          espera = 3.5;
+          const objetivo = -s.pedido.i * paso;
           let delta = (objetivo - ang) % (Math.PI * 2);
           if (delta > Math.PI) delta -= Math.PI * 2;
           if (delta < -Math.PI) delta += Math.PI * 2;
           destino = ang + delta;
-          s.reportado = s.activo;
           vel = 0;
         }
         if (destino !== null) {
