@@ -407,8 +407,10 @@ export default function Academico() {
         <section className="claro" id="nosotros">
           <div className="ancho dos">
             <Reveal className="foto">
-              <Image src="/academico/libres/banda-axones.webp" alt="Microscopía de una red de neuronas y axones en tonos cian." width={1600} height={640} sizes="(min-width: 900px) 50vw, 92vw" />
-              <small className="credito">Imagen: «Axons Al Dente», MikeRoscopy, CC BY 4.0 (Wikimedia Commons)</small>
+              <video autoPlay muted loop playsInline controls preload="metadata" poster="/academico/video/como-investigamos.jpg" aria-label="Video: demostración de una investigación, del método a los resultados">
+                <source src="/academico/video/como-investigamos.webm" type="video/webm" />
+                <source src="/academico/video/como-investigamos.mp4" type="video/mp4" />
+              </video>
             </Reveal>
             <Reveal delay={100}>
               <Badge icono="personas">Sobre nosotros</Badge>
@@ -490,12 +492,6 @@ export default function Academico() {
               <Reveal><h2>Del corpus a la <em>síntesis</em>, paso a paso</h2></Reveal>
               <Reveal><p className="resumen">Un flujo reproducible en el que cada decisión queda documentada y respaldada con evidencia.</p></Reveal>
             </div>
-            <Reveal className="video-metodo">
-              <video controls muted playsInline preload="metadata" poster="/academico/video/como-investigamos.jpg" aria-label="Video: cómo investigamos, de la pregunta a la evidencia">
-                <source src="/academico/video/como-investigamos.webm" type="video/webm" />
-                <source src="/academico/video/como-investigamos.mp4" type="video/mp4" />
-              </video>
-            </Reveal>
             <ol className="tiempo">
               {METODO.map((m, i) => (
                 <li key={m.n}>
@@ -672,6 +668,8 @@ $ powershell -File instalar.ps1
         .dos { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; align-items: center; }
         section { position: relative; padding: 56px 0; scroll-margin-top: 72px; overflow-x: clip; }
         .claro { background: var(--c-fondo); }
+        #nosotros { min-height: var(--alto); display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
+        #nosotros > :global(.ancho) { width: 100%; }
         .blanco { background: #fff; }
         .oscuro { background: var(--c-azul); color: var(--c-claro-2); }
         .kit { background: linear-gradient(135deg, var(--c-azul-profundo), var(--c-azul-2)); color: var(--c-claro-2); }
@@ -700,17 +698,15 @@ $ powershell -File instalar.ps1
 
         .stats { isolation: isolate; background: linear-gradient(180deg, var(--c-azul-2), var(--c-azul)); color: var(--c-claro); padding: 48px 0; border-top: 1px solid var(--c-azul-3); }
         .cifras { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-        .cifras :global(.cifra) { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; border-radius: var(--r-lg); background: rgba(10, 27, 43, 0.78); border: 1px solid var(--c-azul-3); height: 100%; backdrop-filter: blur(4px); transition: transform var(--d-media) var(--ease), border-color var(--d-media); }
+        .cifras :global(.cifra) { box-sizing: border-box; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; border-radius: var(--r-lg); background: rgba(10, 27, 43, 0.78); border: 1px solid var(--c-azul-3); height: 100%; backdrop-filter: blur(4px); transition: transform var(--d-media) var(--ease), border-color var(--d-media); }
         .cifras :global(.cifra:hover) { transform: translateY(-4px); border-color: rgba(4, 235, 255, 0.45); }
         .dato { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
         .dato strong { font-size: 2rem; line-height: 1; color: #fff; font-variant-numeric: tabular-nums; white-space: nowrap; }
         .dato > span { font-size: 13px; line-height: 1.35; color: var(--c-claro-2); }
 
         .claro :global(.foto) { position: relative; }
+        .claro :global(.foto video) { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 22px; background: #05111e; box-shadow: var(--sombra-3); }
         .claro :global(.foto img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; box-shadow: var(--sombra-3); }
-        .claro :global(.video-metodo) { max-width: 960px; margin: 0 auto 48px; }
-        .claro :global(.video-metodo video) { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 22px; background: #05111e; box-shadow: var(--sombra-3); }
-        .claro :global(.credito) { position: absolute; top: calc(100% + 8px); left: 0; font-size: 11px; color: #5b7385; }
         .sello { position: absolute; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: var(--r-lg); background: var(--c-azul); color: var(--c-claro-2); font-size: 13px; box-shadow: var(--sombra-3); }
         .sello strong { font-size: 1.6rem; line-height: 1; color: var(--c-cian); }
         .contacto { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; padding: 18px; border-radius: var(--r-lg); background: var(--c-tarjeta); box-shadow: var(--sombra-2); border-left: 4px solid var(--c-cian); }
