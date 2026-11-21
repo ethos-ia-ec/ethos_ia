@@ -19,11 +19,11 @@ const NOMBRE_RED = (url: string) =>
   url.includes('facebook') ? 'Facebook' : url.includes('instagram') ? 'Instagram' : url.includes('tiktok') ? 'TikTok'
     : url.includes('youtube') ? 'YouTube' : url.includes('x.com') ? 'X' : url.includes('github') ? 'GitHub' : 'Red social';
 
-// Comunidad en WhatsApp. shortcut: los dos grupos comparten enlace hasta que llegue el de prácticas.
+// Comunidad en WhatsApp: enlaces universales; el sistema abre la app instalada (WhatsApp, Business, escritorio o web).
 const COMUNIDAD = [
-  { href: 'https://whatsapp.com/channel/0029Vb6klJD0QeakhfPvqx0T', texto: 'Seguir el canal' },
-  { href: 'https://chat.whatsapp.com/F7sl9MaYMH42WPQ1OgNDN8', texto: 'Grupo de titulación' },
-  { href: 'https://chat.whatsapp.com/F7sl9MaYMH42WPQ1OgNDN8', texto: 'Grupo de prácticas preprofesionales' },
+  { href: 'https://whatsapp.com/channel/0029Vb6klJD0QeakhfPvqx0T', titulo: 'Canal de Ethos Académico', texto: 'Novedades, talleres y recursos de investigación.', accion: 'Seguir el canal' },
+  { href: 'https://chat.whatsapp.com/F7sl9MaYMH42WPQ1OgNDN8', titulo: 'Grupo de titulación', texto: 'Acompañamiento para proyectos de titulación de grado y posgrado.', accion: 'Unirme al grupo' },
+  { href: 'https://chat.whatsapp.com/FTphuOz3cKc5NUUYrEY9SF', titulo: 'Grupo de prácticas preprofesionales', texto: 'Información y orientación sobre prácticas preprofesionales.', accion: 'Unirme al grupo' },
 ];
 
 const ENLACES = [
@@ -37,6 +37,23 @@ export default function PieAcademico() {
   return (
     <>
     <CintaUniversidades />
+    <section className="comunidad" aria-labelledby="comunidad-titulo">
+      <div className="com-ancho">
+        <h2 id="comunidad-titulo">Únete a nuestra <em>comunidad</em> en WhatsApp</h2>
+        <ul>
+          {COMUNIDAD.map((c) => (
+            <li key={c.href}>
+              <a href={c.href} target="_blank" rel="noopener noreferrer">
+                <span className="com-icono"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path fill="currentColor" d={ICONOS.WhatsApp} /></svg></span>
+                <strong>{c.titulo}</strong>
+                <span className="com-texto">{c.texto}</span>
+                <span className="com-accion">{c.accion} →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
     <footer className="pie">
       <div className="rej">
         <div>
@@ -47,16 +64,6 @@ export default function PieAcademico() {
               <li key={e.href}>
                 <a href={e.href} target={e.nombre === 'Correo' ? undefined : '_blank'} rel="noopener noreferrer" aria-label={e.nombre} title={e.nombre}>
                   <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d={ICONOS[e.nombre]} /></svg>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <ul className="comunidad" aria-label="Comunidad en WhatsApp">
-            {COMUNIDAD.map((c) => (
-              <li key={c.texto}>
-                <a href={c.href} target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d={ICONOS.WhatsApp} /></svg>
-                  {c.texto}
                 </a>
               </li>
             ))}
@@ -88,6 +95,7 @@ export default function PieAcademico() {
         <span>© 2026 ETHOSLAB S.A.S.</span>
       </div>
 
+    </footer>
       <style jsx>{`
         .pie { background: var(--c-azul-profundo); color: var(--c-apagado); padding: 64px var(--gutter) 28px; font-size: 14px; }
         .rej { max-width: var(--ancho-max); margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
@@ -101,9 +109,23 @@ export default function PieAcademico() {
         .pie :global(a:hover) { color: var(--c-cian); }
         .redes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .redes { gap: 10px; }
-        .comunidad { display: grid; gap: 8px; margin-top: 18px; }
-        .comunidad a { gap: 10px; padding: 0 16px; border-radius: var(--r-pill); background: rgba(37, 211, 102, 0.12); border: 1px solid rgba(37, 211, 102, 0.35); color: var(--c-claro); font-weight: 600; }
-        .comunidad a:hover { background: #25d366; color: #05111e; }
+        .comunidad { padding: 56px var(--gutter); background: linear-gradient(160deg, #0a1b2b, #05111e); }
+        .com-ancho { max-width: var(--ancho-max); margin: 0 auto; }
+        .comunidad h2 { margin: 0 0 28px; text-align: center; color: #fff; font: 700 clamp(24px, 5vw, 38px)/1.2 var(--font-brand); letter-spacing: 0; text-transform: none; }
+        .comunidad h2 em { font-style: normal; color: #25d366; }
+        .comunidad ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+        .comunidad a { box-sizing: border-box; height: 100%; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 24px;
+          border-radius: 20px; background: rgba(37, 211, 102, 0.08); border: 1px solid rgba(37, 211, 102, 0.35); color: #fff; text-decoration: none;
+          transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease; }
+        .comunidad a:hover { transform: translateY(-4px); background: rgba(37, 211, 102, 0.16); box-shadow: 0 16px 36px rgba(37, 211, 102, 0.22); }
+        .comunidad a:focus-visible { outline: 3px solid var(--c-cian); outline-offset: 3px; }
+        .com-icono { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #25d366; color: #05111e; }
+        .comunidad strong { font-size: 19px; }
+        .com-texto { color: #b9cad6; line-height: 1.55; font-size: 15px; }
+        .com-accion { margin-top: auto; display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; background: #25d366; color: #05111e; font-weight: 700; }
+        @media (min-width: 768px) { .comunidad ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+        @media (min-width: 1920px) { .com-ancho { max-width: 1560px; } .comunidad { padding: 80px var(--gutter); } }
+        @media (prefers-reduced-motion: reduce) { .comunidad a { transition: none; } .comunidad a:hover { transform: none; } }
         .redes a { justify-content: center; width: 44px; height: 44px; border: 1px solid var(--c-azul-3); border-radius: 50%; color: var(--c-claro); }
         .redes a:hover { border-color: var(--c-cian); color: var(--c-azul); background: var(--c-cian); transform: translateY(-2px); }
         .legal { max-width: var(--ancho-max); margin: 44px auto 0; padding-top: 20px; border-top: 1px solid var(--c-azul-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
@@ -111,7 +133,6 @@ export default function PieAcademico() {
         @media (min-width: 1920px) { .pie { font-size: 16px; } .rej, .legal { max-width: 1560px; } .marca { font-size: 26px; } }
         @media (min-width: 2560px) { .pie { font-size: 19px; } .rej, .legal { max-width: 2080px; } .marca { font-size: 32px; } h2 { font-size: 15px; } .legal { font-size: 15px; } }
       `}</style>
-    </footer>
     </>
   );
 }
