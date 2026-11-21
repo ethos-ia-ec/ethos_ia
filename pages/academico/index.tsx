@@ -852,7 +852,9 @@ $ powershell -File instalar.ps1
         }
         @media (min-width: 1280px) {
           section { padding: 112px 0; }
-          .lineas, .rejilla, .proceso, .miembros { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+          .rejilla, .proceso, .miembros { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+          /* 10 áreas: dos filas parejas de 5. */
+          .lineas { grid-template-columns: repeat(5, minmax(0, 1fr)); }
         }
         @media (min-width: 1920px) {
           .app { --ancho: 1440px; --ancho-hero: 1440px; }
