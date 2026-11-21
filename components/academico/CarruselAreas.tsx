@@ -34,7 +34,8 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   const objetivo = useRef(0);
   const chispas = useRef<Chispa[]>([]);
   const total = areas.length;
-  const girando = !detenido && !encima && !foco;
+  // Gira siempre solo; solo se detiene con el botón de pausa (WCAG 2.2.2), no al pasar el mouse ni al tocar.
+  const girando = !detenido;
 
   const ir = useCallback((d: number) => setActivo((a) => (a + d + total) % total), [total]);
 
