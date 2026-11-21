@@ -23,7 +23,8 @@ void main() {
 
 // Onda radial que distorsiona la textura y un barrido de luz cian/violeta que cruza la tarjeta.
 const FRAG = `
-uniform sampler2D uTex; uniform float uOnda; uniform float uTiempo; uniform float uFrente; varying vec2 vUv;
+uniform sampler2D uTex; uniform float uOnda; uniform float uTiempo; uniform float uFrente; uniform float uFase; varying vec2 vUv;
+float azar(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 void main() {
   vec2 uv = vUv;
   vec2 c = uv - 0.5;
@@ -33,6 +34,18 @@ void main() {
   float pos = (1.0 - uOnda) * 1.9 - 0.3;
   float banda = smoothstep(0.16, 0.0, abs(vUv.x * 0.8 + vUv.y * 0.4 - pos));
   col.rgb += vec3(0.016, 0.92, 1.0) * banda * 0.55 * uOnda + vec3(0.48, 0.65, 1.0) * banda * 0.25 * uOnda;
+  // Descarga eléctrica cada 3 s (desfasada por tarjeta): pistas de circuito que se encienden de abajo arriba y un arco que parpadea en el borde.
+  float ciclo = mod(uTiempo + uFase, 3.0);
+  float pulso = (1.0 - smoothstep(0.0, 0.45, ciclo)) * (0.55 + 0.45 * step(0.4, azar(vec2(floor(uTiempo * 24.0), uFase))));
+  vec2 g = vUv * vec2(9.0, 13.0); vec2 id = floor(g); vec2 f = fract(g);
+  float r = azar(id);
+  float traza = (r > 0.5 ? smoothstep(0.07, 0.0, abs(f.y - 0.5)) : smoothstep(0.07, 0.0, abs(f.x - 0.5))) * step(0.6, fract(r * 7.3));
+  float nodo = smoothstep(0.16, 0.08, length(f - 0.5)) * step(0.82, fract(r * 3.7));
+  float recorrido = smoothstep(0.25, 0.0, abs((1.0 - vUv.y) - ciclo / 0.45));
+  float borde = min(min(vUv.x, 1.0 - vUv.x), min(vUv.y, 1.0 - vUv.y));
+  float arco = smoothstep(0.02, 0.0, abs(borde - 0.012 - (azar(vec2(floor(vUv.y * 60.0 + vUv.x * 40.0), floor(uTiempo * 30.0))) - 0.5) * 0.012));
+  vec3 electrico = vec3(0.35, 0.95, 1.0) * ((traza + nodo) * (0.05 + 0.9 * pulso * recorrido) + arco * 1.3 * pulso);
+  col.rgb += electrico * (1.0 - smoothstep(0.55, 0.62, vUv.y) * 0.6);
   col.rgb *= mix(0.35, 1.0, uFrente);
   col.a *= smoothstep(0.0, 0.45, uFrente);
   gl_FragColor = col;
@@ -177,7 +190,7 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
         texturas.push(tex);
         const mat = new T.ShaderMaterial({
-          uniforms: { uTex: { value: tex }, uOnda: { value: 0 }, uTiempo: { value: 0 }, uFrente: { value: 0 } },
+          uniforms: { uTex: { value: tex }, uOnda: { value: 0 }, uTiempo: { value: 0 }, uFrente: { value: 0 }, uFase: { value: i * 0.73 } },
           vertexShader: VERT, fragmentShader: FRAG, transparent: true, side: T.DoubleSide,
         });
         mats[i] = mat;

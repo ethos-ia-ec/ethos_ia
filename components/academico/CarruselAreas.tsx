@@ -244,7 +244,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
 
       <style jsx>{`
         /* Mobile-first. --cw: ancho de tarjeta; --ch: alto fijo (las tarjetas son absolutas para el giro 3D). */
-        .car { --cw: min(320px, 82vw); --ch: 520px; position: relative; margin-top: 40px; user-select: none; -webkit-user-select: none; border-radius: var(--r-xl); }
+        .car { --cw: min(320px, 82vw); --ch: 520px; position: relative; margin-top: 12px; user-select: none; -webkit-user-select: none; border-radius: var(--r-xl); flex: 1; min-height: 0; display: flex; flex-direction: column; }
         .car:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 8px; }
         /* Vitrina: rejilla técnica, piso en perspectiva con reflejo y lienzo de chispas detrás de las tarjetas. */
         .vitrina { position: relative; height: calc(var(--ch) + 64px); perspective: 1400px; touch-action: pan-y; }
@@ -302,7 +302,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         ul { list-style: none; padding: 14px 0 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
         li { font: 500 11px/1 var(--f-mono); padding: 7px 10px; border-radius: var(--r-pill); border: 1px solid var(--c-azul-3); color: var(--c-cian-suave); background: rgba(5, 17, 30, 0.4); }
 
-        .controles { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 14px; margin-top: 12px; }
+        .controles { flex: none; position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 14px; margin-top: 12px; }
         .puntos { order: -1; flex-basis: 100%; display: flex; justify-content: center; }
         .flecha { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--c-azul-3); background: var(--c-azul-2); color: var(--c-claro); cursor: pointer; transition: border-color var(--d-rapida), color var(--d-rapida), transform var(--d-rapida), background-color var(--d-rapida); }
         .flecha :global(svg) { width: 20px; height: 20px; }
@@ -316,17 +316,16 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         .puntos button:hover::before { background: rgba(234, 242, 248, 0.55); }
         .puntos button[aria-current='true']::before { width: 22px; margin-left: -11px; background: var(--c-cian); }
         /* Vitrina WebGL: alto según el ancho; la tarjeta frontal ocupa ~70 % del alto. */
-        .gl-caja { position: relative; }
-        .gl-caja :global(.gl) { position: relative; height: min(150vw, 620px); touch-action: pan-y; cursor: grab; }
+        .gl-caja { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+        .gl-caja :global(.gl) { position: relative; flex: 1; min-height: 0; height: auto; touch-action: pan-y; cursor: grab; }
         .gl-caja :global(.gl:active) { cursor: grabbing; }
         .gl-caja :global(.gl canvas) { display: block; width: 100%; height: 100%; }
-        .leyenda { max-width: 720px; min-height: 7.5em; margin: 8px auto 0; text-align: center; }
+        .leyenda { flex: none; max-width: 720px; min-height: 0; margin: 4px auto 0; text-align: center; }
         .leyenda h3 { margin: 0 0 6px; }
-        .leyenda p { -webkit-line-clamp: 3; color: var(--c-claro-2); }
-        @media (min-width: 600px) { .gl-caja :global(.gl) { height: clamp(560px, 48vw, 1100px); } }
-        .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+        .leyenda p { -webkit-line-clamp: 2; color: var(--c-claro-2); }
+                .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-        @media (min-width: 600px) { .car { --cw: 380px; --ch: 540px; margin-top: 48px; } h3 { font-size: 21px; } p { font-size: 14.5px; } }
+        @media (min-width: 600px) { .car { --cw: 380px; --ch: 540px; margin-top: 16px; } h3 { font-size: 21px; } p { font-size: 14.5px; } }
         @media (min-width: 900px) { .puntos { order: 0; flex-basis: auto; } }
         @media (min-width: 1920px) {
           .car { --cw: 460px; --ch: 640px; }

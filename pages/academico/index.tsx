@@ -700,6 +700,13 @@ $ powershell -File instalar.ps1
         .app :global(.red-suave) { opacity: 0.32; z-index: -1; }
 
         .areas { isolation: isolate; background: radial-gradient(60% 70% at 50% 0%, rgba(4, 235, 255, 0.1), transparent 70%), var(--c-azul); color: var(--c-claro-2); }
+        /* El carrusel cabe exacto en una pantalla: la sección mide 100svh (descontando el encabezado fijo) y el 3D toma el espacio que sobra. */
+        #areas { box-sizing: border-box; scroll-margin-top: 0; height: 100svh; min-height: 540px; padding: 76px 0 12px; display: flex; flex-direction: column; }
+        #areas > .ancho { box-sizing: border-box; width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+        #areas h2 { margin-block: 6px 4px; }
+        #areas .tenue { margin: 0; }
+        /* Pantallas bajas (portátiles de 13-14"): se gana alto para el 3D. */
+        @media (max-height: 760px) { #areas .tenue { display: none; } #areas h2 { font-size: clamp(24px, 4.2vh, 34px); } }
 
         .stats { isolation: isolate; background: linear-gradient(180deg, var(--c-azul-2), var(--c-azul)); color: var(--c-claro); padding: 48px 0; border-top: 1px solid var(--c-azul-3); }
         .cifras { list-style: none; padding: 0; margin: 24px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
