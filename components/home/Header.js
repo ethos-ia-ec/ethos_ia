@@ -21,6 +21,16 @@ export default function Header({ inicio = false }) {
   const enlaces = useRef({});
   const panel = useRef(null);
   const cierreMega = useRef(null);
+  const cabecera = useRef(null);
+
+  // Publica el alto real del encabezado (--alto-hd) para que las secciones de pantalla completa lo descuenten.
+  useEffect(() => {
+    const el = cabecera.current;
+    if (!el) return undefined;
+    const ro = new ResizeObserver(() => document.documentElement.style.setProperty('--alto-hd', el.offsetHeight + 'px'));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   // Scroll: compactar, ocultar al bajar, mostrar al subir y progreso de lectura.
   useEffect(() => {
@@ -118,7 +128,7 @@ export default function Header({ inicio = false }) {
   return (
     <>
       <a className="hd-saltar" href="#contenido-principal">Saltar al contenido</a>
-      <header className={cls}>
+      <header ref={cabecera} className={cls}>
         <div className="hd-fila">
           <Link className="hd-marca" href="/" aria-label="Ethos IA, inicio">
             <span className="hd-logo"><Image src="/empresa/ethos-ia-logo-v2.png" alt="" width={42} height={42} priority /></span>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
 import { type Area, desfase } from '../../lib/academico';
 import VitrinaWebGL from './VitrinaWebGL';
+import AreaAmpliada from './AreaAmpliada';
 
 const ICONOS: Record<Area['icono'], string> = {
   microscopio: 'M6 18h8M3 22h18M14 22a7 7 0 1 0 0-14h-1M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2ZM12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3',
@@ -31,6 +32,8 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   const [encima, setEncima] = useState(false);
   const [foco, setFoco] = useState(false);
   const [detenido, setDetenido] = useState(false);
+  const [abierta, setAbierta] = useState(false);
+  const toque = useRef<{ x: number; y: number } | null>(null);
   const inicioX = useRef<number | null>(null);
   const arrastro = useRef(false);
   const escenaRef = useRef<HTMLDivElement>(null);
@@ -49,7 +52,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   }, []);
   const alFallar = useCallback(() => setModo('css'), []);
   // Gira siempre solo; solo se detiene con el botón de pausa (WCAG 2.2.2), no al pasar el mouse ni al tocar.
-  const girando = !detenido;
+  const girando = !detenido && !abierta;
 
   const ir = useCallback((d: number) => setActivo((a) => { const i = (a + d + total) % total; setPedido((p) => ({ i, n: p.n + 1 })); return i; }), [total]);
   const pedir = (i: number) => { setActivo(i); setPedido((p) => ({ i, n: p.n + 1 })); };
@@ -167,11 +170,16 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
       onPointerMove={mover}
       onFocus={() => setFoco(true)}
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setFoco(false); }}
-      onKeyDown={(e) => { if (e.key === 'ArrowRight') ir(1); if (e.key === 'ArrowLeft') ir(-1); }}
+      onKeyDown={(e) => { if (abierta) return; if (e.key === 'ArrowRight') ir(1); if (e.key === 'ArrowLeft') ir(-1); if (e.key === 'Enter' && e.target === e.currentTarget) setAbierta(true); }}
     >
       {modo === 'gl' ? (
-        <div className="gl-caja">
-          <VitrinaWebGL areas={areas} iconos={ICONOS} activo={activo} pedido={pedido} pausado={detenido} onFrente={setActivo} onFallo={alFallar} />
+        <div
+          className="gl-caja"
+          // Un toque sin arrastre sobre la vitrina abre la tarjeta del frente a pantalla completa.
+          onPointerDown={(e) => { toque.current = { x: e.clientX, y: e.clientY }; }}
+          onPointerUp={(e) => { const t = toque.current; toque.current = null; if (t && Math.hypot(e.clientX - t.x, e.clientY - t.y) < 8) setAbierta(true); }}
+        >
+          <VitrinaWebGL areas={areas} iconos={ICONOS} activo={activo} pedido={pedido} pausado={detenido || abierta} onFrente={setActivo} onFallo={alFallar} />
           <div className="leyenda">
             <h3>{areas[activo].titulo}</h3>
             <p>{areas[activo].texto}</p>
@@ -200,7 +208,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
               aria-roledescription="diapositiva"
               aria-label={`${i + 1} de ${total}: ${a.titulo}`}
               aria-hidden={d !== 0}
-              onClick={() => { if (arrastro.current) { arrastro.current = false; return; } if (d !== 0) setActivo(i); }}
+              onClick={() => { if (arrastro.current) { arrastro.current = false; return; } if (d !== 0) setActivo(i); else setAbierta(true); }}
             >
               <div className="marco">
               {img && (
@@ -240,10 +248,14 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
           ))}
         </div>
         <button type="button" className="flecha" onClick={() => ir(1)} aria-label="Área siguiente"><Svg d="M9 18l6-6-6-6" /></button>
+        <button type="button" className="flecha" onClick={() => setAbierta(true)} aria-label={`Ampliar ${areas[activo].titulo} a pantalla completa`}>
+          <Svg d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+        </button>
         <button type="button" className="flecha pausa" onClick={() => setDetenido((v) => !v)} aria-label={detenido ? 'Reanudar el carrusel' : 'Pausar el carrusel'} aria-pressed={detenido}>
           <Svg d={detenido ? 'M8 5v14l11-7z' : 'M9 5v14M15 5v14'} />
         </button>
       </div>
+      {abierta && <AreaAmpliada area={areas[activo]} indice={activo} total={total} onCerrar={() => setAbierta(false)} onMover={ir} />}
       <p className="vivo" aria-live={girando ? 'off' : 'polite'}>{areas[activo].titulo}</p>
 
       <style jsx>{`
@@ -268,7 +280,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
           transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
           transition: transform 0.25s ease-out, border-color var(--d-media), box-shadow var(--d-media);
         }
-        .activa { cursor: default; }
+        .activa { cursor: zoom-in; }
         .activa .marco { border-color: rgba(4, 235, 255, 0.5); box-shadow: 0 30px 80px -30px rgba(4, 235, 255, 0.45); }
         /* Brillo especular que sigue al cursor. */
         .marco::after { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; transition: opacity var(--d-media); background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.16), transparent 45%); }
@@ -321,7 +333,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         .puntos button[aria-current='true']::before { width: 22px; margin-left: -11px; background: var(--c-cian); }
         /* Vitrina WebGL: alto según el ancho; la tarjeta frontal ocupa ~70 % del alto. */
         .gl-caja { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; }
-        .gl-caja :global(.gl) { position: relative; flex: 1; min-height: 0; height: auto; touch-action: pan-y; cursor: grab; }
+        .gl-caja :global(.gl) { position: relative; flex: 1; min-height: 0; height: auto; touch-action: pan-y; cursor: zoom-in; }
         .gl-caja :global(.gl:active) { cursor: grabbing; }
         .gl-caja :global(.gl canvas) { display: block; width: 100%; height: 100%; }
         .leyenda { flex: none; max-width: 720px; min-height: 0; margin: 4px auto 0; text-align: center; }

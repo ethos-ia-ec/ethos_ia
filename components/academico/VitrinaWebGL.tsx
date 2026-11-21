@@ -303,12 +303,21 @@ export default function VitrinaWebGL({ areas, iconos, activo, pedido, pausado, o
       const reloj = { t: 0 };
       let ultimo = -1;
       let espera = 3.5;
+      // Los clips se precargan una vez: crearlos al llegar al frente los hacía arrancar cuando la tarjeta ya se iba.
+      const videos = areas.map((a) => {
+        if (!a.video) return null;
+        const v = document.createElement('video');
+        v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+        v.src = a.video + '.mp4'; // H.264: los .webm VP9 daban error de decodificación en Chromium
+        v.load();
+        return v;
+      });
       // Clip de la tarjeta del frente: se pinta sobre la zona de imagen (640×400) y se restaura al salir.
       let activoClip: { i: number; v: HTMLVideoElement; orig: ImageData } | null = null;
       const soltarClip = () => {
         if (!activoClip) return;
         const { i, v, orig } = activoClip;
-        v.pause(); v.removeAttribute('src'); v.load();
+        v.pause();
         lienzos[i].getContext('2d')!.putImageData(orig, 0, 0);
         (mats[i].uniforms.uTex.value as THREE.Texture).needsUpdate = true;
         activoClip = null;
@@ -317,9 +326,9 @@ export default function VitrinaWebGL({ areas, iconos, activo, pedido, pausado, o
         soltarClip();
         const base = areas[i].video;
         if (!base || !lienzos[i]) return;
-        const v = document.createElement('video');
-        v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
-        v.src = base + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+        const v = videos[i];
+        if (!v) return;
+        v.currentTime = 0;
         v.play().catch(() => {});
         activoClip = { i, v, orig: lienzos[i].getContext('2d')!.getImageData(0, 0, 640, 400) };
       };
@@ -407,6 +416,7 @@ export default function VitrinaWebGL({ areas, iconos, activo, pedido, pausado, o
         el.removeEventListener('pointercancel', arriba);
         el.removeEventListener('pointerleave', salir);
         soltarClip();
+        videos.forEach((v) => { if (v) { v.removeAttribute('src'); v.load(); } });
         texturas.forEach((t) => t.dispose());
         mats.forEach((m) => m.dispose());
         geo.dispose(); conoGeo.dispose(); pGeo.dispose(); pMat.dispose();
