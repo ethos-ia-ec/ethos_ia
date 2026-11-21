@@ -670,6 +670,10 @@ $ powershell -File instalar.ps1
         .claro { background: var(--c-fondo); }
         #nosotros { min-height: var(--alto); display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
         #nosotros > :global(.ancho) { width: 100%; }
+        /* Video protagonista a todo el ancho y texto debajo, en todas las pantallas. */
+        #nosotros .dos { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); justify-items: center; }
+        #nosotros .dos > :global(*) { width: 100%; max-width: 1100px; }
+        #nosotros .dos > :global(*:last-child) { max-width: 860px; }
         .blanco { background: #fff; }
         .oscuro { background: var(--c-azul); color: var(--c-claro-2); }
         .kit { background: linear-gradient(135deg, var(--c-azul-profundo), var(--c-azul-2)); color: var(--c-claro-2); }
