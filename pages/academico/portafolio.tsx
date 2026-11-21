@@ -170,7 +170,7 @@ export default function Portafolio() {
         svg { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
         .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-        .hero { position: relative; overflow: hidden; background: radial-gradient(60% 80% at 85% 10%, rgba(4,235,255,0.14), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(122,167,255,0.12), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 96px; border-bottom: 1px solid var(--c-azul-3); }
+        .hero { box-sizing: border-box; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; background: radial-gradient(60% 80% at 85% 10%, rgba(4,235,255,0.14), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(122,167,255,0.12), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 96px; border-bottom: 1px solid var(--c-azul-3); }
 
         .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; opacity: 0.55; pointer-events: none; animation: deriva 24s ease-in-out infinite alternate; }
         .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(5,17,30,0.55), rgba(5,17,30,0.75) 70%, var(--c-azul)); }
@@ -270,7 +270,7 @@ export default function Portafolio() {
           h2 { font-size: var(--t-xl); }
         }
         @media (min-width: 900px) {
-          .hero { padding: 136px var(--gutter) 92px; }
+          .hero { padding: 100px var(--gutter) 72px; }
           .fondo { opacity: 0.85; -webkit-mask-image: linear-gradient(90deg, transparent 15%, #000 60%); mask-image: linear-gradient(90deg, transparent 15%, #000 60%); }
           .hero::after { background: linear-gradient(90deg, var(--c-azul) 25%, rgba(5,17,30,0.2) 70%), linear-gradient(180deg, transparent 70%, var(--c-azul)); }
           .credito { right: var(--gutter); bottom: 48px; }
