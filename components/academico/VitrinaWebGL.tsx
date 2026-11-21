@@ -184,8 +184,10 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
       const geo = new T.PlaneGeometry(1, 1.4, 32, 32);
       const mats: THREE.ShaderMaterial[] = [];
       const texturas: THREE.Texture[] = [];
+      const lienzos: HTMLCanvasElement[] = [];
       await Promise.all(areas.map(async (a, i) => {
         const cv = await tarjeta(a, i, N, iconos[a.icono], fuente);
+        lienzos[i] = cv;
         const tex = new T.CanvasTexture(cv);
         tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
         texturas.push(tex);
@@ -299,9 +301,32 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
       let previo = performance.now();
       const reloj = { t: 0 };
       let ultimo = -1;
+      let espera = 3.5;
+      // Clip de la tarjeta del frente: se pinta sobre la zona de imagen (640×400) y se restaura al salir.
+      let activoClip: { i: number; v: HTMLVideoElement; orig: ImageData } | null = null;
+      const soltarClip = () => {
+        if (!activoClip) return;
+        const { i, v, orig } = activoClip;
+        v.pause(); v.removeAttribute('src'); v.load();
+        lienzos[i].getContext('2d')!.putImageData(orig, 0, 0);
+        (mats[i].uniforms.uTex.value as THREE.Texture).needsUpdate = true;
+        activoClip = null;
+      };
+      const tomarClip = (i: number) => {
+        soltarClip();
+        const base = areas[i].video;
+        if (!base || !lienzos[i]) return;
+        const v = document.createElement('video');
+        v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+        v.src = base + (v.canPlayType('video/webm; codecs="vp9"') ? '.webm' : '.mp4');
+        v.play().catch(() => {});
+        activoClip = { i, v, orig: lienzos[i].getContext('2d')!.getImageData(0, 0, 640, 400) };
+      };
+      let ultimoCuadroClip = 0;
       const cuadro = () => {
         const now = performance.now();
-        const dt = Math.min(0.05, (now - previo) / 1000);
+        const real = (now - previo) / 1000;
+        const dt = Math.min(0.05, real);
         previo = now;
         reloj.t += dt;
         const s = estado.current;
@@ -321,12 +346,22 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
         } else if (!arrastre) {
           ang += vel;
           vel *= 0.94;
-          if (!s.pausado && Math.abs(vel) < 0.002) ang -= (paso / 5) * dt;
+          // Avance automático: gira a la siguiente tarjeta y se detiene 3,5 s en cada una.
+          if (!s.pausado && Math.abs(vel) < 0.002) {
+            espera -= Math.min(0.5, real); // tiempo real: la pausa dura 3,5 s aunque el equipo dibuje lento
+            if (espera <= 0) { destino = Math.round(ang / paso) * paso - paso; espera = 3.5; }
+          }
         }
         anillo.rotation.y = ang;
         const frente = ((Math.round(-ang / paso) % N) + N) % N;
         if (frente !== s.reportado) { s.reportado = frente; s.onFrente(frente); }
-        if (frente !== ultimo) { onda[frente] = 1; ultimo = frente; }
+        if (frente !== ultimo) { onda[frente] = 1; ultimo = frente; tomarClip(frente); }
+        if (activoClip && activoClip.v.readyState >= 2 && now - ultimoCuadroClip > 40) {
+          ultimoCuadroClip = now;
+          const ctx = lienzos[activoClip.i].getContext('2d')!;
+          ctx.save(); redondo(ctx, 2, 2, 636, 892, 36); ctx.clip(); ctx.drawImage(activoClip.v, 0, 0, 640, 400); ctx.restore();
+          (mats[activoClip.i].uniforms.uTex.value as THREE.Texture).needsUpdate = true;
+        }
         mats.forEach((m, i) => {
           onda[i] = Math.max(0, onda[i] - dt * 0.7);
           m.uniforms.uOnda.value = onda[i];
@@ -369,6 +404,7 @@ export default function VitrinaWebGL({ areas, iconos, activo, pausado, onFrente,
         el.removeEventListener('pointerup', arriba);
         el.removeEventListener('pointercancel', arriba);
         el.removeEventListener('pointerleave', salir);
+        soltarClip();
         texturas.forEach((t) => t.dispose());
         mats.forEach((m) => m.dispose());
         geo.dispose(); conoGeo.dispose(); pGeo.dispose(); pMat.dispose();
