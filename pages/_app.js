@@ -1,6 +1,7 @@
 import { Sora } from 'next/font/google';
 import { useEffect } from 'react';
 import SesionProvider from '../components/cuenta/SesionProvider';
+import BotonWhatsApp from '../components/BotonWhatsApp';
 import '../styles/tokens.css';
 
 const sora = Sora({
@@ -51,6 +52,7 @@ export default function App({ Component, pageProps }) {
       `}</style>
       <SesionProvider>
         <Component {...pageProps} />
+        <BotonWhatsApp />
       </SesionProvider>
     </>
   );

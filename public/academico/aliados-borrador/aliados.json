@@ -1,0 +1,90 @@
+[
+  {
+    "id": "utpl",
+    "nombre": "Universidad Técnica Particular de Loja",
+    "sigla": "UTPL",
+    "logo": "/academico/aliados-borrador/utpl.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Universidad_Técnica_Patricular_de_Loja.png",
+    "enLinea": "https://www.utpl.edu.ec/"
+  },
+  {
+    "id": "unemi",
+    "nombre": "Universidad Estatal de Milagro",
+    "sigla": "UNEMI",
+    "logo": "/academico/aliados-borrador/unemi.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Emblema_de_la_UNEMI.svg",
+    "enLinea": "https://www.unemi.edu.ec/index.php/carreras-en-linea/"
+  },
+  {
+    "id": "ute",
+    "nombre": "Universidad UTE",
+    "sigla": "UTE",
+    "logo": "/academico/aliados-borrador/ute.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo-ute_(2).png",
+    "enLinea": "https://ute.edu.ec/campus-virtual/"
+  },
+  {
+    "id": "indoamerica",
+    "nombre": "Universidad Indoamérica",
+    "sigla": "UTI",
+    "logo": "/academico/aliados-borrador/indoamerica.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logotipo_universidad_indoamerica.png",
+    "enLinea": "https://www.indoamerica.edu.ec/"
+  },
+  {
+    "id": "uniandes",
+    "nombre": "Universidad Regional Autónoma de los Andes",
+    "sigla": "UNIANDES",
+    "logo": "/academico/aliados-borrador/uniandes.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Uniandes_Logo.png",
+    "enLinea": "https://evauniandesenlinea.edu.ec/"
+  },
+  {
+    "id": "ecotec",
+    "nombre": "Universidad Tecnológica ECOTEC",
+    "sigla": "ECOTEC",
+    "logo": "/academico/aliados-borrador/ecotec.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo-universidad-ecotec.png",
+    "enLinea": "https://ecotec.edu.ec/"
+  },
+  {
+    "id": "ups",
+    "nombre": "Universidad Politécnica Salesiana",
+    "sigla": "UPS",
+    "logo": "/academico/aliados-borrador/ups.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo_Universidad_Politécnica_Salesiana_del_Ecuador.png",
+    "enLinea": "https://virtual.ups.edu.ec/"
+  },
+  {
+    "id": "espe",
+    "nombre": "Universidad de las Fuerzas Armadas ESPE",
+    "sigla": "ESPE",
+    "logo": "/academico/aliados-borrador/espe.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo_ESPE.png",
+    "enLinea": "https://www.espe.edu.ec/"
+  },
+  {
+    "id": "ug",
+    "nombre": "Universidad de Guayaquil",
+    "sigla": "UG",
+    "logo": "/academico/aliados-borrador/ug.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:LogoUGcolor.png",
+    "enLinea": "http://campusvirtual.ug.edu.ec/"
+  },
+  {
+    "id": "ucacue",
+    "nombre": "Universidad Católica de Cuenca",
+    "sigla": "UCACUE",
+    "logo": "/academico/aliados-borrador/ucacue.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo_Universidad_Católica_de_Cuenca.png",
+    "enLinea": "https://www.ucacue.edu.ec/en-linea/"
+  },
+  {
+    "id": "utm",
+    "nombre": "Universidad Técnica de Manabí",
+    "sigla": "UTM",
+    "logo": "/academico/aliados-borrador/utm.png",
+    "fuente": "https://commons.wikimedia.org/wiki/File:Logo_universidad_UTM.png",
+    "enLinea": "https://online.utm.edu.ec/"
+  }
+]

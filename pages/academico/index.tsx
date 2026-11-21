@@ -408,7 +408,6 @@ export default function Academico() {
           <div className="ancho dos">
             <Reveal className="foto">
               <Image src="/academico/libres/banda-axones.webp" alt="Microscopía de una red de neuronas y axones en tonos cian." width={1600} height={640} sizes="(min-width: 900px) 50vw, 92vw" />
-              <span className="sello"><strong>8</strong> áreas de conocimiento</span>
               <small className="credito">Imagen: «Axons Al Dente», MikeRoscopy, CC BY 4.0 (Wikimedia Commons)</small>
             </Reveal>
             <Reveal delay={100}>
@@ -491,6 +490,12 @@ export default function Academico() {
               <Reveal><h2>Del corpus a la <em>síntesis</em>, paso a paso</h2></Reveal>
               <Reveal><p className="resumen">Un flujo reproducible en el que cada decisión queda documentada y respaldada con evidencia.</p></Reveal>
             </div>
+            <Reveal className="video-metodo">
+              <video controls muted playsInline preload="metadata" poster="/academico/video/como-investigamos.jpg" aria-label="Video: cómo investigamos, de la pregunta a la evidencia">
+                <source src="/academico/video/como-investigamos.webm" type="video/webm" />
+                <source src="/academico/video/como-investigamos.mp4" type="video/mp4" />
+              </video>
+            </Reveal>
             <ol className="tiempo">
               {METODO.map((m, i) => (
                 <li key={m.n}>
@@ -703,6 +708,8 @@ $ powershell -File instalar.ps1
 
         .claro :global(.foto) { position: relative; }
         .claro :global(.foto img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 22px; box-shadow: var(--sombra-3); }
+        .claro :global(.video-metodo) { max-width: 960px; margin: 0 auto 48px; }
+        .claro :global(.video-metodo video) { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 22px; background: #05111e; box-shadow: var(--sombra-3); }
         .claro :global(.credito) { position: absolute; top: calc(100% + 8px); left: 0; font-size: 11px; color: #5b7385; }
         .sello { position: absolute; left: 12px; bottom: 12px; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: var(--r-lg); background: var(--c-azul); color: var(--c-claro-2); font-size: 13px; box-shadow: var(--sombra-3); }
         .sello strong { font-size: 1.6rem; line-height: 1; color: var(--c-cian); }

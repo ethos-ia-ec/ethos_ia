@@ -9,5 +9,3 @@ supabase/.branches/
 tsconfig.tsbuildinfo
 # Credenciales OAuth descargadas de Google Cloud: nunca al repositorio
 client_secret*.json
-# Sellos de universidades: vista previa local hasta tener los convenios firmados
-public/academico/aliados-borrador/

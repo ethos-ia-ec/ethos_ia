@@ -1,7 +1,6 @@
 // Contenido de Ethos Académico, la división de formación e investigación científica de Ethos IA.
 // Fuente única: la portada, /academico y sus subpáginas leen de aquí.
 
-import { WHATSAPP_NUMBER } from './contactLinks';
 
 export interface Area {
   id: string;
@@ -132,7 +131,7 @@ export const MIEMBROS = [
 
 export const ALCANCE = 'Acompañamos a estudiantes de grado y posgrado de universidades de todo el Ecuador.';
 
-export const WHATSAPP_ACADEMICO = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola, Ethos Académico. Me gustaría recibir información sobre la asesoría y los talleres de investigación.')}`;
+export const WHATSAPP_ACADEMICO = `https://wa.me/593994274263?text=${encodeURIComponent('Hola, Ethos Académico. Me gustaría recibir información sobre la asesoría y los talleres de investigación.')}`;
 
 // Distancia más corta (con signo) de la tarjeta i a la activa en un carrusel circular.
 export function desfase(i: number, activo: number, total: number): number {

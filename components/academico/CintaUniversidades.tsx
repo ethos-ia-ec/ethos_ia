@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-// Cinta de sellos de universidades antes del pie. Es una VISTA PREVIA local: los sellos viven en una carpeta
-// excluida de git y el componente no se muestra en producción hasta que existan los convenios firmados.
+// Cinta de sellos de universidades antes del pie; los datos viven en public/academico/aliados-borrador/aliados.json.
 
 interface Aliado { id: string; nombre: string; sigla: string; logo: string }
 
@@ -11,7 +10,6 @@ export default function CintaUniversidades() {
   const [aliados, setAliados] = useState<Aliado[]>([]);
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'production') return;
     let vivo = true;
     fetch(MANIFIESTO)
       .then((r) => (r.ok ? r.json() : []))
