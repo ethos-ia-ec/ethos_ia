@@ -19,3 +19,6 @@ Tratamiento aplicado a todas: recorte, duotono azul-cian de la marca (mezcla par
 | equipo-cabecera.webp | Equipo: cabecera | Clarisse Meyer | https://stocksnap.io/photo/books-library-LNLBUY72XV | CC0 1.0 |
 
 Licencias: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/ · CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ · Uso de material de la NASA https://www.nasa.gov/nasa-brand-center/images-and-media/
+| educacion.webp | Carrusel: Educación (pizarra de aula) | Open Grid Scheduler / Grid Engine | https://www.flickr.com/photos/29155878@N03/17990211551 | CC0 |
+| trabajo-social.webp | Carrusel: Trabajo social (tejados de un barrio) | pepe nero | https://stocksnap.io/photo/neighborhood-roof-QAPZB3ZMCW | CC0 |
+| derecho.webp | Carrusel: Derecho (balanza de la justicia) | megforce1 | https://www.flickr.com/photos/35608308@N05/29802756926 | CC0 |

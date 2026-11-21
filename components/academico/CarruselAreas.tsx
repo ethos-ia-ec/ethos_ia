@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type PointerEvent } from 'react';
 import { type Area, desfase } from '../../lib/academico';
+import VitrinaWebGL from './VitrinaWebGL';
 
 const ICONOS: Record<Area['icono'], string> = {
   microscopio: 'M6 18h8M3 22h18M14 22a7 7 0 1 0 0-14h-1M9 14h2M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2ZM12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3',
@@ -34,16 +35,26 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   const objetivo = useRef(0);
   const chispas = useRef<Chispa[]>([]);
   const total = areas.length;
+  // WebGL solo si hay soporte, sin movimiento reducido y en equipos con al menos 4 núcleos; si no, carrusel CSS.
+  const [modo, setModo] = useState<'css' | 'gl'>('css');
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if ((navigator.hardwareConcurrency || 8) < 4) return;
+    const prueba = document.createElement('canvas');
+    if (!(prueba.getContext('webgl2') || prueba.getContext('webgl'))) return;
+    setModo('gl');
+  }, []);
+  const alFallar = useCallback(() => setModo('css'), []);
   // Gira siempre solo; solo se detiene con el botón de pausa (WCAG 2.2.2), no al pasar el mouse ni al tocar.
   const girando = !detenido;
 
   const ir = useCallback((d: number) => setActivo((a) => (a + d + total) % total), [total]);
 
   useEffect(() => {
-    if (!girando || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (modo === 'gl' || !girando || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     const t = setInterval(() => ir(1), intervalo);
     return () => clearInterval(t);
-  }, [girando, ir, intervalo]);
+  }, [modo, girando, ir, intervalo]);
 
   // Un solo bucle rAF: inercia del giro y chispas. Se detiene fuera de pantalla o con la pestaña oculta.
   useEffect(() => {
@@ -92,7 +103,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
     document.addEventListener('visibilitychange', actualizar);
     medir();
     return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', actualizar); };
-  }, []);
+  }, [modo]);
 
   // Ráfaga de chispas desde los bordes de la tarjeta entrante.
   useEffect(() => {
@@ -154,6 +165,15 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setFoco(false); }}
       onKeyDown={(e) => { if (e.key === 'ArrowRight') ir(1); if (e.key === 'ArrowLeft') ir(-1); }}
     >
+      {modo === 'gl' ? (
+        <div className="gl-caja">
+          <VitrinaWebGL areas={areas} iconos={ICONOS} activo={activo} pausado={detenido} onFrente={setActivo} onFallo={alFallar} />
+          <div className="leyenda">
+            <h3>{areas[activo].titulo}</h3>
+            <p>{areas[activo].texto}</p>
+          </div>
+        </div>
+      ) : (
       <div className="vitrina" onPointerDown={(e) => { inicioX.current = e.clientX; }} onPointerUp={soltar} onPointerCancel={() => { inicioX.current = null; objetivo.current = 0; }}>
         <div className="piso" aria-hidden="true" />
         <canvas ref={lienzoRef} className="lienzo" aria-hidden="true" />
@@ -206,6 +226,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         })}
         </div>
       </div>
+      )}
 
       <div className="controles">
         <button type="button" className="flecha" onClick={() => ir(-1)} aria-label="Área anterior"><Svg d="M15 18l-6-6 6-6" /></button>
@@ -294,6 +315,15 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         .puntos button::before { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: var(--r-pill); background: rgba(234, 242, 248, 0.28); transition: width var(--d-media) var(--ease), margin var(--d-media) var(--ease), background-color var(--d-media); }
         .puntos button:hover::before { background: rgba(234, 242, 248, 0.55); }
         .puntos button[aria-current='true']::before { width: 22px; margin-left: -11px; background: var(--c-cian); }
+        /* Vitrina WebGL: alto según el ancho; la tarjeta frontal ocupa ~70 % del alto. */
+        .gl-caja { position: relative; }
+        .gl-caja :global(.gl) { position: relative; height: min(150vw, 620px); touch-action: pan-y; cursor: grab; }
+        .gl-caja :global(.gl:active) { cursor: grabbing; }
+        .gl-caja :global(.gl canvas) { display: block; width: 100%; height: 100%; }
+        .leyenda { max-width: 720px; min-height: 7.5em; margin: 8px auto 0; text-align: center; }
+        .leyenda h3 { margin: 0 0 6px; }
+        .leyenda p { -webkit-line-clamp: 3; color: var(--c-claro-2); }
+        @media (min-width: 600px) { .gl-caja :global(.gl) { height: clamp(560px, 48vw, 1100px); } }
         .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
         @media (min-width: 600px) { .car { --cw: 380px; --ch: 540px; margin-top: 48px; } h3 { font-size: 21px; } p { font-size: 14.5px; } }
