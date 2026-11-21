@@ -86,5 +86,37 @@
     "logo": "/academico/aliados-borrador/utm.png",
     "fuente": "https://commons.wikimedia.org/wiki/File:Logo_universidad_UTM.png",
     "enLinea": "https://online.utm.edu.ec/"
+  },
+  {
+    "id": "uide",
+    "nombre": "Universidad Internacional del Ecuador",
+    "sigla": "UIDE",
+    "logo": "/academico/aliados-borrador/uide.png",
+    "fuente": "https://www.uide.edu.ec/wp-content/uploads/2025/06/logo-uide.webp",
+    "enLinea": "https://www.uide.edu.ec/"
+  },
+  {
+    "id": "umet",
+    "nombre": "Universidad Metropolitana del Ecuador",
+    "sigla": "UMET",
+    "logo": "/academico/aliados-borrador/umet.png",
+    "fuente": "https://umet.edu.ec/wp-content/uploads/2025/05/umet-logo-horizontal-color-n2.png",
+    "enLinea": "https://umet.edu.ec/"
+  },
+  {
+    "id": "ucuenca",
+    "nombre": "Universidad de Cuenca",
+    "sigla": "UCUENCA",
+    "logo": "/academico/aliados-borrador/ucuenca.svg",
+    "fuente": "https://www.ucuenca.edu.ec/ (símbolo SVG #ucuenca del pie de página)",
+    "enLinea": "https://www.ucuenca.edu.ec/"
+  },
+  {
+    "id": "uees",
+    "nombre": "Universidad de Especialidades Espíritu Santo",
+    "sigla": "UEES",
+    "logo": "/academico/aliados-borrador/uees.png",
+    "fuente": "https://uees.edu.ec/wp-content/uploads/2021/03/Logo-UEES-1.png",
+    "enLinea": "https://uees.edu.ec/"
   }
 ]
