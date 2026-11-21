@@ -12,6 +12,10 @@ const ICONOS: Record<Area['icono'], string> = {
   personas: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',
 };
 
+const Svg = ({ d }: { d: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d={d} /></svg>
+);
+
 // Carrusel 3D circular: flechas, puntos, teclado, arrastre y avance automático (pausado al interactuar).
 export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area[]; intervalo?: number }) {
   const [activo, setActivo] = useState(0);
@@ -62,6 +66,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
             zIndex: 10 - Math.abs(d),
             pointerEvents: lejos ? ('none' as const) : ('auto' as const),
           };
+          const img = a.imagen;
           return (
             <article
               key={a.id}
@@ -72,60 +77,112 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
               aria-hidden={d !== 0}
               onClick={() => { if (arrastro.current) { arrastro.current = false; return; } if (d !== 0) setActivo(i); }}
             >
-              <span className="num">{String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
-              <span className="icono" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d={ICONOS[a.icono]} /></svg>
-              </span>
-              <h3>{a.titulo}</h3>
-              <p>{a.texto}</p>
-              <ul>{a.temas.map((t) => <li key={t}>{t}</li>)}</ul>
+              {img && (
+                <figure className={img.ilustrativa ? 'foto' : 'foto real'}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={img.src} alt={img.ilustrativa ? `${img.alt} (imagen ilustrativa)` : img.alt} loading={Math.abs(d) <= 1 ? 'eager' : 'lazy'} decoding="async" draggable={false} />
+                  {!img.ilustrativa && <figcaption>Fig. — proyecto propio</figcaption>}
+                </figure>
+              )}
+              <div className="cuerpo">
+                <div className="cab">
+                  <span className="icono" aria-hidden="true"><Svg d={ICONOS[a.icono]} /></span>
+                  <span className="num">{String(i + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+                </div>
+                <h3>{a.titulo}</h3>
+                <p>{a.texto}</p>
+                <ul>{a.temas.map((t) => <li key={t}>{t}</li>)}</ul>
+              </div>
             </article>
           );
         })}
       </div>
 
       <div className="controles">
-        <button type="button" className="flecha" onClick={() => ir(-1)} aria-label="Área anterior">←</button>
+        <button type="button" className="flecha" onClick={() => ir(-1)} aria-label="Área anterior"><Svg d="M15 18l-6-6 6-6" /></button>
         <div className="puntos">
           {areas.map((a, i) => (
             <button key={a.id} type="button" aria-label={`Ir a ${a.titulo}`} aria-current={i === activo} onClick={() => setActivo(i)} />
           ))}
         </div>
-        <button type="button" className="flecha" onClick={() => ir(1)} aria-label="Área siguiente">→</button>
-        <button type="button" className="flecha" onClick={() => setDetenido((v) => !v)} aria-label={detenido ? 'Reanudar el carrusel' : 'Pausar el carrusel'} aria-pressed={detenido}>
-          {detenido ? '▶' : '❚❚'}
+        <button type="button" className="flecha" onClick={() => ir(1)} aria-label="Área siguiente"><Svg d="M9 18l6-6-6-6" /></button>
+        <button type="button" className="flecha pausa" onClick={() => setDetenido((v) => !v)} aria-label={detenido ? 'Reanudar el carrusel' : 'Pausar el carrusel'} aria-pressed={detenido}>
+          <Svg d={detenido ? 'M8 5v14l11-7z' : 'M9 5v14M15 5v14'} />
         </button>
       </div>
       <p className="vivo" aria-live={girando ? 'off' : 'polite'}>{areas[activo].titulo}</p>
 
       <style jsx>{`
-        .car { position: relative; margin-top: 48px; user-select: none; border-radius: var(--r-xl); }
+        /* Mobile-first. --cw: ancho de tarjeta; --ch: alto fijo (las tarjetas son absolutas para el giro 3D). */
+        .car { --cw: min(320px, 82vw); --ch: 520px; position: relative; margin-top: 40px; user-select: none; -webkit-user-select: none; border-radius: var(--r-xl); }
         .car:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 8px; }
-        .flecha:last-child { font-size: 13px; letter-spacing: -2px; }
-        .escena { position: relative; height: 420px; perspective: 1400px; transform-style: preserve-3d; touch-action: pan-y; }
+        .escena { position: relative; height: calc(var(--ch) + 24px); perspective: 1400px; transform-style: preserve-3d; touch-action: pan-y; }
         .diapo {
-          position: absolute; left: 50%; top: 0; width: min(380px, 80vw); height: 390px; margin-left: calc(min(380px, 80vw) / -2);
-          border-radius: var(--r-xl); padding: 30px; display: flex; flex-direction: column; overflow: hidden;
-          background: linear-gradient(160deg, var(--c-azul-2), #071524); border: 1px solid var(--c-azul-3); color: var(--c-claro-2);
-          transition: transform 0.75s var(--ease), opacity 0.75s var(--ease); cursor: pointer;
+          position: absolute; left: 50%; top: 0; width: var(--cw); height: var(--ch); margin-left: calc(var(--cw) / -2);
+          border-radius: var(--r-xl); display: flex; flex-direction: column; overflow: hidden; text-align: left;
+          background: linear-gradient(170deg, var(--c-azul-2), #061423 70%); border: 1px solid var(--c-azul-3); color: var(--c-claro-2);
+          box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.7);
+          transition: transform 0.75s var(--ease), opacity 0.75s var(--ease), border-color var(--d-media), box-shadow var(--d-media);
+          cursor: pointer; will-change: transform;
         }
-        .diapo::after { content: ''; position: absolute; inset: auto -40% -60% auto; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(4,235,255,0.14), transparent 70%); }
-        .diapo.activa { border-color: rgba(4,235,255,0.55); box-shadow: 0 30px 80px -30px rgba(4,235,255,0.45); cursor: default; }
-        .num { font: 600 11px/1 var(--f-mono); letter-spacing: 0.16em; color: var(--c-cian); }
-        .icono { width: 56px; height: 56px; border-radius: 14px; display: grid; place-items: center; margin: 22px 0 18px; background: rgba(4,235,255,0.1); color: var(--c-cian); }
-        .icono svg { width: 28px; height: 28px; }
-        h3 { font-size: 21px; color: var(--c-claro); margin: 0 0 10px; }
-        p { font-size: 14.5px; line-height: 1.65; margin: 0; }
-        ul { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
-        li { font: 500 11px/1 var(--f-mono); padding: 6px 10px; border-radius: var(--r-pill); border: 1px solid var(--c-azul-3); color: var(--c-cian-suave); }
-        .controles { display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 8px; }
-        .flecha { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--c-azul-3); background: var(--c-azul-2); color: var(--c-claro); cursor: pointer; font-size: 18px; transition: border-color var(--d-rapida), color var(--d-rapida); }
-        .flecha:hover { border-color: var(--c-cian); color: var(--c-cian); }
-        .puntos { display: flex; gap: 8px; }
-        .puntos button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: var(--r-pill); background: rgba(234,242,248,0.22); cursor: pointer; transition: width var(--d-media) var(--ease), background var(--d-media); }
-        .puntos button[aria-current='true'] { width: 28px; background: var(--c-cian); }
-        .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-        @media (max-width: 600px) { .escena { height: 440px; } .diapo { height: 410px; padding: 24px; } }
+        .diapo.activa { border-color: rgba(4, 235, 255, 0.5); box-shadow: 0 30px 80px -30px rgba(4, 235, 255, 0.45); cursor: default; }
+
+        /* Imagen superior con proporción fija y degradado hacia el texto. */
+        .foto { position: relative; margin: 0; flex: none; aspect-ratio: 16 / 10; overflow: hidden; background: #061423; }
+        .foto img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 1.2s var(--ease); pointer-events: none; }
+        .diapo.activa .foto img { transform: scale(1); }
+        .foto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 17, 30, 0) 45%, rgba(10, 27, 43, 0.85) 88%, var(--c-azul-2)); pointer-events: none; }
+        /* Figuras reales: se muestran completas sobre fondo blanco, sin degradado que tape ejes. */
+        .foto.real { background: #fff; padding: 8px 8px 30px; }
+        .foto.real img { object-fit: contain; transform: none; }
+        .foto.real::after { background: linear-gradient(180deg, transparent calc(100% - 30px), rgba(5, 17, 30, 0.06)); }
+        figcaption { position: absolute; left: 10px; bottom: 7px; z-index: 1; font: 600 11px/1.4 var(--f-mono); letter-spacing: 0.04em; color: var(--c-teal); }
+
+        .cuerpo { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 18px 22px 22px; }
+        .cuerpo::after { content: ''; position: absolute; inset: auto -30% -50% auto; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(4, 235, 255, 0.1), transparent 70%); pointer-events: none; }
+        .cab { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .icono { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(4, 235, 255, 0.1); border: 1px solid rgba(4, 235, 255, 0.22); color: var(--c-cian); flex: none; }
+        .icono :global(svg) { width: 22px; height: 22px; stroke-width: 1.8; }
+        .num { font: 600 11px/1 var(--f-mono); letter-spacing: 0.16em; color: var(--c-cian); font-variant-numeric: tabular-nums; }
+        h3 { font-size: 19px; line-height: 1.25; color: var(--c-claro); margin: 14px 0 8px; text-wrap: balance; }
+        p { font-size: 14px; line-height: 1.6; margin: 0; text-wrap: pretty; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+        ul { list-style: none; padding: 14px 0 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+        li { font: 500 11px/1 var(--f-mono); padding: 7px 10px; border-radius: var(--r-pill); border: 1px solid var(--c-azul-3); color: var(--c-cian-suave); background: rgba(5, 17, 30, 0.4); }
+
+        .controles { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 14px; margin-top: 12px; }
+        .puntos { order: -1; flex-basis: 100%; display: flex; justify-content: center; }
+        .flecha { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--c-azul-3); background: var(--c-azul-2); color: var(--c-claro); cursor: pointer; transition: border-color var(--d-rapida), color var(--d-rapida), transform var(--d-rapida), background-color var(--d-rapida); }
+        .flecha :global(svg) { width: 20px; height: 20px; }
+        .pausa :global(svg) { width: 16px; height: 16px; }
+        .flecha:hover { border-color: var(--c-cian); color: var(--c-cian); background: #0d2236; }
+        .flecha:active { transform: scale(0.94); }
+        .flecha[aria-pressed='true'] { color: var(--c-cian); border-color: rgba(4, 235, 255, 0.5); }
+        /* Puntos: 28 px de área táctil con el indicador visible dentro. */
+        .puntos button { position: relative; width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer; }
+        .puntos button::before { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: var(--r-pill); background: rgba(234, 242, 248, 0.28); transition: width var(--d-media) var(--ease), margin var(--d-media) var(--ease), background-color var(--d-media); }
+        .puntos button:hover::before { background: rgba(234, 242, 248, 0.55); }
+        .puntos button[aria-current='true']::before { width: 22px; margin-left: -11px; background: var(--c-cian); }
+        .vivo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+        @media (min-width: 600px) { .car { --cw: 380px; --ch: 540px; margin-top: 48px; } h3 { font-size: 21px; } p { font-size: 14.5px; } }
+        @media (min-width: 900px) { .puntos { order: 0; flex-basis: auto; } }
+        @media (min-width: 1920px) {
+          .car { --cw: 460px; --ch: 640px; }
+          .cuerpo { padding: 22px 28px 28px; }
+          h3 { font-size: 25px; } p { font-size: 17px; } .num, li, figcaption { font-size: 13px; }
+          .icono { width: 52px; height: 52px; } .icono :global(svg) { width: 26px; height: 26px; }
+        }
+        @media (min-width: 2560px) {
+          .car { --cw: 580px; --ch: 800px; }
+          .cuerpo { padding: 28px 34px 34px; }
+          h3 { font-size: 31px; } p { font-size: 21px; } .num, li, figcaption { font-size: 15px; }
+          .icono { width: 64px; height: 64px; border-radius: 16px; } .icono :global(svg) { width: 32px; height: 32px; }
+          .flecha { width: 60px; height: 60px; } .flecha :global(svg) { width: 24px; height: 24px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .diapo, .foto img, .flecha, .puntos button::before { transition: none; }
+          .foto img { transform: none; }
+        }
       `}</style>
     </div>
   );

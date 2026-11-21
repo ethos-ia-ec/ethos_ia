@@ -9,6 +9,12 @@ import { PROYECTOS } from '../../lib/academico';
 import { migas } from '../../lib/seo';
 
 const AREAS = ['Todas', ...Array.from(new Set(PROYECTOS.map((p) => p.area)))];
+// Portadas: figura real del proyecto o imagen ilustrativa de acceso abierto (créditos en public/academico/libres/CREDITOS.md).
+const PORTADAS: Record<string, { src: string; real?: boolean }> = {
+  abandono: { src: '/academico/OULAD_UK_roc_pr.png', real: true },
+  kit: { src: '/academico/libres/kit-lectura.webp' },
+  laboratorios: { src: '/academico/libres/laboratorios-redes.webp' },
+};
 const EVIDENCIAS = PROYECTOS.reduce((n, p) => n + p.imagenes.length, 0);
 
 // Búsqueda sin distinguir mayúsculas ni tildes.
@@ -37,18 +43,9 @@ export default function Portafolio() {
       <Header />
 
       <section className="hero" aria-labelledby="titulo-portafolio">
-        <svg className="figura" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
-          {[80, 140, 200, 260, 320].map((x) => <line key={`v${x}`} className="rejilla-f" x1={x} y1={20} x2={x} y2={260} />)}
-          {[20, 80, 140, 200].map((y) => <line key={`h${y}`} className="rejilla-f" x1={40} y1={y} x2={380} y2={y} />)}
-          <path className="eje" d="M40 20V260H380" />
-          <path className="diag" d="M40 260L380 20" />
-          <path className="curva c3" pathLength={1} d="M40 260C70 150 150 90 380 40" />
-          <path className="curva c2" pathLength={1} d="M40 260C55 110 130 55 380 30" />
-          <path className="curva c1" pathLength={1} d="M40 260C46 80 110 34 380 22" />
-          {[[52, 167], [85, 102], [145, 59], [242, 34]].map(([x, y], i) => (
-            <circle key={x} className="punto" cx={x} cy={y} r={4} style={{ animationDelay: `${1.6 + i * 0.2}s, ${2.6 + i * 0.3}s` }} />
-          ))}
-        </svg>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="fondo" src="/academico/libres/portafolio-cabecera.webp" alt="" aria-hidden="true" fetchPriority="high" />
+        <p className="credito">Imagen ilustrativa: nebulosa de Carina · NASA, ESA, M. Livio y equipo del Hubble (STScI), CC BY 4.0</p>
         <div className="ancho">
           <nav className="migas" aria-label="Ruta de navegación">
             <Link href="/">Inicio</Link><span aria-hidden="true">/</span>
@@ -103,6 +100,13 @@ export default function Portafolio() {
                 return (
                   <Reveal key={p.id} delay={i * 70} className={expandido ? 'tarjeta abierta' : 'tarjeta'}>
                     <article aria-labelledby={`t-${p.id}`}>
+                      {PORTADAS[p.id] && (
+                        <figure className={PORTADAS[p.id].real ? 'portada real' : 'portada'}>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={PORTADAS[p.id].src} alt="" loading="lazy" decoding="async" />
+                          {PORTADAS[p.id].real && <figcaption>Fig. — proyecto propio</figcaption>}
+                        </figure>
+                      )}
                       <div className="meta">
                         <span className="area">
                           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" /></svg>
@@ -138,6 +142,16 @@ export default function Portafolio() {
             </div>
           )}
 
+          <figure className="banda">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/academico/libres/banda-axones.webp" alt="Microscopía de fibras nerviosas en tonos azul y cian (imagen ilustrativa)" loading="lazy" decoding="async" />
+            <figcaption>
+              <strong>Ciencia abierta, datos verificables</strong>
+              <span>Cada figura del portafolio se genera con código reproducible y datos públicos o sintéticos.</span>
+              <small>Imagen ilustrativa: «Axons Al Dente», MikeRoscopy, CC BY 4.0 (Wikimedia Commons)</small>
+            </figcaption>
+          </figure>
+
           <p className="aviso">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6z" /><path d="m9 12 2 2 4-4" /></svg>
             Solo publicamos material propio o con datos públicos y sintéticos.
@@ -157,20 +171,12 @@ export default function Portafolio() {
         .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
         .hero { position: relative; overflow: hidden; background: radial-gradient(60% 80% at 85% 10%, rgba(4,235,255,0.14), transparent 60%), radial-gradient(50% 70% at 0% 100%, rgba(122,167,255,0.12), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 64px; border-bottom: 1px solid var(--c-azul-3); }
-        /* Figura decorativa estilo curva ROC: se dibuja una vez y queda con un pulso suave. */
-        .figura { display: none; position: absolute; height: auto; pointer-events: none; }
-        .figura .rejilla-f { stroke: #123048; stroke-width: 1; }
-        .figura .eje { stroke: #3b5a73; stroke-width: 1.5; }
-        .figura .diag { stroke: #526373; stroke-width: 1.2; stroke-dasharray: 5 6; }
-        .figura .curva { stroke-width: 3; stroke-dasharray: 1; stroke-dashoffset: 1; animation: trazar 2.4s var(--ease) 0.3s forwards; }
-        .figura .c1 { stroke: #04ebff; }
-        .figura .c2 { stroke: #7aa7ff; animation-delay: 0.7s; }
-        .figura .c3 { stroke: #2fd8c9; animation-delay: 1.1s; }
-        .figura .punto { fill: #04ebff; stroke: none; opacity: 0; transform-box: fill-box; transform-origin: center; animation: aparecer 0.6s var(--ease) forwards, latir 3s ease-in-out 2.6s infinite alternate; }
-        @keyframes trazar { to { stroke-dashoffset: 0; } }
-        @keyframes aparecer { to { opacity: 1; } }
-        @keyframes latir { from { transform: scale(1); } to { transform: scale(1.5); } }
 
+        .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; opacity: 0.55; pointer-events: none; animation: deriva 24s ease-in-out infinite alternate; }
+        .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(5,17,30,0.55), rgba(5,17,30,0.75) 70%, var(--c-azul)); }
+        .hero > .ancho { z-index: 1; }
+        .credito { position: absolute; z-index: 1; right: 16px; bottom: 44px; left: 16px; margin: 0; text-align: right; font-size: 10px; line-height: 1.4; color: rgba(196,211,224,0.75); }
+        @keyframes deriva { from { transform: scale(1.04); } to { transform: scale(1.12) translate(-1.5%, 1%); } }
         .migas { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: var(--t-xs); color: var(--c-apagado); margin-bottom: 18px; }
         .migas :global(a) { color: var(--c-claro-2); text-decoration: none; display: inline-flex; align-items: center; min-height: 32px; }
         .migas :global(a:hover) { color: var(--c-cian); text-decoration: underline; }
@@ -203,9 +209,17 @@ export default function Portafolio() {
         .rejilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
         .rejilla :global(.tarjeta) { min-width: 0; }
         .rejilla :global(.tarjeta.abierta) { grid-column: 1 / -1; }
-        article { height: 100%; display: flex; flex-direction: column; background: var(--c-tarjeta); border-radius: var(--r-xl); border: 1px solid var(--c-borde); box-shadow: var(--sombra-1); padding: 22px 18px; position: relative; overflow: hidden; transition: box-shadow var(--d-media) var(--ease), transform var(--d-media) var(--ease), border-color var(--d-media); }
-        article::before { content: ''; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--c-cian), var(--c-teal)); }
+        article { box-sizing: border-box; height: 100%; display: flex; flex-direction: column; background: var(--c-tarjeta); border-radius: var(--r-xl); border: 1px solid var(--c-borde); box-shadow: var(--sombra-1); padding: 22px 18px; position: relative; overflow: hidden; transition: box-shadow var(--d-media) var(--ease), transform var(--d-media) var(--ease), border-color var(--d-media); }
+        article::before { content: ''; position: absolute; z-index: 1; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--c-cian), var(--c-teal)); }
         article:hover { box-shadow: var(--sombra-2); border-color: rgba(11,95,117,0.25); transform: translateY(-2px); }
+        .portada { flex: none; position: relative; margin: -22px -18px 18px; height: clamp(190px, 16vw, 340px); overflow: hidden; background: var(--c-azul); }
+        .portada img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform var(--d-lenta) var(--ease); }
+        .portada::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(5,17,30,0.35)); pointer-events: none; }
+        .portada.real { background: #fff; padding: 10px 10px 28px; border-bottom: 1px solid var(--c-borde); }
+        .portada.real img { object-fit: contain; }
+        .portada.real::after { display: none; }
+        .portada figcaption { position: absolute; left: 12px; bottom: 6px; font: 600 11px/1.4 var(--f-mono); color: var(--c-teal); }
+        article:hover .portada img { transform: scale(1.04); }
         .meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
         .area { display: inline-flex; align-items: center; gap: 7px; font-size: var(--t-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-teal); background: rgba(11,95,117,0.08); padding: 6px 12px; border-radius: var(--r-pill); }
         .estado { font-size: var(--t-xs); font-weight: 600; color: var(--c-ok); background: var(--c-ok-bg); padding: 6px 12px; border-radius: var(--r-pill); }
@@ -229,6 +243,13 @@ export default function Portafolio() {
         .vacio p { margin: 0 0 20px; }
         .vacio button { min-height: 48px; font: inherit; font-weight: 700; padding: 11px 22px; border-radius: var(--r-pill); border: 0; background: var(--c-azul); color: var(--c-cian); cursor: pointer; }
 
+        .banda { position: relative; margin: 40px 0 0; border-radius: var(--r-xl); overflow: hidden; background: var(--c-azul); min-height: 260px; display: flex; align-items: flex-end; }
+        .banda img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .banda::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(5,17,30,0.92), rgba(5,17,30,0.35) 75%); }
+        .banda figcaption { position: relative; z-index: 1; display: grid; gap: 8px; padding: 28px 20px 18px; color: var(--c-claro-2); max-width: 60ch; }
+        .banda strong { color: var(--c-claro); font-size: var(--t-xl); line-height: 1.2; text-wrap: balance; }
+        .banda span { line-height: 1.6; font-size: var(--t-sm); }
+        .banda small { font-size: 11px; color: rgba(196,211,224,0.8); margin-top: 6px; }
         .aviso { display: flex; align-items: flex-start; gap: 10px; margin: 32px 0 0; font-size: var(--t-sm); line-height: 1.5; color: var(--c-texto-3); }
         .aviso svg { font-size: 18px; color: var(--c-teal); margin-top: 1px; }
         .volver { margin: 12px 0 0; }
@@ -242,27 +263,36 @@ export default function Portafolio() {
           .cuerpo { padding: 0 24px 72px; }
           .barra { padding: 16px; }
           article { padding: 26px 24px; }
+          .portada { margin: -26px -24px 20px; }
+          .banda { min-height: 300px; } .banda figcaption { padding: 36px 32px 24px; }
+          .credito { right: 24px; left: auto; max-width: 60%; }
           .acciones { flex-direction: row; flex-wrap: wrap; }
           h2 { font-size: var(--t-xl); }
         }
         @media (min-width: 900px) {
           .hero { padding: 136px var(--gutter) 92px; }
-          .figura { display: block; width: 42%; max-width: 620px; right: var(--gutter); bottom: 40px; opacity: 0.7; }
+          .fondo { opacity: 0.85; -webkit-mask-image: linear-gradient(90deg, transparent 15%, #000 60%); mask-image: linear-gradient(90deg, transparent 15%, #000 60%); }
+          .hero::after { background: linear-gradient(90deg, var(--c-azul) 25%, rgba(5,17,30,0.2) 70%), linear-gradient(180deg, transparent 70%, var(--c-azul)); }
+          .credito { right: var(--gutter); bottom: 48px; }
           h1 { font-size: 3.2rem; }
-          .lead { font-size: var(--t-lg); max-width: 52ch; }
+          .lead { font-size: var(--t-lg); max-width: 52%; }
+          h1 { max-width: 52%; }
+          .cifras { max-width: 52%; }
           .cuerpo { padding: 0 var(--gutter) 88px; }
           .barra { grid-template-columns: minmax(240px, 0.9fr) minmax(0, 1.6fr); align-items: center; }
           .chips { justify-content: flex-end; }
           .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
           article { padding: 30px; }
+          .portada { margin: -30px -30px 22px; }
+          .banda { min-height: 340px; } .banda figcaption { padding: 48px; }
         }
         @media (min-width: 1280px) { h1 { font-size: 3.8rem; } .rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
         /* Pantallas grandes: se amplían ancho y tokens tipográficos solo en esta página. */
-        @media (min-width: 1920px) { .ancho { --w: 1560px; } .app { --t-xs: 0.85rem; --t-sm: 1rem; --t-base: 1.15rem; --t-lg: 1.45rem; --t-xl: 2.2rem; --t-2xl: 3rem; } h1 { font-size: 4.4rem; } .cifras dd { font-size: 2.8rem; } .figura { max-width: 820px; } }
-        @media (min-width: 2560px) { .ancho { --w: 2080px; } .app { --t-xs: 1.05rem; --t-sm: 1.25rem; --t-base: 1.4rem; --t-lg: 1.8rem; --t-xl: 2.8rem; --t-2xl: 3.8rem; } h1 { font-size: 5.6rem; } .cifras dd { font-size: 3.6rem; } .figura { max-width: 1100px; } }
+        @media (min-width: 1920px) { .ancho { --w: 1560px; } .app { --t-xs: 0.85rem; --t-sm: 1rem; --t-base: 1.15rem; --t-lg: 1.45rem; --t-xl: 2.2rem; --t-2xl: 3rem; } h1 { font-size: 4.4rem; } .cifras dd { font-size: 2.8rem; } }
+        @media (min-width: 2560px) { .ancho { --w: 2080px; } .app { --t-xs: 1.05rem; --t-sm: 1.25rem; --t-base: 1.4rem; --t-lg: 1.8rem; --t-xl: 2.8rem; --t-2xl: 3.8rem; } h1 { font-size: 5.6rem; } .cifras dd { font-size: 3.6rem; } }
         @media (prefers-reduced-motion: reduce) {
-          .figura .curva { animation: none; stroke-dashoffset: 0; }
-          .figura .punto { animation: none; opacity: 1; }
+          .fondo { animation: none; }
+          .portada img { transition: none; }
           .galeria { animation: none; }
           article, article:hover, .btn, .btn svg { transition: none; transform: none; }
         }

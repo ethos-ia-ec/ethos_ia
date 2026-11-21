@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { REDES_EMPRESA } from '../../lib/seo';
 import { WHATSAPP_ACADEMICO } from '../../lib/academico';
+import CintaUniversidades from './CintaUniversidades';
 
 const NOMBRE_RED = (url: string) =>
   url.includes('facebook') ? 'Facebook' : url.includes('instagram') ? 'Instagram' : url.includes('tiktok') ? 'TikTok'
@@ -9,6 +10,8 @@ const NOMBRE_RED = (url: string) =>
 // Pie de las páginas de Ethos Académico: secciones, contacto y redes oficiales de la empresa.
 export default function PieAcademico() {
   return (
+    <>
+    <CintaUniversidades />
     <footer className="pie">
       <div className="rej">
         <div>
@@ -53,15 +56,19 @@ export default function PieAcademico() {
         .marca span { color: var(--c-cian); }
         .txt { line-height: 1.7; max-width: 40ch; margin: 0; }
         h2 { font: 700 12px/1 var(--f-mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--c-claro); margin: 0 0 16px; }
-        ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
-        .pie :global(a) { color: var(--c-apagado); text-decoration: none; }
+        ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+        .pie :global(a) { display: inline-flex; align-items: center; min-height: 44px; color: var(--c-apagado); text-decoration: none; overflow-wrap: anywhere; transition: color var(--d-rapida), border-color var(--d-rapida); }
+        .pie :global(a:focus-visible) { outline: 2px solid var(--c-cian); outline-offset: 2px; border-radius: 6px; }
         .pie :global(a:hover) { color: var(--c-cian); }
         .redes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-        .redes a { display: inline-block; padding: 7px 13px; border: 1px solid var(--c-azul-3); border-radius: var(--r-pill); font-size: 12px; }
+        .redes a { padding: 0 16px; border: 1px solid var(--c-azul-3); border-radius: var(--r-pill); font-size: 12px; }
         .redes a:hover { border-color: var(--c-cian); }
         .legal { max-width: var(--ancho-max); margin: 44px auto 0; padding-top: 20px; border-top: 1px solid var(--c-azul-3); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 12px; }
-        @media (max-width: 760px) { .rej { grid-template-columns: 1fr; } }
+        @media (max-width: 760px) { .rej { grid-template-columns: 1fr; gap: 28px; } }
+        @media (min-width: 1920px) { .pie { font-size: 16px; } .rej, .legal { max-width: 1560px; } .marca { font-size: 26px; } }
+        @media (min-width: 2560px) { .pie { font-size: 19px; } .rej, .legal { max-width: 2080px; } .marca { font-size: 32px; } h2 { font-size: 15px; } .legal { font-size: 15px; } }
       `}</style>
     </footer>
+    </>
   );
 }

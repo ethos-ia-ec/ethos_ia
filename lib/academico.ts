@@ -9,17 +9,19 @@ export interface Area {
   texto: string;
   temas: string[];
   icono: 'microscopio' | 'birrete' | 'grafico' | 'base' | 'codigo' | 'moneda' | 'personas' | 'libro';
+  // ilustrativa: imagen de acceso abierto (public/academico/libres); sin ella, figura real de un proyecto propio.
+  imagen?: { src: string; alt: string; ilustrativa?: boolean };
 }
 
 export const AREAS: Area[] = [
-  { id: 'investigacion', icono: 'microscopio', titulo: 'Investigación científica', texto: 'Formulación del problema, diseño metodológico y redacción científica con fuentes indexadas, de la pregunta de investigación al manuscrito.', temas: ['Scopus', 'PRISMA 2020', 'APA 7'] },
-  { id: 'titulacion', icono: 'birrete', titulo: 'Tesis y titulación', texto: 'Acompañamiento por etapas en el proyecto de titulación: anteproyecto, avances, revisión con la rúbrica y preparación de la sustentación.', temas: ['Anteproyecto', 'Avances', 'Sustentación'] },
-  { id: 'posgrado', icono: 'libro', titulo: 'Maestría y posgrado', texto: 'Revisión sistemática, análisis bibliométrico y estructura del artículo para revista, con lectura crítica de cada fuente.', temas: ['Bibliometrix', 'Vancouver', 'Artículo'] },
-  { id: 'estadistica', icono: 'grafico', titulo: 'Estadística y datos', texto: 'Diseño del análisis, pruebas estadísticas e interpretación de resultados con Python y R, explicando cada paso para que el estudiante lo domine.', temas: ['Python', 'R', 'Modelos'] },
-  { id: 'bi', icono: 'base', titulo: 'Power BI y bases de datos', texto: 'Modelado de datos, SQL y tableros de indicadores para proyectos académicos y de gestión.', temas: ['Power BI', 'PostgreSQL', 'SQL'] },
-  { id: 'ti', icono: 'codigo', titulo: 'Tecnologías de la información', texto: 'Arquitectura de software, programación avanzada, inteligencia artificial y laboratorios de redes y ciberseguridad.', temas: ['IA', 'Docker', 'Redes'] },
-  { id: 'economia', icono: 'moneda', titulo: 'Economía', texto: 'Teoría económica, costeo, elasticidades y datos oficiales de Ecuador, con gráficos y ecuaciones explicados.', temas: ['JEL', 'Costeo', 'BCE'] },
-  { id: 'sociales', icono: 'personas', titulo: 'Educación y trabajo social', texto: 'Investigación cualitativa y mixta: instrumentos, entrevistas, análisis de contenido y consideraciones éticas.', temas: ['Cualitativa', 'Instrumentos', 'Ética'] },
+  { id: 'investigacion', icono: 'microscopio', titulo: 'Investigación científica', texto: 'Formulación del problema, diseño metodológico y redacción científica con fuentes indexadas, de la pregunta de investigación al manuscrito.', temas: ['Scopus', 'PRISMA 2020', 'APA 7'], imagen: { src: '/academico/libres/investigacion.webp', alt: 'Ilustración de microorganismos en tonos azules', ilustrativa: true } },
+  { id: 'titulacion', icono: 'birrete', titulo: 'Tesis y titulación', texto: 'Acompañamiento por etapas en el proyecto de titulación: anteproyecto, avances, revisión con la rúbrica y preparación de la sustentación.', temas: ['Anteproyecto', 'Avances', 'Sustentación'], imagen: { src: '/academico/libres/titulacion.webp', alt: 'Ilustración: pasillo de biblioteca con estanterías iluminadas', ilustrativa: true } },
+  { id: 'posgrado', icono: 'libro', titulo: 'Maestría y posgrado', texto: 'Revisión sistemática, análisis bibliométrico y estructura del artículo para revista, con lectura crítica de cada fuente.', temas: ['Bibliometrix', 'Vancouver', 'Artículo'], imagen: { src: '/academico/libres/posgrado.webp', alt: 'Ilustración: páginas abiertas de libros y revistas', ilustrativa: true } },
+  { id: 'estadistica', icono: 'grafico', titulo: 'Estadística y datos', texto: 'Diseño del análisis, pruebas estadísticas e interpretación de resultados con Python y R, explicando cada paso para que el estudiante lo domine.', temas: ['Python', 'R', 'Modelos'], imagen: { src: '/academico/OULAD_UK_roc_pr.png', alt: 'Curvas ROC y precisión-recall del modelo de abandono estudiantil' } },
+  { id: 'bi', icono: 'base', titulo: 'Power BI y bases de datos', texto: 'Modelado de datos, SQL y tableros de indicadores para proyectos académicos y de gestión.', temas: ['Power BI', 'PostgreSQL', 'SQL'], imagen: { src: '/academico/demo_consulta.gif', alt: 'Demostración de una consulta en lenguaje natural convertida en SQL' } },
+  { id: 'ti', icono: 'codigo', titulo: 'Tecnologías de la información', texto: 'Arquitectura de software, programación avanzada, inteligencia artificial y laboratorios de redes y ciberseguridad.', temas: ['IA', 'Docker', 'Redes'], imagen: { src: '/academico/OULAD_UK_importancia.png', alt: 'Importancia de variables del modelo de abandono estudiantil' } },
+  { id: 'economia', icono: 'moneda', titulo: 'Economía', texto: 'Teoría económica, costeo, elasticidades y datos oficiales de Ecuador, con gráficos y ecuaciones explicados.', temas: ['JEL', 'Costeo', 'BCE'], imagen: { src: '/academico/libres/economia.webp', alt: 'Ilustración: serie de datos sobre una pantalla', ilustrativa: true } },
+  { id: 'sociales', icono: 'personas', titulo: 'Educación y trabajo social', texto: 'Investigación cualitativa y mixta: instrumentos, entrevistas, análisis de contenido y consideraciones éticas.', temas: ['Cualitativa', 'Instrumentos', 'Ética'], imagen: { src: '/academico/libres/sociales.webp', alt: 'Ilustración: cuaderno de notas con lápiz', ilustrativa: true } },
 ];
 
 export const SERVICIOS = [

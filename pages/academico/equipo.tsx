@@ -48,6 +48,8 @@ export default function EquipoAcademico() {
       <Header />
 
       <section className="hero" aria-labelledby="titulo-equipo">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img className="fondo" src="/academico/libres/equipo-cabecera.webp" alt="" aria-hidden="true" fetchPriority="high" />
         <svg className="red" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
           <g>
             {RED.aristas.map((e, i) => (
@@ -121,6 +123,8 @@ export default function EquipoAcademico() {
           </section>
 
           <Reveal className="unete">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="unete-fondo" src="/academico/libres/banda-red-luces.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
             <div>
               <h2>¿Quieres <span>investigar</span> con nosotros?</h2>
               <p>Buscamos profesionales con experiencia en investigación, docencia y análisis de datos.</p>
@@ -145,7 +149,10 @@ export default function EquipoAcademico() {
         .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
         .hero { position: relative; overflow: hidden; background: radial-gradient(70% 70% at 90% 10%, rgba(4,235,255,0.14), transparent 60%), var(--c-azul); color: var(--c-claro); padding: 100px 16px 64px; border-bottom: 1px solid var(--c-azul-3); }
-        .red { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.18; pointer-events: none; }
+        .fondo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; pointer-events: none; }
+        .hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(5,17,30,0.4), var(--c-azul) 96%); }
+        .hero > .ancho { z-index: 1; }
+        .red { z-index: 1; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.18; pointer-events: none; }
         .red line { stroke-width: 1; stroke-opacity: 0.6; stroke-dasharray: 3 9; animation: flujo 7s linear infinite; }
         .red .nodo { transform-box: fill-box; transform-origin: center; animation: late 3.6s ease-in-out infinite alternate; }
         .red .hub { filter: drop-shadow(0 0 6px rgba(4,235,255,0.7)); }
@@ -167,7 +174,7 @@ export default function EquipoAcademico() {
         .miembros { list-style: none; padding: 0; margin: -36px 0 0; position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
         .miembros li, .miembros :global(.celda), .perfiles li, .perfiles :global(.celda) { min-width: 0; height: 100%; }
         /* Integrantes: bloque sobrio y compacto (foto, nombre, cargo). */
-        .miembro { height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: var(--r-xl); padding: 24px 18px 22px; box-shadow: var(--sombra-2); transition: transform var(--d-media) var(--ease), box-shadow var(--d-media) var(--ease); }
+        .miembro { box-sizing: border-box; height: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: var(--r-xl); padding: 24px 18px 22px; box-shadow: var(--sombra-2); transition: transform var(--d-media) var(--ease), box-shadow var(--d-media) var(--ease); }
         .miembro:hover { transform: translateY(-3px); box-shadow: var(--sombra-3); }
         .aro { width: 112px; height: 112px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, var(--c-cian), var(--c-teal)); }
         .aro img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #fff; background: var(--c-fondo); }
@@ -181,7 +188,7 @@ export default function EquipoAcademico() {
         .alcance { display: flex; align-items: flex-start; gap: 12px; margin: 20px 0 24px; background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-left: 4px solid var(--c-teal); border-radius: var(--r-lg); padding: 14px 16px; font-size: var(--t-sm); line-height: 1.6; color: var(--c-texto-2); }
         .alcance svg { font-size: 22px; color: var(--c-teal); }
         .perfiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
-        .perfil { height: 100%; background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: var(--r-xl); padding: 24px 20px; box-shadow: var(--sombra-1); position: relative; overflow: hidden; transition: transform var(--d-media) var(--ease), box-shadow var(--d-media) var(--ease), border-color var(--d-media); }
+        .perfil { box-sizing: border-box; height: 100%; background: var(--c-tarjeta); border: 1px solid var(--c-borde); border-radius: var(--r-xl); padding: 24px 20px; box-shadow: var(--sombra-1); position: relative; overflow: hidden; transition: transform var(--d-media) var(--ease), box-shadow var(--d-media) var(--ease), border-color var(--d-media); }
         .perfil::after { content: ''; position: absolute; inset: auto 0 0; height: 3px; background: linear-gradient(90deg, var(--c-cian), var(--c-teal)); transform: scaleX(0); transform-origin: left; transition: transform var(--d-media) var(--ease); }
         .perfil:hover { transform: translateY(-3px); box-shadow: var(--sombra-2); border-color: rgba(11,95,117,0.25); }
         .perfil:hover::after { transform: scaleX(1); }
@@ -191,6 +198,9 @@ export default function EquipoAcademico() {
         .perfil p { margin: 0; color: var(--c-texto-2); line-height: 1.65; font-size: var(--t-sm); }
 
         .cuerpo :global(.unete) { margin-top: 48px; display: flex; flex-direction: column; align-items: stretch; gap: 20px; background: radial-gradient(70% 120% at 100% 0%, rgba(4,235,255,0.16), transparent 60%), var(--c-azul); color: var(--c-claro-2); border-radius: var(--r-xl); padding: 28px 20px; }
+        .cuerpo :global(.unete) { position: relative; overflow: hidden; isolation: isolate; }
+        .cuerpo :global(.unete-fondo) { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+        .cuerpo :global(.unete)::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(5,17,30,0.92) 30%, rgba(5,17,30,0.45)); }
         .cuerpo :global(.unete h2) { color: var(--c-claro); font-size: var(--t-xl); margin: 0 0 8px; }
         .cuerpo :global(.unete h2 span) { color: var(--c-cian); }
         .cuerpo :global(.unete p) { margin: 0; line-height: 1.65; max-width: 56ch; }
@@ -209,7 +219,9 @@ export default function EquipoAcademico() {
         }
         @media (min-width: 900px) {
           .hero { padding: 136px var(--gutter) 96px; }
-          .red { left: 35%; width: 65%; opacity: 0.6; }
+          .fondo { opacity: 0.7; -webkit-mask-image: linear-gradient(90deg, transparent 20%, #000 65%); mask-image: linear-gradient(90deg, transparent 20%, #000 65%); }
+          .red { left: 50%; width: 50%; opacity: 0.75; -webkit-mask-image: linear-gradient(90deg, transparent, #000 25%); mask-image: linear-gradient(90deg, transparent, #000 25%); }
+          .hero .ancho > * { max-width: 48%; }
           h1 { font-size: 3.2rem; }
           .lead { font-size: var(--t-lg); }
           .cuerpo { padding: 0 var(--gutter) 88px; }

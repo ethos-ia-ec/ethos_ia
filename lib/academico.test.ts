@@ -28,6 +28,15 @@ describe('contenido de Ethos Académico', () => {
     PROYECTOS.flatMap((p) => p.imagenes).forEach((i) => expect(i.src.startsWith('/academico/')).toBe(true));
   });
 
+  it('las figuras reales del carrusel son propias y las de acceso abierto van rotuladas como ilustrativas', () => {
+    AREAS.forEach((a) => {
+      expect(a.imagen).toBeDefined();
+      const { src, ilustrativa } = a.imagen!;
+      expect(src.startsWith('/academico/')).toBe(true);
+      expect(src.startsWith('/academico/libres/')).toBe(Boolean(ilustrativa));
+    });
+  });
+
   it('declara el compromiso de autoría', () => {
     expect(COMPROMISO.no.join(' ')).toMatch(/no elaboramos trabajos/i);
   });
