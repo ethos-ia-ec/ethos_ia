@@ -16,6 +16,7 @@ const ICONOS: Record<Area['icono'], string> = {
   codigo: 'M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14',
   moneda: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6.5v11',
   personas: 'M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.8a3.5 3.5 0 0 1 0 6.4M18.5 14.8c1.6.8 2.6 2.5 3 5.2',
+  balanza: 'M12 3v18M7 21h10M5 7h14M12 5l-7 2 -3 7a3.5 3.5 0 0 0 6 0L5 7M19 7l-3 7a3.5 3.5 0 0 0 6 0l-3-7',
 };
 
 // Red de colaboración decorativa (estilo figura científica): semilla fija, idéntica en servidor y cliente.

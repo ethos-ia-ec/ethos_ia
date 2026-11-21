@@ -9,6 +9,7 @@ const ICONOS: Record<Area['icono'], string> = {
   base: 'M12 8c4.4 0 8-1.3 8-3s-3.6-3-8-3-8 1.3-8 3 3.6 3 8 3ZM4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
   codigo: 'm16 18 6-6-6-6M8 6l-6 6 6 6',
   moneda: 'M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  balanza: 'M12 3v18M7 21h10M5 7h14M12 5l-7 2 -3 7a3.5 3.5 0 0 0 6 0L5 7M19 7l-3 7a3.5 3.5 0 0 0 6 0l-3-7',
   personas: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8',
 };
 
@@ -16,7 +17,11 @@ const Svg = ({ d }: { d: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false"><path d={d} /></svg>
 );
 
-// Carrusel 3D circular: flechas, puntos, teclado, arrastre y avance automático (pausado al interactuar).
+type Chispa = { x: number; y: number; vx: number; vy: number; vida: number; c: string };
+const COLORES = ['4, 235, 255', '122, 167, 255', '47, 216, 201'];
+
+// Carrusel 3D circular tipo vitrina de laboratorio: flechas, puntos, teclado, arrastre, avance automático,
+// giro con el puntero (con inercia), inclinación y brillo de la tarjeta activa, rayos y chispas al cambiar.
 export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area[]; intervalo?: number }) {
   const [activo, setActivo] = useState(0);
   const [encima, setEncima] = useState(false);
@@ -24,6 +29,10 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
   const [detenido, setDetenido] = useState(false);
   const inicioX = useRef<number | null>(null);
   const arrastro = useRef(false);
+  const escenaRef = useRef<HTMLDivElement>(null);
+  const lienzoRef = useRef<HTMLCanvasElement>(null);
+  const objetivo = useRef(0);
+  const chispas = useRef<Chispa[]>([]);
   const total = areas.length;
   const girando = !detenido && !encima && !foco;
 
@@ -35,10 +44,97 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
     return () => clearInterval(t);
   }, [girando, ir, intervalo]);
 
+  // Un solo bucle rAF: inercia del giro y chispas. Se detiene fuera de pantalla o con la pestaña oculta.
+  useEffect(() => {
+    const lienzo = lienzoRef.current;
+    const escena = escenaRef.current;
+    if (!lienzo || !escena || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const ctx = lienzo.getContext('2d');
+    if (!ctx) return undefined;
+    let raf = 0;
+    let visible = false;
+    let giro = 0;
+    let cuadro = 0;
+    const medir = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      lienzo.width = lienzo.clientWidth * dpr;
+      lienzo.height = lienzo.clientHeight * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    const paso = () => {
+      giro += (objetivo.current - giro) * 0.07;
+      escena.style.transform = `rotateY(${giro * 9}deg) translateX(${giro * -3}%)`;
+      const w = lienzo.clientWidth;
+      const h = lienzo.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      cuadro += 1;
+      if (cuadro % 9 === 0 && chispas.current.length < 160) {
+        chispas.current.push({ x: Math.random() * w, y: h * (0.55 + Math.random() * 0.4), vx: 0, vy: -0.25 - Math.random() * 0.3, vida: 1, c: COLORES[cuadro % 3] });
+      }
+      ctx.globalCompositeOperation = 'lighter';
+      chispas.current = chispas.current.filter((p) => {
+        p.x += p.vx; p.y += p.vy; p.vx *= 0.97; p.vy = p.vy * 0.98 - 0.004; p.vida -= 0.009;
+        if (p.vida <= 0) return false;
+        ctx.fillStyle = `rgba(${p.c}, ${p.vida * 0.55})`;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.1 + p.vida, 0, Math.PI * 2); ctx.fill();
+        return true;
+      });
+      raf = requestAnimationFrame(paso);
+    };
+    const actualizar = () => {
+      cancelAnimationFrame(raf);
+      if (visible && !document.hidden) raf = requestAnimationFrame(paso);
+    };
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; actualizar(); });
+    const ro = new ResizeObserver(medir);
+    io.observe(lienzo); ro.observe(lienzo);
+    document.addEventListener('visibilitychange', actualizar);
+    medir();
+    return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', actualizar); };
+  }, []);
+
+  // Ráfaga de chispas desde los bordes de la tarjeta entrante.
+  useEffect(() => {
+    const lienzo = lienzoRef.current;
+    const tarjeta = escenaRef.current?.querySelector('.activa');
+    if (!lienzo || !tarjeta) return;
+    const l = lienzo.getBoundingClientRect();
+    const t = tarjeta.getBoundingClientRect();
+    for (let k = 0; k < 34; k++) {
+      const lado = k % 2 ? t.right : t.left;
+      chispas.current.push({ x: lado - l.left, y: t.top - l.top + Math.random() * t.height, vx: (k % 2 ? 1 : -1) * (0.6 + Math.random() * 1.6), vy: -0.6 - Math.random() * 0.9, vida: 1, c: COLORES[k % 3] });
+    }
+  }, [activo]);
+
+  const mover = (e: PointerEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    // Táctil: el arrastre del dedo hace girar la vitrina; al soltar vuelve con inercia.
+    if (e.pointerType !== 'mouse') {
+      if (inicioX.current !== null) objetivo.current = Math.max(-1, Math.min(1, ((e.clientX - inicioX.current) / r.width) * 2.5));
+      return;
+    }
+    objetivo.current = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+    const marco = escenaRef.current?.querySelector<HTMLElement>('.activa .marco');
+    if (!marco) return;
+    const m = marco.getBoundingClientRect();
+    const x = (e.clientX - m.left) / m.width;
+    const y = (e.clientY - m.top) / m.height;
+    const dentro = x >= -0.2 && x <= 1.2 && y >= -0.2 && y <= 1.2;
+    marco.style.setProperty('--ry', `${dentro ? (x - 0.5) * 10 : 0}deg`);
+    marco.style.setProperty('--rx', `${dentro ? (0.5 - y) * 8 : 0}deg`);
+    marco.style.setProperty('--mx', `${x * 100}%`);
+    marco.style.setProperty('--my', `${y * 100}%`);
+  };
+  const salir = () => {
+    objetivo.current = 0;
+    escenaRef.current?.querySelectorAll<HTMLElement>('.marco').forEach((m) => { m.style.setProperty('--rx', '0deg'); m.style.setProperty('--ry', '0deg'); });
+  };
+
   const soltar = (e: PointerEvent) => {
     if (inicioX.current === null) return;
     const dx = e.clientX - inicioX.current;
     inicioX.current = null;
+    if (e.pointerType !== 'mouse') objetivo.current = 0;
     arrastro.current = Math.abs(dx) > 40;
     if (arrastro.current) ir(dx < 0 ? 1 : -1);
   };
@@ -51,12 +147,16 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
       aria-label="Áreas de Ethos Académico"
       tabIndex={0}
       onPointerEnter={(e) => { if (e.pointerType === 'mouse') setEncima(true); }}
-      onPointerLeave={(e) => { if (e.pointerType === 'mouse') setEncima(false); }}
+      onPointerLeave={(e) => { if (e.pointerType === 'mouse') { setEncima(false); salir(); } }}
+      onPointerMove={mover}
       onFocus={() => setFoco(true)}
       onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setFoco(false); }}
       onKeyDown={(e) => { if (e.key === 'ArrowRight') ir(1); if (e.key === 'ArrowLeft') ir(-1); }}
     >
-      <div className="escena" onPointerDown={(e) => { inicioX.current = e.clientX; }} onPointerUp={soltar} onPointerCancel={() => { inicioX.current = null; }}>
+      <div className="vitrina" onPointerDown={(e) => { inicioX.current = e.clientX; }} onPointerUp={soltar} onPointerCancel={() => { inicioX.current = null; objetivo.current = 0; }}>
+        <div className="piso" aria-hidden="true" />
+        <canvas ref={lienzoRef} className="lienzo" aria-hidden="true" />
+        <div className="escena" ref={escenaRef}>
         {areas.map((a, i) => {
           const d = desfase(i, activo, total);
           const lejos = Math.abs(d) > 2;
@@ -77,6 +177,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
               aria-hidden={d !== 0}
               onClick={() => { if (arrastro.current) { arrastro.current = false; return; } if (d !== 0) setActivo(i); }}
             >
+              <div className="marco">
               {img && (
                 <figure className={img.ilustrativa ? 'foto' : 'foto real'}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -93,9 +194,16 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
                 <p>{a.texto}</p>
                 <ul>{a.temas.map((t) => <li key={t}>{t}</li>)}</ul>
               </div>
+              {d === 0 && (
+                <span key={activo} className="fx" aria-hidden="true">
+                  <i className="rayo r1" /><i className="rayo r2" /><i className="pulso"><b /></i>
+                </span>
+              )}
+              </div>
             </article>
           );
         })}
+        </div>
       </div>
 
       <div className="controles">
@@ -116,16 +224,39 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         /* Mobile-first. --cw: ancho de tarjeta; --ch: alto fijo (las tarjetas son absolutas para el giro 3D). */
         .car { --cw: min(320px, 82vw); --ch: 520px; position: relative; margin-top: 40px; user-select: none; -webkit-user-select: none; border-radius: var(--r-xl); }
         .car:focus-visible { outline: 2px solid var(--c-cian); outline-offset: 8px; }
-        .escena { position: relative; height: calc(var(--ch) + 24px); perspective: 1400px; transform-style: preserve-3d; touch-action: pan-y; }
+        /* Vitrina: rejilla técnica, piso en perspectiva con reflejo y lienzo de chispas detrás de las tarjetas. */
+        .vitrina { position: relative; height: calc(var(--ch) + 64px); perspective: 1400px; touch-action: pan-y; }
+        .vitrina::before { content: ''; position: absolute; inset: -24px 0 0; pointer-events: none; background-image: linear-gradient(rgba(4, 235, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(4, 235, 255, 0.06) 1px, transparent 1px); background-size: 40px 40px; -webkit-mask-image: radial-gradient(60% 60% at 50% 45%, #000, transparent 75%); mask-image: radial-gradient(60% 60% at 50% 45%, #000, transparent 75%); }
+        .piso { position: absolute; left: 50%; bottom: -30px; width: min(160%, 2400px); height: 180px; transform: translateX(-50%) perspective(500px) rotateX(68deg); transform-origin: 50% 100%; pointer-events: none; background-image: linear-gradient(rgba(4, 235, 255, 0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(122, 167, 255, 0.18) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(50% 90% at 50% 100%, #000, transparent 80%); mask-image: radial-gradient(50% 90% at 50% 100%, #000, transparent 80%); }
+        .lienzo { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .escena { position: absolute; inset: 0; z-index: 1; transform-style: preserve-3d; will-change: transform; }
         .diapo {
           position: absolute; left: 50%; top: 0; width: var(--cw); height: var(--ch); margin-left: calc(var(--cw) / -2);
-          border-radius: var(--r-xl); display: flex; flex-direction: column; overflow: hidden; text-align: left;
+          transition: transform 0.75s var(--ease), opacity 0.75s var(--ease); cursor: pointer; will-change: transform;
+          -webkit-box-reflect: below 6px linear-gradient(transparent, transparent 86%, rgba(255, 255, 255, 0.16));
+        }
+        .marco {
+          position: relative; height: 100%; border-radius: var(--r-xl); display: flex; flex-direction: column; overflow: hidden; text-align: left;
           background: linear-gradient(170deg, var(--c-azul-2), #061423 70%); border: 1px solid var(--c-azul-3); color: var(--c-claro-2);
           box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.7);
-          transition: transform 0.75s var(--ease), opacity 0.75s var(--ease), border-color var(--d-media), box-shadow var(--d-media);
-          cursor: pointer; will-change: transform;
+          transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+          transition: transform 0.25s ease-out, border-color var(--d-media), box-shadow var(--d-media);
         }
-        .diapo.activa { border-color: rgba(4, 235, 255, 0.5); box-shadow: 0 30px 80px -30px rgba(4, 235, 255, 0.45); cursor: default; }
+        .activa { cursor: default; }
+        .activa .marco { border-color: rgba(4, 235, 255, 0.5); box-shadow: 0 30px 80px -30px rgba(4, 235, 255, 0.45); }
+        /* Brillo especular que sigue al cursor. */
+        .marco::after { content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; transition: opacity var(--d-media); background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255, 255, 255, 0.16), transparent 45%); }
+        .car:hover .activa .marco::after { opacity: 1; }
+        /* Entrada: dos haces (cian y violeta) que barren la tarjeta y un pulso de borde cónico. */
+        .fx { position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: inherit; overflow: hidden; }
+        .rayo { position: absolute; top: -20%; bottom: -20%; width: 38%; left: -50%; transform: skewX(-18deg); mix-blend-mode: screen; animation: barrido 1.1s var(--ease) both; }
+        .r1 { background: linear-gradient(90deg, transparent, rgba(4, 235, 255, 0.32), transparent); }
+        .r2 { width: 22%; background: linear-gradient(90deg, transparent, rgba(122, 167, 255, 0.26), transparent); animation-delay: 0.16s; }
+        .pulso { position: absolute; inset: 0; border-radius: inherit; padding: 2px; overflow: hidden; -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); animation: pulso 1.6s ease-out both; }
+        .pulso b { position: absolute; left: -50%; top: 50%; width: 200%; aspect-ratio: 1; margin-top: -100%; background: conic-gradient(from 0deg, transparent 0 55%, #04ebff 70%, #7aa7ff 82%, transparent 92%); animation: rueda 1.6s linear both; }
+        @keyframes barrido { from { left: -50%; opacity: 0; } 20% { opacity: 1; } to { left: 130%; opacity: 0; } }
+        @keyframes pulso { 0% { opacity: 0; } 15% { opacity: 1; } 100% { opacity: 0; } }
+        @keyframes rueda { to { transform: rotate(360deg); } }
 
         /* Imagen superior con proporción fija y degradado hacia el texto. */
         .foto { position: relative; margin: 0; flex: none; aspect-ratio: 16 / 10; overflow: hidden; background: #061423; }
@@ -149,7 +280,7 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
         ul { list-style: none; padding: 14px 0 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
         li { font: 500 11px/1 var(--f-mono); padding: 7px 10px; border-radius: var(--r-pill); border: 1px solid var(--c-azul-3); color: var(--c-cian-suave); background: rgba(5, 17, 30, 0.4); }
 
-        .controles { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 14px; margin-top: 12px; }
+        .controles { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 14px; margin-top: 12px; }
         .puntos { order: -1; flex-basis: 100%; display: flex; justify-content: center; }
         .flecha { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--c-azul-3); background: var(--c-azul-2); color: var(--c-claro); cursor: pointer; transition: border-color var(--d-rapida), color var(--d-rapida), transform var(--d-rapida), background-color var(--d-rapida); }
         .flecha :global(svg) { width: 20px; height: 20px; }
@@ -180,7 +311,9 @@ export default function CarruselAreas({ areas, intervalo = 5000 }: { areas: Area
           .flecha { width: 60px; height: 60px; } .flecha :global(svg) { width: 24px; height: 24px; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .diapo, .foto img, .flecha, .puntos button::before { transition: none; }
+          .diapo, .marco, .foto img, .flecha, .puntos button::before { transition: none; }
+          .fx, .lienzo { display: none; }
+          .marco { transform: none; }
           .foto img { transform: none; }
         }
       `}</style>

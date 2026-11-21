@@ -30,6 +30,7 @@ const TRAZOS: Record<string, ReactNode> = {
   codigo: <><path d="m16 18 6-6-6-6M8 6l-6 6 6 6" /></>,
   moneda: <><circle cx="12" cy="12" r="9" /><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .9-3 2s1.3 1.7 3 2 3 .9 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v2m0 8v2" /></>,
   personas: <><circle cx="9" cy="8" r="3.5" /><path d="M2 20c0-3.5 3.1-6 7-6s7 2.5 7 6" /><path d="M16 4.5a3.5 3.5 0 0 1 0 7M22 20c0-3-1.9-5.3-4.5-5.9" /></>,
+  balanza: <path d="M12 3v18M7 21h10M5 7h14M12 5l-7 2 -3 7a3.5 3.5 0 0 0 6 0L5 7M19 7l-3 7a3.5 3.5 0 0 0 6 0l-3-7" />,
   capas: <><path d="m12 2 10 5-10 5L2 7l10-5Z" /><path d="m2 12 10 5 10-5M2 17l10 5 10-5" /></>,
   pluma: <><path d="M20 4c-8 0-14 6-14 14v2h2c8 0 14-6 14-14V4Z" /><path d="M4 22 14 12" /></>,
   diana: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" /></>,
@@ -793,7 +794,7 @@ $ powershell -File instalar.ps1
         .p-icono { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: rgba(11, 95, 117, 0.1); color: var(--c-teal); }
         .perfiles strong { display: block; font-size: 14.5px; }
         .p-txt { display: block; font-size: 13.5px; line-height: 1.5; color: var(--c-texto-2); }
-        .mas { margin-top: 24px; text-align: center; }
+        .mas { margin: 24px 0 0; text-align: center; }
 
         .kit :global(.terminal) { background: #02070d; border: 1px solid var(--c-azul-3); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--sombra-3); min-width: 0; }
         .barra { display: flex; gap: 7px; padding: 12px 16px; background: var(--c-azul-2); }

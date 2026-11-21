@@ -7,7 +7,7 @@ export interface Area {
   titulo: string;
   texto: string;
   temas: string[];
-  icono: 'microscopio' | 'birrete' | 'grafico' | 'base' | 'codigo' | 'moneda' | 'personas' | 'libro';
+  icono: 'microscopio' | 'birrete' | 'grafico' | 'base' | 'codigo' | 'moneda' | 'personas' | 'libro' | 'balanza';
   // ilustrativa: imagen de acceso abierto (public/academico/libres); sin ella, figura real de un proyecto propio.
   imagen?: { src: string; alt: string; ilustrativa?: boolean };
 }
@@ -20,7 +20,9 @@ export const AREAS: Area[] = [
   { id: 'bi', icono: 'base', titulo: 'Power BI y bases de datos', texto: 'Modelado de datos, SQL y tableros de indicadores para proyectos académicos y de gestión.', temas: ['Power BI', 'PostgreSQL', 'SQL'], imagen: { src: '/academico/demo_consulta.gif', alt: 'Demostración de una consulta en lenguaje natural convertida en SQL' } },
   { id: 'ti', icono: 'codigo', titulo: 'Tecnologías de la información', texto: 'Arquitectura de software, programación avanzada, inteligencia artificial y laboratorios de redes y ciberseguridad.', temas: ['IA', 'Docker', 'Redes'], imagen: { src: '/academico/OULAD_UK_importancia.png', alt: 'Importancia de variables del modelo de abandono estudiantil' } },
   { id: 'economia', icono: 'moneda', titulo: 'Economía', texto: 'Teoría económica, costeo, elasticidades y datos oficiales de Ecuador, con gráficos y ecuaciones explicados.', temas: ['JEL', 'Costeo', 'BCE'], imagen: { src: '/academico/libres/economia.webp', alt: 'Ilustración: serie de datos sobre una pantalla', ilustrativa: true } },
-  { id: 'sociales', icono: 'personas', titulo: 'Educación y trabajo social', texto: 'Investigación cualitativa y mixta: instrumentos, entrevistas, análisis de contenido y consideraciones éticas.', temas: ['Cualitativa', 'Instrumentos', 'Ética'], imagen: { src: '/academico/libres/sociales.webp', alt: 'Ilustración: cuaderno de notas con lápiz', ilustrativa: true } },
+  { id: 'educacion', icono: 'libro', titulo: 'Educación', texto: 'Investigación educativa para carreras y maestrías en Educación: diseño de instrumentos, intervención pedagógica, análisis cualitativo y mixto.', temas: ['Pedagogía', 'Instrumentos', 'Mixta'], imagen: { src: '/academico/libres/kit-lectura.webp', alt: 'Ilustración: libro abierto sobre una mesa de estudio', ilustrativa: true } },
+  { id: 'trabajo-social', icono: 'personas', titulo: 'Trabajo social', texto: 'Investigación social aplicada: diagnóstico comunitario, entrevistas, análisis de contenido y consideraciones éticas.', temas: ['Cualitativa', 'Comunidad', 'Ética'], imagen: { src: '/academico/libres/sociales.webp', alt: 'Ilustración: cuaderno de notas con lápiz', ilustrativa: true } },
+  { id: 'derecho', icono: 'balanza', titulo: 'Derecho', texto: 'Investigación jurídica para la carrera y la maestría en Derecho: análisis normativo y jurisprudencial, doctrina y citación de fuentes legales del Ecuador.', temas: ['Normativa', 'Jurisprudencia', 'Doctrina'], imagen: { src: '/academico/libres/posgrado.webp', alt: 'Ilustración: páginas abiertas de libros de consulta', ilustrativa: true } },
 ];
 
 export const SERVICIOS = [
@@ -38,7 +40,7 @@ export const PROCESO = [
 ];
 
 export const CIFRAS = [
-  { valor: '8', etiqueta: 'áreas de conocimiento' },
+  { valor: '10', etiqueta: 'áreas de conocimiento' },
   { valor: '75', etiqueta: 'metodologías abiertas' },
   { valor: '30', etiqueta: 'profesionales en el equipo' },
   { valor: '100 %', etiqueta: 'autoría del estudiante' },
