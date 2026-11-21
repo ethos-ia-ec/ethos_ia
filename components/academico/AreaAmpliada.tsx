@@ -24,7 +24,7 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
       onClick={(e) => { if (e.target === e.currentTarget) ref.current?.close(); }}
     >
       <div className="caja">
-        <div className={img && !img.ilustrativa && !area.video ? "medio real" : "medio"}>
+        <div className={area.graficas ? "medio graf" : img && !img.ilustrativa && !area.video ? "medio real" : "medio"}>
           {area.video ? (
             <video key={area.id} autoPlay muted loop playsInline poster={`${area.video}.jpg`} aria-label={`Animación: ${area.titulo}`}>
               <source src={`${area.video}.mp4`} type="video/mp4" />
@@ -58,7 +58,7 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
         .medio { flex: 1; min-height: 0; width: 100%; box-sizing: border-box; background: #02070d; display: grid; place-items: center; overflow: hidden; }
         /* Ilustraciones y animaciones llenan la pantalla; las gráficas reales se ven completas. */
         .medio video, .medio img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .medio.real { background: #fff; padding-top: 72px; } .medio.real img { object-fit: contain; }
+        .medio.real { background: #fff; padding-top: 72px; } .medio.graf { background: #05111e; padding-top: 72px; } .medio.graf video { object-fit: contain; } .medio.real img { object-fit: contain; }
         .texto { flex: none; box-sizing: border-box; width: 100%; max-width: 860px; margin: 0 auto; padding: 16px 20px 92px; }
         .num { font: 600 12px/1 var(--f-mono); letter-spacing: 0.16em; color: var(--c-cian); }
         h2 { font-size: clamp(24px, 3vw, 40px); line-height: 1.2; color: var(--c-claro); margin: 12px 0 10px; text-wrap: balance; }
@@ -77,7 +77,7 @@ export default function AreaAmpliada({ area, indice, total, onCerrar, onMover }:
         /* Pantallas anchas: medio y texto lado a lado, flechas centradas en la pantalla. */
         @media (min-width: 1024px) and (min-aspect-ratio: 4/3) {
           .caja { flex-direction: row; align-items: center; height: 100%; }
-          .medio { flex: 1.6; height: 100%; padding-top: 0; }
+          .medio { flex: 1.6; height: 100%; padding-top: 0; } .medio.graf { padding: 24px; }
           .texto { flex: 1; padding: 40px 96px 40px 40px; }
           .nav { top: 50%; bottom: auto; transform: translateY(-50%); width: 64px; height: 64px; }
           .izq { left: 24px; } .der { right: 24px; } .cerrar { top: 24px; right: 24px; }
