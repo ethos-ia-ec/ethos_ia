@@ -6,6 +6,13 @@ interface Aliado { id: string; nombre: string; sigla: string; logo: string }
 
 const MANIFIESTO = '/academico/aliados-borrador/aliados.json';
 
+// Para ocultar la cinta del sitio publicado, cambiar a false.
+export const MOSTRAR_CINTA = true;
+
+// Cada mitad del riel debe cubrir la pantalla más ancha (3840 px) para que nunca quede un hueco al deslizar.
+const ANCHO_SELLO = 150;
+const repeticiones = (n: number) => Math.max(2, Math.ceil(4000 / (n * ANCHO_SELLO)));
+
 export default function CintaUniversidades() {
   const [aliados, setAliados] = useState<Aliado[]>([]);
 
@@ -18,7 +25,7 @@ export default function CintaUniversidades() {
     return () => { vivo = false; };
   }, []);
 
-  if (aliados.length === 0) return null;
+  if (!MOSTRAR_CINTA || aliados.length === 0) return null;
 
   const mitad = Math.ceil(aliados.length / 2);
   const filas = [aliados.slice(0, mitad), aliados.slice(mitad)].filter((f) => f.length);
@@ -33,8 +40,8 @@ export default function CintaUniversidades() {
       {filas.map((fila, f) => (
         <div className="pista" key={f}>
           {/* La lista se repite para que el desplazamiento sea continuo; la copia se oculta al lector de pantalla. */}
-          <ul className={`riel ${f % 2 ? 'inverso' : ''}`} style={{ animationDuration: `${fila.length * 5}s` }}>
-            {[...fila, ...fila].map((a, i) => (
+          <ul className={`riel ${f % 2 ? 'inverso' : ''}`} style={{ animationDuration: `${fila.length * repeticiones(fila.length) * 4}s` }}>
+            {Array.from({ length: repeticiones(fila.length) * 2 }, () => fila).flat().map((a, i) => (
               <li key={`${a.id}-${i}`} aria-hidden={i >= fila.length} style={{ animationDelay: `${(i % 5) * -0.7}s` }}>
                 <span className="sello">
                   {/* eslint-disable-next-line @next/next/no-img-element -- logos SVG/PNG locales de vista previa */}
@@ -56,15 +63,15 @@ export default function CintaUniversidades() {
         .pista { position: relative; overflow: hidden; padding: 10px 0;
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
           -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .riel { display: flex; gap: clamp(20px, 4vw, 44px); width: max-content; margin: 0; padding: 8px 0; list-style: none;
+        .riel { display: flex; gap: 0; width: max-content; margin: 0; padding: 8px 0; list-style: none;
           animation: desliza linear infinite; }
         .riel.inverso { animation-direction: reverse; }
         .pista:hover .riel, .pista:focus-within .riel { animation-play-state: paused; }
-        li { display: flex; flex-direction: column; align-items: center; gap: 8px; animation: flota 3.6s ease-in-out infinite; }
+        li { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 clamp(10px, 2vw, 22px); animation: flota 3.6s ease-in-out infinite; }
         .sello { display: grid; place-items: center; width: clamp(76px, 18vw, 112px); aspect-ratio: 1; border-radius: 50%;
-          background: #fff; box-shadow: 0 6px 18px rgba(5, 17, 30, 0.1), inset 0 0 0 1px rgba(11, 95, 117, 0.12);
+          background: #fff; overflow: hidden; box-shadow: 0 6px 18px rgba(5, 17, 30, 0.1), inset 0 0 0 1px rgba(11, 95, 117, 0.12);
           transition: transform var(--t-2, 0.3s) var(--ease, ease), box-shadow var(--t-2, 0.3s) var(--ease, ease); }
-        .sello img { width: 72%; height: 72%; object-fit: contain; filter: grayscale(0.35); transition: filter 0.3s ease; }
+        .sello img { width: 62%; height: 62%; object-fit: contain; filter: grayscale(0.35); transition: filter 0.3s ease; }
         li:hover .sello { transform: scale(1.08) rotate(-4deg); box-shadow: 0 10px 28px rgba(4, 235, 255, 0.28), inset 0 0 0 2px var(--c-cian); }
         li:hover img { filter: none; }
         .sigla { font: 600 12px/1 var(--f-mono); letter-spacing: 0.05em; color: #3b5568; }
